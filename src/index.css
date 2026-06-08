@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Nunito+Sans:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Ease design system — all HSL */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 27%;              /* #444 body */
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 27%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 27%;
+
+    /* Pink — parent accent */
+    --primary: 338 84% 72%;              /* #F3768D */
+    --primary-foreground: 0 0% 100%;
+    --primary-tint: 338 84% 95%;         /* #FCE8ED */
+
+    /* Caregiver purple */
+    --secondary: 270 32% 51%;            /* #7B5EA7 */
+    --secondary-foreground: 0 0% 100%;
+    --secondary-tint: 270 32% 91%;       /* #EDE5F7 */
+
+    --muted: 36 18% 96%;
+    --muted-foreground: 0 0% 47%;        /* #777777 */
+
+    --accent: 338 84% 95%;
+    --accent-foreground: 338 84% 72%;
+
+    --destructive: 338 84% 72%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 33 17% 79%;                /* #CCBFB8 */
+    --input: 33 17% 79%;
+    --ring: 338 84% 72%;
+
+    /* Crisis dark */
+    --crisis: 0 0% 10%;                  /* #1A1A1A */
+    --crisis-foreground: 0 0% 100%;
+    --crisis-card: 0 0% 14%;
+    --crisis-warn: 0 0% 16%;             /* #2A2A2A */
+
+
+    --canvas: 30 10% 94%;                /* neutral demo canvas */
+    --ink: 0 0% 13%;                     /* deep heading */
+    --parent-bg: 0 0% 100%;              /* #FFFFFF parent screens (was cream) */
+
+    --radius: 0.875rem;                  /* 14px buttons */
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 0 0% 10%;              /* #1A1A1A */
+    --foreground: 0 0% 100%;             /* #FFFFFF */
+    --card: 0 0% 16%;                    /* #2A2A2A */
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 16%;
+    --popover-foreground: 0 0% 100%;
+    --muted: 0 0% 16%;                   /* #2A2A2A */
+    --muted-foreground: 0 0% 67%;        /* #AAAAAA */
+    --accent: 0 0% 16%;
+    --accent-foreground: 0 0% 100%;
+    --secondary: 0 0% 16%;
+    --secondary-foreground: 0 0% 100%;
+    --border: 0 0% 23%;                  /* #3A3A3A */
+    --input: 0 0% 16%;                   /* #2A2A2A */
+    --canvas: 0 0% 6%;
+    --ink: 0 0% 100%;
+    --primary-foreground: 0 0% 100%;
+    --primary-tint: 356 40% 22%;
+    --secondary-tint: 215 30% 22%;
+    --parent-bg: 0 0% 10%;               /* parent screens darken */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html, body, #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-canvas text-foreground;
+    font-family: 'Nunito Sans', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: 'ss01';
+  }
+
+  h1, h2, h3, h4, h5, .font-display {
+    font-family: 'quincy-cf', 'Playfair Display', Georgia, serif;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer components {
+  .ease-shadow {
+    box-shadow: 0 30px 80px -20px hsl(0 0% 0% / 0.18), 0 8px 24px -8px hsl(0 0% 0% / 0.08);
+  }
+  .ease-card {
+    @apply bg-card border border-border rounded-[8px];
+  }
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-medium border border-border bg-card text-foreground;
+  }
+  .chip-parent {
+    @apply bg-[hsl(var(--primary-tint))] text-[hsl(var(--primary))] border-transparent;
+  }
+  .chip-caregiver {
+    @apply bg-[hsl(var(--secondary-tint))] text-[hsl(var(--secondary))] border-transparent;
+  }
+
+}
+
+/* Hide scrollbar inside phone */
+.phone-scroll::-webkit-scrollbar { display: none; }
+.phone-scroll { -ms-overflow-style: none; scrollbar-width: none; }
