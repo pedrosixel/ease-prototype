@@ -422,10 +422,7 @@ export const EaseProvider = ({ children }: { children: ReactNode }) => {
   const [userIntents, setUserIntents] = useState<string[]>([]);
   const [selectedRole, setSelectedRole] = useState<"parent" | "caregiver" | null>(null);
   const [userTestMode, setUserTestModeState] = useState<boolean>(false);
-  const [hasSeenCaregiverWelcome, setHasSeenCaregiverWelcomeState] = useState<boolean>(() => {
-    if (typeof window === "undefined") return false;
-    return localStorage.getItem("ease.hasSeenCaregiverWelcome") === "1";
-  });
+  const [hasSeenCaregiverWelcome, setHasSeenCaregiverWelcomeState] = useState<boolean>(false);
   const setHasSeenCaregiverWelcome = (b: boolean) => {
     setHasSeenCaregiverWelcomeState(b);
     if (typeof window !== "undefined") {

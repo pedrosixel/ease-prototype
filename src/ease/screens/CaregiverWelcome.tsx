@@ -21,10 +21,16 @@ export const CaregiverWelcome = () => {
 
   return (
     <div
-      className="h-full flex flex-col"
-      style={{ background: "#EDE5F7", minHeight: "100vh" }}
+      style={{
+        background: "#EDE5F7",
+        minHeight: "100svh",
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        padding: "0 24px",
+      }}
     >
-      <div className="flex flex-col items-center px-6" style={{ marginTop: 64 }}>
+      <div className="flex flex-col items-center" style={{ marginTop: 64 }}>
         <img src={easeLogo} alt="Ease" style={{ width: 120 }} />
         <h1
           className="font-display"
@@ -53,7 +59,7 @@ export const CaregiverWelcome = () => {
         </p>
       </div>
 
-      <div className="px-6" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
         {CARDS.map((c) => (
           <div
             key={c.title}
@@ -63,11 +69,20 @@ export const CaregiverWelcome = () => {
               borderRadius: 12,
               padding: 16,
               display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
+              flexDirection: "row",
+              alignItems: "flex-start",
               gap: 12,
             }}
           >
+            <div
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: "50%",
+                background: "#EDE5F7",
+                flexShrink: 0,
+              }}
+            />
             <div style={{ flex: 1 }}>
               <div
                 style={{
@@ -91,27 +106,11 @@ export const CaregiverWelcome = () => {
                 {c.body}
               </div>
             </div>
-            <div
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: "50%",
-                background: "#EDE5F7",
-                flexShrink: 0,
-              }}
-            />
           </div>
         ))}
       </div>
 
-      <div
-        style={{
-          marginTop: "auto",
-          paddingLeft: 20,
-          paddingRight: 20,
-          marginBottom: 48,
-        }}
-      >
+      <div style={{ marginTop: "auto", marginBottom: 48 }}>
         <button
           onClick={() => {
             setHasSeenCaregiverWelcome(true);

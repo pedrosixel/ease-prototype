@@ -15,7 +15,7 @@ const FIELDS: { key: FieldKey; label: string; initial: string }[] = [
 ];
 
 export const CaregiverSettings = () => {
-  const { go, setIsNewUser } = useEase();
+  const { go, setIsNewUser, setIndexOpen } = useEase();
   const [values, setValues] = useState<Record<FieldKey, string>>(() =>
     FIELDS.reduce((acc, f) => ({ ...acc, [f.key]: f.initial }), {} as Record<FieldKey, string>),
   );
@@ -256,6 +256,25 @@ export const CaregiverSettings = () => {
           style={{ color: "#777777", fontSize: 13 }}
         >
           Reset demo
+        </button>
+
+        <button
+          onClick={() => setIndexOpen(true)}
+          style={{
+            color: "#777777",
+            fontSize: 13,
+            textDecoration: "underline",
+            textAlign: "center",
+            marginTop: 8,
+            marginBottom: 16,
+            cursor: "pointer",
+            display: "block",
+            width: "100%",
+            background: "transparent",
+            border: "none",
+          }}
+        >
+          Screen Index
         </button>
       </div>
     </div>

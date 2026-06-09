@@ -1,10 +1,12 @@
 import { ReactNode } from "react";
-import { LayoutGrid } from "lucide-react";
 import { useEase } from "./state";
+import { useIsMobile } from "@/hooks/use-mobile";
 import heart from "@/assets/Ease_heart_Pink.svg";
 
 export const PhoneFrame = ({ children }: { children: ReactNode }) => {
-  const { setIndexOpen, screen, toast } = useEase();
+  const { screen, toast } = useEase();
+  const isMobile = useIsMobile();
+
   const dark = screen === "crisis" || screen === "postCrisis";
   const caregiverScreens = new Set([
     "caregiverBio",
@@ -21,6 +23,51 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
     : fullBleedCream
     ? "bg-[#FEF2F1]"
     : "bg-[hsl(var(--parent-bg))]";
+
+  if (isMobile) {
+    return (
+      <div
+        style={{
+          width: "100vw",
+          height: "100svh",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+          position: "fixed",
+          top: 0,
+          left: 0,
+        }}
+      >
+        {children}
+        {toast && (
+          <div
+            key={toast.id}
+            style={{
+              position: "fixed",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "10px",
+              padding: "14px 24px",
+              borderRadius: "999px",
+              background: "rgba(255,255,255,0.97)",
+              border: "1px solid #F3768D",
+              boxShadow: "0 4px 24px rgba(0,0,0,0.15)",
+              whiteSpace: "nowrap",
+              zIndex: 9999,
+              opacity: toast.phase === "out" ? 0 : 1,
+              transition: "opacity 500ms ease",
+            }}
+          >
+            <img src={heart} alt="" style={{ width: "22px", height: "22px", flexShrink: 0 }} />
+            <span style={{ fontSize: "15px", fontWeight: 700, color: "#F3768D" }}>{toast.text}</span>
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="relative">
@@ -55,26 +102,26 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
             <div
               key={toast.id}
               style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '14px 24px',
-                borderRadius: '999px',
-                background: 'rgba(255,255,255,0.97)',
-                border: '1px solid #F3768D',
-                boxShadow: '0 4px 24px rgba(0,0,0,0.15)',
-                whiteSpace: 'nowrap',
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "10px",
+                padding: "14px 24px",
+                borderRadius: "999px",
+                background: "rgba(255,255,255,0.97)",
+                border: "1px solid #F3768D",
+                boxShadow: "0 4px 24px rgba(0,0,0,0.15)",
+                whiteSpace: "nowrap",
                 zIndex: 9999,
-                opacity: toast.phase === 'out' ? 0 : 1,
-                transition: 'opacity 500ms ease',
+                opacity: toast.phase === "out" ? 0 : 1,
+                transition: "opacity 500ms ease",
               }}
             >
-              <img src={heart} alt="" style={{ width: '22px', height: '22px', flexShrink: 0 }} />
-              <span style={{ fontSize: '15px', fontWeight: 700, color: '#F3768D' }}>{toast.text}</span>
+              <img src={heart} alt="" style={{ width: "22px", height: "22px", flexShrink: 0 }} />
+              <span style={{ fontSize: "15px", fontWeight: 700, color: "#F3768D" }}>{toast.text}</span>
             </div>
           )}
 
@@ -86,15 +133,6 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
           />
         </div>
       </div>
-
-      {/* Index toggle */}
-      <button
-        onClick={() => setIndexOpen(true)}
-        className="absolute -right-14 top-6 w-11 h-11 rounded-full bg-white border border-border shadow-sm flex items-center justify-center text-foreground hover:bg-muted transition"
-        aria-label="Open screen index"
-      >
-        <LayoutGrid size={18} />
-      </button>
     </div>
   );
 };
