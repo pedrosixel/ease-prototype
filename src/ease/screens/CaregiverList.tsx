@@ -3,7 +3,7 @@ import { Check } from "lucide-react";
 import { Avatar, CaregiverBottomNav, CaregiverTopBarGear } from "../primitives";
 import { useEase, ChildId } from "../state";
 import { CHILD_PHOTOS } from "../assets";
-import starBlue from "@/assets/ease-star-blue.svg";
+import starBlue from "@/assets/Ease_Star_Purple.svg";
 import {
   AlertDialog,
   AlertDialogAction,

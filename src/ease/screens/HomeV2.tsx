@@ -3,7 +3,7 @@ import { Phone, Pencil, Settings, X } from "lucide-react";
 import { useEase, FeedbackEntry } from "../state";
 import { CHILD_PHOTOS, paulPhoto } from "../assets";
 import { ParentBottomNav } from "../primitives";
-import InsightStarBlue from "@/assets/Ease_InsightStar_Blue.svg";
+import InsightStarBlue from "@/assets/Ease_Star_Purple.svg";
 import { CrisisLog } from "./CrisisLog";
 import {
   AlertDialog,
@@ -460,7 +460,7 @@ const ProfileTab = () => {
 
             <ProfileDivider />
 
-            <ProfileSection label="WHAT NOT TO DO">
+            <ProfileSection label="WHAT TO AVOID">
               <div className="flex flex-col" style={{ gap: 8 }}>
                 {editMode
                   ? draft.avoid.map((t, i) => renderEditCard("avoid", t, i, true))
@@ -653,8 +653,7 @@ const FeedbackCard = ({ entry }: { entry: FeedbackEntry }) => {
             fontWeight: 600,
           }}
         >
-          {/* TODO: fix at data source level when Supabase is connected */}
-          {entry.duration === "5-15 min" ? "Under 5 min" : entry.duration}
+          {entry.duration}
         </span>
         <span
           style={{

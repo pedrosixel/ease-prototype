@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { ChevronLeft, ArrowRight } from "lucide-react";
 import { useEase } from "../state";
 import { ScrollFade, ScrollHint } from "../primitives";
-import star from "@/assets/ease-star.svg";
-import heart from "@/assets/ease-heart.svg";
+import star from "@/assets/Ease_heart_Pink.svg";
+import heart from "@/assets/Ease_heart_Pink.svg";
 
 const DURATIONS = ["Under 5 min", "5-15 min", "15-30 min", "Over 30 min"];
 const TACTICS = ["Yes, they helped", "Not Fully", "No, not really"];
@@ -32,7 +32,7 @@ const Pill = ({
 
 export const PostCrisis = () => {
   const { go, playbook, crisisOrigin, caregiver, addFeedbackEntry } = useEase();
-  const returnTo = crisisOrigin === "caregiver" ? "caregiverList" : "homeV2";
+  const returnTo = "homeV2";
   const [duration, setDuration] = useState<string>("Under 5 min");
   const [tactic, setTactic] = useState<string | null>(null);
   const [ctx, setCtx] = useState<string | null>(null);
@@ -108,7 +108,7 @@ export const PostCrisis = () => {
             Duration
           </div>
           <div className="text-ease-base text-white font-semibold mb-3">
-            How long did the meltdown last?
+            How long did this difficult moment last?
           </div>
           <div className="flex flex-wrap gap-2.5">
             {DURATIONS.map((d) => (

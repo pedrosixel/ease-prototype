@@ -5,8 +5,8 @@ import pipSad from "@/assets/Pip_Sad.svg";
 
 const PURPLE = "#7B5EA7";
 const PURPLE_TINT = "#EDE5F7";
-const PINK = "#7B5EA7";
-const PINK_TINT = "#EDE5F7";
+const PINK = "#F3768D";
+const PINK_TINT = "#FCE8ED";
 const INK = "#1A1A1A";
 const TEXT = "#444444";
 const MUTED = "#777777";
@@ -164,7 +164,7 @@ export const CaregiverHome = () => {
 
             <Divider />
 
-            <Section label="WHAT NOT TO DO">
+            <Section label="WHAT TO AVOID">
               <div className="flex flex-col" style={{ gap: 4 }}>
                 {playbook.avoid.map((a, i) => (
                   <div

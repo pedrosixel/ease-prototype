@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { LayoutGrid } from "lucide-react";
 import { useEase } from "./state";
-import heart from "@/assets/ease-heart.svg";
+import heart from "@/assets/Ease_heart_Pink.svg";
 
 export const PhoneFrame = ({ children }: { children: ReactNode }) => {
   const { setIndexOpen, screen, toast } = useEase();

@@ -1,5 +1,5 @@
 import { useEase } from "../state";
-import easeLogo from "@/assets/ease-logo.svg";
+import easeLogo from "@/assets/Ease_Logo_Pink.svg";
 
 const CARDS = [
   {

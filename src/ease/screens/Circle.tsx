@@ -159,7 +159,7 @@ export const Circle = () => {
                 onClick={sendInvite}
                 className="shrink-0 px-4 h-11 rounded-[12px] bg-primary text-primary-foreground text-ease-sm font-bold"
               >
-                Invite to Circle
+                Invite a caregiver
               </button>
             </div>
           </div>

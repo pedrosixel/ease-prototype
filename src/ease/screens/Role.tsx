@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { TopBar, PrimaryBtn } from "../primitives";
 import { useEase } from "../state";
-import heart from "@/assets/ease-heart.svg";
-import starBlue from "@/assets/ease-star-blue.svg";
+import heart from "@/assets/Ease_heart_Pink.svg";
+import starBlue from "@/assets/Ease_Star_Purple.svg";
 import pipIdle from "@/assets/Pip_Happy.svg";
 
 export const Role = () => {
@@ -47,7 +47,7 @@ export const Role = () => {
       }}
     >
       <div style={{ position: "relative", zIndex: 30 }}>
-        <TopBar back="welcome" />
+        <TopBar back="terms" />
       </div>
 
       {/* Role cards */}

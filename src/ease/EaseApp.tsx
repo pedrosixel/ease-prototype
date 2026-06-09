@@ -66,6 +66,7 @@ const Router = () => {
     case "playbookIntro": return <PlaybookIntro />;
     case "homeV2": return <HomeV2 />;
     case "insightsAll": return <InsightsAll />;
+    default: return <Welcome />;
   }
 };
 

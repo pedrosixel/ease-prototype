@@ -3,7 +3,7 @@ import { Settings as SettingsIcon, BookOpen, Pencil, Phone, Plus } from "lucide-
 import { Avatar, ParentBottomNav, ScrollFade, ScrollHint } from "../primitives";
 import { useEase, calcCompletion, FeedbackEntry } from "../state";
 import { CHILD_PHOTOS, CHILD_FAVOURITE_TOY, paulPhoto } from "../assets";
-import star from "@/assets/ease-star.svg";
+import star from "@/assets/Ease_heart_Pink.svg";
 import { CrisisLog } from "./CrisisLog";
 
 type Tab = "profile" | "crisis" | "care" | "emergency";
@@ -325,14 +325,14 @@ const CrisisTab = () => {
 
       <div>
         <div className="text-ease-xs uppercase tracking-[0.14em] text-primary font-bold mb-2">
-          What NOT to Do
+          What to Avoid
         </div>
         <div className="space-y-3">
           {playbook.avoid.map((a, i) => (
             <button
               key={i}
               onClick={() =>
-                openEdit({ kind: "avoid", index: i, value: a, returnTo: "home", breadcrumb: "CRISIS PLAN · WHAT NOT TO DO", returnTab: "crisis" })
+                openEdit({ kind: "avoid", index: i, value: a, returnTo: "home", breadcrumb: "CRISIS PLAN · WHAT TO AVOID", returnTab: "crisis" })
               }
               className="w-full text-left rounded-2xl bg-card border border-border p-4"
             >
@@ -345,9 +345,9 @@ const CrisisTab = () => {
         </div>
         <AddBtn
           onClick={() =>
-            openEdit({ kind: "avoid", index: -1, value: "", returnTo: "home", breadcrumb: "CRISIS PLAN · WHAT NOT TO DO", returnTab: "crisis" })
+            openEdit({ kind: "avoid", index: -1, value: "", returnTo: "home", breadcrumb: "CRISIS PLAN · WHAT TO AVOID", returnTab: "crisis" })
           }
-          label="Add a What NOT to Do"
+          label="Add a What to Avoid"
         />
       </div>
     </div>

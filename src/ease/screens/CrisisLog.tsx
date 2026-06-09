@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { FeedbackEntry } from "../state";
-import star from "@/assets/ease-star.svg";
+import star from "@/assets/Ease_heart_Pink.svg";
 
 const MONTH_NAMES = [
   "January", "February", "March", "April", "May", "June",

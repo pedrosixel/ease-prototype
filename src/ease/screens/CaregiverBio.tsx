@@ -40,7 +40,7 @@ export const CaregiverBio = () => {
           Tell us a bit about yourself.
         </h1>
         <p className="mt-3 text-ease-base text-muted-foreground">
-          Parents will see this when you're in their Circle.
+          Parents will see this when you're in their caregivers list.
         </p>
 
         {/* Photo */}

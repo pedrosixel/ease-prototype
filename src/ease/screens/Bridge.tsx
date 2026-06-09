@@ -2,7 +2,7 @@ import { AlertCircle, Heart, Ban } from "lucide-react";
 import { TopBar, PrimaryBtn, Avatar } from "../primitives";
 import { useEase } from "../state";
 import { CHILD_PHOTOS } from "../assets";
-import starBlue from "@/assets/ease-star-blue.svg";
+import starBlue from "@/assets/Ease_Star_Purple.svg";
 
 export const Bridge = () => {
   const { go, playbook, activeChildId } = useEase();

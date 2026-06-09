@@ -19,7 +19,7 @@ export const CaregiverConnect = () => {
           Do you have a link from a parent?
         </h1>
         <p className="mt-3 text-ease-base text-muted-foreground">
-          They share it from their Circle. Paste it here and you're in.
+          They share it from their Caregivers screen. Paste it here and you're in.
         </p>
 
         <div className="mt-7">

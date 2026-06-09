@@ -1,14 +1,14 @@
 import { useMemo, useState } from "react";
 import { TopBar, PrimaryBtn } from "../primitives";
 import { useEase } from "../state";
-import star from "@/assets/ease-star.svg";
+import star from "@/assets/Ease_heart_Pink.svg";
 
 type Section = "calming" | "triggers" | "avoid";
 
 const SECTIONS: { id: Section; label: string }[] = [
   { id: "calming", label: "Calming Strategies" },
   { id: "triggers", label: "Known Triggers" },
-  { id: "avoid", label: "What NOT to Do" },
+  { id: "avoid", label: "What to Avoid" },
 ];
 
 const guessSection = (note: string): Section => {

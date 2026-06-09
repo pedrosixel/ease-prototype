@@ -13,7 +13,7 @@ export const Complete = () => {
           {playbook.childName}'s Playbook<br />is ready.
         </h1>
         <p className="mt-4 text-ease-base text-muted-foreground max-w-[280px]">
-          You can keep building it any time. Share it with Paul when you're ready.
+          You can keep building it any time. Share it with your caregivers when you're ready.
         </p>
       </div>
       <PrimaryBtn onClick={() => go("homeV2")}>Go to Home</PrimaryBtn>

@@ -1,5 +1,5 @@
 import { useEase } from "../state";
-import EaseLogoColor from "@/assets/ease-logo.svg";
+import EaseLogoColor from "@/assets/Ease_Logo_Pink.svg";
 import PipAsset from "@/assets/Pip_Happy.svg";
 
 export const Welcome = () => {
@@ -34,7 +34,7 @@ export const Welcome = () => {
         <img
           src={PipAsset}
           alt="Pip"
-          style={{ width: "156px", height: "auto", display: "block", flexShrink: 0 }}
+          style={{ width: "220px", height: "auto", display: "block", flexShrink: 0 }}
         />
       </div>
 

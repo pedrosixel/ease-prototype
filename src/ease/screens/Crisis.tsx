@@ -100,7 +100,7 @@ export const Crisis = () => {
 
             <div style={{ height: 1, background: "rgba(255,255,255,0.1)", margin: "20px 0" }} />
 
-            <div style={sectionLabelStyle}>What not to do</div>
+            <div style={sectionLabelStyle}>AVOID</div>
             {playbook.avoid.length === 0 ? (
               <div className="mt-3"><EmptyState /></div>
             ) : (
