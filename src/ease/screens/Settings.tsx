@@ -1,9 +1,44 @@
+import { useState } from "react";
+import { Pencil } from "lucide-react";
 import { TopBar } from "../primitives";
 import { Switch } from "@/components/ui/switch";
 import { useEase } from "../state";
 
+const PINK = "#F3768D";
+
+type FieldKey = "fullName" | "childName" | "relationship" | "phone" | "email";
+
 export const Settings = () => {
-  const { darkMode, toggleDarkMode, setIsNewUser, go } = useEase();
+  const { darkMode, toggleDarkMode, setIsNewUser, go, playbook } = useEase();
+
+  const [values, setValues] = useState<Record<FieldKey, string>>({
+    fullName: playbook.parentName || "Mariana Oliveira",
+    childName: playbook.childName || "Tyler",
+    relationship: "Mother",
+    phone: playbook.emergencyContacts[0]?.phone || "+1 (604) 555-0182",
+    email: "mariana@example.com",
+  });
+  const [expanded, setExpanded] = useState<FieldKey | null>(null);
+  const [draft, setDraft] = useState("");
+
+  const FIELDS: { key: FieldKey; label: string }[] = [
+    { key: "fullName", label: "FULL NAME" },
+    { key: "childName", label: "CHILD'S NAME" },
+    { key: "relationship", label: "RELATIONSHIP" },
+    { key: "phone", label: "PHONE" },
+    { key: "email", label: "EMAIL" },
+  ];
+
+  const openField = (key: FieldKey) => {
+    setExpanded(key);
+    setDraft(values[key]);
+  };
+
+  const saveField = () => {
+    if (!expanded) return;
+    setValues((v) => ({ ...v, [expanded]: draft }));
+    setExpanded(null);
+  };
 
   const resetDemo = () => {
     if (typeof window !== "undefined") {
@@ -12,15 +47,176 @@ export const Settings = () => {
     setIsNewUser(true);
     go("welcome");
   };
+
   return (
-    <div className="h-full flex flex-col ">
+    <div className="h-full flex flex-col">
       <TopBar back="homeV2" title="Settings" />
-      <div className="px-7 mt-4 flex-1">
-        <h1 className="font-display text-ease-2xl text-ink leading-tight">Settings</h1>
-        <p className="mt-3 text-ease-base text-muted-foreground">
-          Account, notifications and sharing controls will live here.
-        </p>
-        <div className="mt-6 space-y-3">
+      <div className="flex-1 overflow-y-auto phone-scroll px-6 pb-8">
+
+        {/* Profile header */}
+        <div className="flex flex-col items-center" style={{ marginTop: 8 }}>
+          <div
+            style={{
+              width: 96,
+              height: 96,
+              borderRadius: "50%",
+              background: "#FCE8ED",
+              border: `3px solid ${PINK}`,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "'Nunito Sans', sans-serif",
+                fontSize: 28,
+                fontWeight: 700,
+                color: PINK,
+                letterSpacing: "-0.5px",
+              }}
+            >
+              MO
+            </span>
+          </div>
+          <button
+            style={{
+              fontSize: 13,
+              color: PINK,
+              fontWeight: 600,
+              marginTop: 8,
+              fontFamily: "'Nunito Sans', sans-serif",
+            }}
+          >
+            Change photo
+          </button>
+          <div
+            className="font-display"
+            style={{ fontSize: 22, color: "#1A1A1A", marginTop: 8 }}
+          >
+            {values.fullName}
+          </div>
+          <div
+            style={{
+              fontFamily: "'Nunito Sans', sans-serif",
+              fontSize: 14,
+              color: "#777777",
+              marginTop: 2,
+            }}
+          >
+            {values.relationship}
+          </div>
+        </div>
+
+        {/* Editable profile fields */}
+        <div style={{ marginTop: 24 }}>
+          {FIELDS.map((f) => {
+            const isOpen = expanded === f.key;
+            return (
+              <div
+                key={f.key}
+                style={{
+                  border: "1px solid #CCBFB8",
+                  borderRadius: 12,
+                  padding: 16,
+                  marginBottom: 12,
+                  background: "#FFFFFF",
+                }}
+              >
+                {!isOpen ? (
+                  <button
+                    onClick={() => openField(f.key)}
+                    className="w-full flex items-center justify-between text-left"
+                  >
+                    <div>
+                      <div
+                        style={{
+                          fontFamily: "'Nunito Sans', sans-serif",
+                          fontSize: 12,
+                          color: "#777777",
+                          letterSpacing: "0.08em",
+                          fontWeight: 700,
+                          marginBottom: 4,
+                        }}
+                      >
+                        {f.label}
+                      </div>
+                      <div
+                        style={{
+                          fontFamily: "'Nunito Sans', sans-serif",
+                          fontSize: 15,
+                          color: "#1A1A1A",
+                        }}
+                      >
+                        {values[f.key]}
+                      </div>
+                    </div>
+                    <Pencil size={16} color={PINK} />
+                  </button>
+                ) : (
+                  <div className="flex flex-col gap-3">
+                    <div
+                      style={{
+                        fontFamily: "'Nunito Sans', sans-serif",
+                        fontSize: 12,
+                        color: "#777777",
+                        letterSpacing: "0.08em",
+                        fontWeight: 700,
+                      }}
+                    >
+                      {f.label}
+                    </div>
+                    <input
+                      value={draft}
+                      onChange={(e) => setDraft(e.target.value)}
+                      autoFocus
+                      style={{
+                        height: 44,
+                        borderRadius: 12,
+                        border: "1px solid #CCBFB8",
+                        padding: "0 12px",
+                        fontSize: 15,
+                        outline: "none",
+                      }}
+                    />
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={saveField}
+                        style={{
+                          background: PINK,
+                          color: "#FFFFFF",
+                          height: 40,
+                          borderRadius: 12,
+                          padding: "0 18px",
+                          fontWeight: 700,
+                          fontSize: 14,
+                          fontFamily: "'Nunito Sans', sans-serif",
+                        }}
+                      >
+                        Save
+                      </button>
+                      <button
+                        onClick={() => setExpanded(null)}
+                        style={{
+                          color: PINK,
+                          fontSize: 14,
+                          fontWeight: 600,
+                          fontFamily: "'Nunito Sans', sans-serif",
+                        }}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Existing settings rows */}
+        <div className="space-y-3" style={{ marginTop: 8 }}>
           <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-4">
             <div>
               <div className="text-ease-base text-ink font-semibold">Dark mode</div>
@@ -43,6 +239,7 @@ export const Settings = () => {
           ))}
         </div>
 
+        {/* Security badge */}
         <div
           style={{
             margin: "24px 0 0 0",
@@ -60,7 +257,7 @@ export const Settings = () => {
               width: 36,
               height: 36,
               borderRadius: "50%",
-              background: "#F3768D",
+              background: PINK,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",

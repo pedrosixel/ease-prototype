@@ -32,9 +32,7 @@ export const CaregiverList = () => {
   useEffect(() => {
     if (!hasSeenCaregiverWelcome) {
       go("caregiverWelcome");
-      return;
     }
-    checkOut();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -65,6 +63,7 @@ export const CaregiverList = () => {
     checkIn(pendingCheckInId);
     setActiveChild(pendingCheckInId);
     setPendingCheckInId(null);
+    go("bridge");
   };
 
   return (

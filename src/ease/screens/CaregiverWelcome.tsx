@@ -22,14 +22,14 @@ export const CaregiverWelcome = () => {
   return (
     <div
       className="h-full flex flex-col"
-      style={{ background: "#EDE5F7" }}
+      style={{ background: "#EDE5F7", minHeight: "100vh" }}
     >
-      <div className="flex flex-col items-center px-6" style={{ marginTop: 48 }}>
+      <div className="flex flex-col items-center px-6" style={{ marginTop: 64 }}>
         <img src={easeLogo} alt="Ease" style={{ width: 120 }} />
         <h1
           className="font-display"
           style={{
-            fontSize: 24,
+            fontSize: 26,
             color: "#1A1A1A",
             marginTop: 24,
             textAlign: "center",
@@ -43,7 +43,8 @@ export const CaregiverWelcome = () => {
             fontSize: 16,
             color: "#777777",
             maxWidth: 280,
-            marginTop: 8,
+            marginTop: 12,
+            marginBottom: 32,
             textAlign: "center",
             lineHeight: 1.5,
           }}
@@ -52,7 +53,7 @@ export const CaregiverWelcome = () => {
         </p>
       </div>
 
-      <div className="px-6" style={{ marginTop: 32 }}>
+      <div className="px-6" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
         {CARDS.map((c) => (
           <div
             key={c.title}
@@ -61,35 +62,56 @@ export const CaregiverWelcome = () => {
               border: "1px solid #EDE5F7",
               borderRadius: 12,
               padding: 16,
-              marginBottom: 12,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 12,
             }}
           >
-            <div
-              style={{
-                fontFamily: "'Nunito Sans', sans-serif",
-                fontSize: 15,
-                fontWeight: 700,
-                color: "#1A1A1A",
-                marginBottom: 4,
-              }}
-            >
-              {c.title}
+            <div style={{ flex: 1 }}>
+              <div
+                style={{
+                  fontFamily: "'Nunito Sans', sans-serif",
+                  fontSize: 15,
+                  fontWeight: 700,
+                  color: "#1A1A1A",
+                  marginBottom: 4,
+                }}
+              >
+                {c.title}
+              </div>
+              <div
+                style={{
+                  fontFamily: "'Nunito Sans', sans-serif",
+                  fontSize: 13,
+                  color: "#777777",
+                  lineHeight: 1.5,
+                }}
+              >
+                {c.body}
+              </div>
             </div>
             <div
               style={{
-                fontFamily: "'Nunito Sans', sans-serif",
-                fontSize: 13,
-                color: "#777777",
-                lineHeight: 1.5,
+                width: 40,
+                height: 40,
+                borderRadius: "50%",
+                background: "#EDE5F7",
+                flexShrink: 0,
               }}
-            >
-              {c.body}
-            </div>
+            />
           </div>
         ))}
       </div>
 
-      <div className="mt-auto px-6" style={{ marginBottom: 32 }}>
+      <div
+        style={{
+          marginTop: "auto",
+          paddingLeft: 20,
+          paddingRight: 20,
+          marginBottom: 48,
+        }}
+      >
         <button
           onClick={() => {
             setHasSeenCaregiverWelcome(true);

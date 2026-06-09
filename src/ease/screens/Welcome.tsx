@@ -34,7 +34,7 @@ export const Welcome = () => {
         <img
           src={PipAsset}
           alt="Pip"
-          style={{ width: "220px", height: "auto", display: "block", flexShrink: 0 }}
+          style={{ width: "156px", height: "auto", display: "block", flexShrink: 0 }}
         />
       </div>
 

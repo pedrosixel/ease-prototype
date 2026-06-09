@@ -48,7 +48,7 @@ export const PlaybookIntro = () => {
           flex: 1,
           display: "flex",
           flexDirection: "column",
-          padding: "32px 24px",
+          padding: "48px 24px 32px 24px",
           opacity: contentOpacity,
           transition: "opacity 400ms ease-out",
         }}
@@ -59,7 +59,7 @@ export const PlaybookIntro = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            marginBottom: 12,
+            marginBottom: 24,
           }}
         >
           <h1
@@ -95,7 +95,7 @@ export const PlaybookIntro = () => {
             fontSize: 15,
             color: "#777777",
             lineHeight: 1.6,
-            marginBottom: 40,
+            marginBottom: 32,
           }}
         >
           {`The Playbook is ${name}'s personal guide. You'll add ${name}'s triggers, what calms ${name}, and what caregivers should avoid. Every caregiver who works with ${name} gets instant access — especially in moments that matter most.`}
