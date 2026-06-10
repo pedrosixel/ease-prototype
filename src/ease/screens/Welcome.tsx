@@ -4,14 +4,19 @@ import PipAsset from "@/assets/Pip_Happy.svg";
 
 export const Welcome = () => {
   const { go } = useEase();
+  // Synchronous check — no useEffect flash. On mobile there's no 44px status bar
+  // padding to cancel, so the negative margin would bleed above the viewport.
+  const onMobile =
+    typeof window !== "undefined" &&
+    window.matchMedia("(max-width: 768px)").matches;
 
   return (
     <div
       style={{
         width: "100%",
-        height: "calc(100% + 44px)",
-        minHeight: "calc(100% + 44px)",
-        marginTop: "-44px",
+        height: onMobile ? "100%" : "calc(100% + 44px)",
+        minHeight: onMobile ? "100%" : "calc(100% + 44px)",
+        marginTop: onMobile ? 0 : "-44px",
         background: "#7B5EA7",
         position: "relative",
         zIndex: 45,
