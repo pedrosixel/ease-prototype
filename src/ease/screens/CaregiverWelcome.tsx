@@ -23,13 +23,15 @@ export const CaregiverWelcome = () => {
     <div
       style={{
         background: "#EDE5F7",
-        minHeight: "100svh",
-        height: "100%",
         width: "100%",
+        height: "100%",
+        minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
+        alignItems: "center",
         padding: "0 24px",
         boxSizing: "border-box",
+        overflowY: "auto",
       }}
     >
       <div className="flex flex-col items-center" style={{ marginTop: 64 }}>
@@ -118,6 +120,7 @@ export const CaregiverWelcome = () => {
           paddingTop: 32,
           paddingBottom: 48,
           width: "100%",
+          maxWidth: 400,
         }}
       >
         <button

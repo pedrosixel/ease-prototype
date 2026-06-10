@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { useEase } from "./state";
 import { useIsMobile } from "@/hooks/use-mobile";
 import heart from "@/assets/Ease_heart_Pink.svg";
@@ -6,6 +6,28 @@ import heart from "@/assets/Ease_heart_Pink.svg";
 export const PhoneFrame = ({ children }: { children: ReactNode }) => {
   const { screen, toast } = useEase();
   const isMobile = useIsMobile();
+
+  useEffect(() => {
+    if (!isMobile) return;
+
+    // Prevent body canvas color from showing through transparent screens
+    document.body.style.backgroundColor = "white";
+
+    // Force white status bar on Android Chrome (prevents purple bleed from Welcome screen)
+    let meta = document.querySelector(
+      'meta[name="theme-color"]'
+    ) as HTMLMetaElement | null;
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.setAttribute("name", "theme-color");
+      document.head.appendChild(meta);
+    }
+    meta.setAttribute("content", "#FFFFFF");
+
+    return () => {
+      document.body.style.backgroundColor = "";
+    };
+  }, [isMobile]);
 
   const dark = screen === "crisis" || screen === "postCrisis";
   const caregiverScreens = new Set([
@@ -33,10 +55,14 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
           display: "flex",
           flexDirection: "column",
           overflow: "hidden",
+          // Hard clip — prevents Welcome screen's negative-margin purple from
+          // bleeding above the viewport on Android Chrome
+          clipPath: "inset(0 0 0 0)",
           position: "fixed",
           top: 0,
           left: 0,
           background: "transparent",
+          backgroundColor: "transparent",
         }}
       >
         {children}
@@ -78,20 +104,24 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
           className={`relative w-full h-full rounded-[42px] overflow-hidden ${bgClass}`}
         >
           {/* Notch */}
-          <div className="absolute top-2 left-1/2 -translate-x-1/2 z-50 w-[110px] h-[30px] bg-black rounded-full" />
+          {!isMobile && (
+            <div className="absolute top-2 left-1/2 -translate-x-1/2 z-50 w-[110px] h-[30px] bg-black rounded-full" />
+          )}
           {/* Status bar */}
-          <div
-            className={`absolute top-0 left-0 right-0 h-[44px] z-40 flex items-end justify-between px-7 pb-1 text-[13px] font-semibold ${
-              dark ? "text-white" : "text-ink"
-            }`}
-          >
-            <span>9:41</span>
-            <span className="flex items-center gap-1">
-              <span className="w-4 h-3 border-[1.5px] border-current rounded-[2px] relative">
-                <span className="absolute inset-[2px] bg-current rounded-[1px]" />
+          {!isMobile && (
+            <div
+              className={`absolute top-0 left-0 right-0 h-[44px] z-40 flex items-end justify-between px-7 pb-1 text-[13px] font-semibold ${
+                dark ? "text-white" : "text-ink"
+              }`}
+            >
+              <span>9:41</span>
+              <span className="flex items-center gap-1">
+                <span className="w-4 h-3 border-[1.5px] border-current rounded-[2px] relative">
+                  <span className="absolute inset-[2px] bg-current rounded-[1px]" />
+                </span>
               </span>
-            </span>
-          </div>
+            </div>
+          )}
 
           {/* Content */}
           <div className={`absolute inset-0 ${fullBleedCream ? "" : "pt-[44px]"} phone-scroll overflow-hidden`}>
@@ -127,11 +157,13 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
           )}
 
           {/* Home indicator */}
-          <div
-            className={`absolute bottom-1.5 left-1/2 -translate-x-1/2 w-[134px] h-[5px] rounded-full z-50 ${
-              dark ? "bg-white/70" : "bg-black/80"
-            }`}
-          />
+          {!isMobile && (
+            <div
+              className={`absolute bottom-1.5 left-1/2 -translate-x-1/2 w-[134px] h-[5px] rounded-full z-50 ${
+                dark ? "bg-white/70" : "bg-black/80"
+              }`}
+            />
+          )}
         </div>
       </div>
     </div>
