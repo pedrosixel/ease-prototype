@@ -33,8 +33,7 @@ export const CaregiverList = () => {
     if (!hasSeenCaregiverWelcome) {
       go("caregiverWelcome");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [hasSeenCaregiverWelcome, go]);
 
   useEffect(() => {
     if (modal?.kind === "switchedToast") {

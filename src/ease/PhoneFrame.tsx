@@ -10,9 +10,6 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (!isMobile) return;
 
-    // Prevent body canvas color from showing through transparent screens
-    document.body.style.backgroundColor = "white";
-
     // Force white status bar on Android Chrome (prevents purple bleed from Welcome screen)
     let meta = document.querySelector(
       'meta[name="theme-color"]'
