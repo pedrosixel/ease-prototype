@@ -25,7 +25,7 @@ export const CaregiverWelcome = () => {
         background: "#EDE5F7",
         width: "100%",
         height: "100%",
-        minHeight: "100vh",
+        minHeight: "100%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
