@@ -24,10 +24,12 @@ export const CaregiverWelcome = () => {
       style={{
         background: "#EDE5F7",
         minHeight: "100svh",
+        height: "100%",
         width: "100%",
         display: "flex",
         flexDirection: "column",
         padding: "0 24px",
+        boxSizing: "border-box",
       }}
     >
       <div className="flex flex-col items-center" style={{ marginTop: 64 }}>
@@ -110,21 +112,29 @@ export const CaregiverWelcome = () => {
         ))}
       </div>
 
-      <div style={{ marginTop: "auto", marginBottom: 48 }}>
+      <div
+        style={{
+          marginTop: "auto",
+          paddingTop: 32,
+          paddingBottom: 48,
+          width: "100%",
+        }}
+      >
         <button
           onClick={() => {
             setHasSeenCaregiverWelcome(true);
             go("caregiverList");
           }}
           style={{
-            background: "#7B5EA7",
-            color: "#FFFFFF",
+            width: "100%",
             height: 52,
             borderRadius: 14,
-            width: "100%",
-            fontWeight: 700,
+            background: "#7B5EA7",
+            color: "#FFFFFF",
             fontSize: 16,
-            fontFamily: "'Nunito Sans', sans-serif",
+            fontWeight: 700,
+            border: "none",
+            cursor: "pointer",
           }}
         >
           Got it, show my list

@@ -1,5 +1,6 @@
 import { EaseProvider, useEase } from "./state";
 import { PhoneFrame } from "./PhoneFrame";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { ScreenIndex } from "./ScreenIndex";
 import { Welcome } from "./screens/Welcome";
 import { Role } from "./screens/Role";
@@ -82,21 +83,34 @@ const RouterWithTransition = () => {
   );
 };
 
-export const EaseApp = () => (
-  <EaseProvider>
-    <div className="min-h-screen w-full bg-canvas flex items-center justify-center p-10">
-      {/* Demo label */}
-      <div className="absolute top-6 left-8">
-        <div className="font-display text-ease-md text-ink lowercase">ease</div>
-        <div className="text-ease-xs text-muted-foreground uppercase tracking-[0.18em]">
-          High-fidelity prototype
-        </div>
-      </div>
+export const EaseApp = () => {
+  const isMobile = useIsMobile();
 
-      <PhoneFrame>
-        <RouterWithTransition />
-      </PhoneFrame>
-      <ScreenIndex />
-    </div>
-  </EaseProvider>
-);
+  return (
+    <EaseProvider>
+      {isMobile ? (
+        <>
+          <PhoneFrame>
+            <RouterWithTransition />
+          </PhoneFrame>
+          <ScreenIndex />
+        </>
+      ) : (
+        <div className="min-h-screen w-full bg-canvas flex items-center justify-center p-10">
+          {/* Demo label */}
+          <div className="absolute top-6 left-8">
+            <div className="font-display text-ease-md text-ink lowercase">ease</div>
+            <div className="text-ease-xs text-muted-foreground uppercase tracking-[0.18em]">
+              High-fidelity prototype
+            </div>
+          </div>
+
+          <PhoneFrame>
+            <RouterWithTransition />
+          </PhoneFrame>
+          <ScreenIndex />
+        </div>
+      )}
+    </EaseProvider>
+  );
+};

@@ -36,6 +36,7 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
           position: "fixed",
           top: 0,
           left: 0,
+          background: "transparent",
         }}
       >
         {children}
