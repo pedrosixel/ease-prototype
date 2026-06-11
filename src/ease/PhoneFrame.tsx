@@ -5,7 +5,12 @@ import heart from "@/assets/Ease_heart_Pink.svg";
 
 export const PhoneFrame = ({ children }: { children: ReactNode }) => {
   const { screen, toast } = useEase();
-  const isMobile = useIsMobile();
+  const isMobileHook = useIsMobile();
+  // Same synchronous fallback as EaseApp — ensures the mobile wrapper renders on frame 1.
+  const isMobile =
+    isMobileHook ||
+    (typeof window !== "undefined" &&
+      window.matchMedia("(max-width: 767px)").matches);
 
   useEffect(() => {
     if (!isMobile) return;

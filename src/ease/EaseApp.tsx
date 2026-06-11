@@ -84,7 +84,15 @@ const RouterWithTransition = () => {
 };
 
 export const EaseApp = () => {
-  const isMobile = useIsMobile();
+  const isMobileHook = useIsMobile();
+  // useIsMobile() returns false on frame 1 (!!undefined). On mobile devices that causes
+  // the desktop phone-frame branch to render and paint first — iOS caches its dominant
+  // color (Welcome's purple) as the safe-area background, creating a persistent strip.
+  // Synchronous matchMedia gives the correct value on frame 1 with no useEffect lag.
+  const isMobile =
+    isMobileHook ||
+    (typeof window !== "undefined" &&
+      window.matchMedia("(max-width: 767px)").matches);
 
   return (
     <EaseProvider>
