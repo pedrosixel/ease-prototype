@@ -91,7 +91,7 @@ export const CaregiverList = () => {
           return (
             <div
               key={id}
-              className="rounded-2xl bg-card border border-[#CCBFB8] border-l-[3px] border-l-[#7B5EA7] p-4"
+              className={`rounded-2xl bg-card border border-[#CCBFB8] p-4 ${isCheckedIn ? "border-l-[3px] border-l-[#7B5EA7]" : ""}`}
             >
               <div className="flex items-start gap-3">
                 <img
@@ -163,7 +163,7 @@ export const CaregiverList = () => {
           style={{
             background: "#FFFFFF",
             border: "1px solid #CCBFB8",
-            borderRadius: 8,
+            borderRadius: 16,
             padding: 16,
           }}
         >

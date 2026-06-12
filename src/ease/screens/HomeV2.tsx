@@ -207,9 +207,9 @@ const ProfileTab = () => {
   const chipPad = { padding: "12px 14px" };
   // Non-edit base chip styles
   const triggerChipStyle = {
-    background: CREAM,
+    background: "#ffffff",
     color: TEXT,
-    border: "none",
+    border: "1px solid #CCBFB8",
     borderRadius: 8,
     fontSize: 15,
     ...chipPad,
@@ -223,10 +223,11 @@ const ProfileTab = () => {
     ...chipPad,
   } as const;
   const avoidChipReadStyle = {
-    background: CREAM,
+    background: "#ffffff",
     color: CORAL,
     fontWeight: 600 as const,
-    border: "none",
+    border: "1px solid #CCBFB8",
+    borderLeft: "3px solid #F3768D",
     borderRadius: 8,
     fontSize: 15,
     ...chipPad,
@@ -603,7 +604,7 @@ const FeedbackCard = ({ entry }: { entry: FeedbackEntry }) => {
       style={{
         background: "#FFFFFF",
         border: `1px solid ${BLUE}`,
-        borderRadius: 12,
+        borderRadius: 16,
         padding: 16,
       }}
     >

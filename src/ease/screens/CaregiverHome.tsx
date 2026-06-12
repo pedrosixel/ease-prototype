@@ -125,9 +125,9 @@ export const CaregiverHome = () => {
                   <span
                     key={i}
                     style={{
-                      background: PURPLE_TINT,
-                      color: PURPLE,
-                      border: "1px solid #7B5EA7",
+                      background: "#FFFFFF",
+                      color: TEXT,
+                      border: "1px solid #CCBFB8",
                       borderRadius: 8,
                       padding: "8px 12px",
                       fontSize: 15,
@@ -147,9 +147,9 @@ export const CaregiverHome = () => {
                   <span
                     key={i}
                     style={{
-                      background: PURPLE_TINT,
-                      color: PURPLE,
-                      border: "1px solid #7B5EA7",
+                      background: "#FFFFFF",
+                      color: TEXT,
+                      border: "1px solid #CCBFB8",
                       borderRadius: 8,
                       padding: "8px 12px",
                       fontSize: 15,
@@ -170,9 +170,11 @@ export const CaregiverHome = () => {
                   <div
                     key={i}
                     style={{
-                      background: PINK_TINT,
+                      background: "#FFFFFF",
                       color: PINK,
                       fontWeight: 600,
+                      border: "1px solid #CCBFB8",
+                      borderLeft: "3px solid #F3768D",
                       borderRadius: 8,
                       padding: "8px 12px",
                       fontSize: 15,

@@ -18,6 +18,7 @@ export const Crisis = () => {
   const { go, playbook, crisisOrigin, activeChildId } = useEase();
   const [tab, setTab] = useState<Tab>("plan");
   const [tappedIdx, setTappedIdx] = useState<number | null>(null);
+  const [show911Modal, setShow911Modal] = useState(false);
   const closeTo = crisisOrigin === "caregiver" ? "caregiverHome" : "homeV2";
 
   const handleTap = (i: number) => {
@@ -191,8 +192,8 @@ export const Crisis = () => {
                     911
                   </span>
                 </div>
-                <a
-                  href="tel:911"
+                <button
+                  onClick={() => setShow911Modal(true)}
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
@@ -201,7 +202,10 @@ export const Crisis = () => {
                     fontFamily: "'Nunito Sans', sans-serif",
                     fontSize: 14,
                     fontWeight: 600,
-                    textDecoration: "none",
+                    background: "transparent",
+                    border: "none",
+                    padding: 0,
+                    cursor: "pointer",
                   }}
                 >
                   911
@@ -218,7 +222,7 @@ export const Crisis = () => {
                   >
                     <Phone size={18} color="#FFFFFF" />
                   </span>
-                </a>
+                </button>
               </div>
             </div>
           </>
@@ -243,6 +247,78 @@ export const Crisis = () => {
           >
             Add Log
           </button>
+        </div>
+      )}
+
+      {show911Modal && (
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "rgba(0,0,0,0.75)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "0 24px",
+            zIndex: 100,
+          }}
+        >
+          <div
+            style={{
+              background: "#1A1A1A",
+              border: "1px solid rgba(255,255,255,0.15)",
+              borderRadius: 20,
+              padding: 24,
+              width: "100%",
+            }}
+          >
+            <p
+              style={{
+                color: "#FFFFFF",
+                fontFamily: "'Nunito Sans', sans-serif",
+                fontSize: 17,
+                fontWeight: 600,
+                textAlign: "center",
+                marginBottom: 24,
+                lineHeight: 1.4,
+              }}
+            >
+              This would call 911 in the live app.
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              <button
+                style={{
+                  width: "100%",
+                  height: 52,
+                  background: "#CC0000",
+                  color: "#FFFFFF",
+                  fontFamily: "'Nunito Sans', sans-serif",
+                  fontSize: 15,
+                  fontWeight: 700,
+                  borderRadius: 12,
+                  border: "none",
+                }}
+              >
+                Call 911
+              </button>
+              <button
+                onClick={() => setShow911Modal(false)}
+                style={{
+                  width: "100%",
+                  height: 52,
+                  background: "rgba(255,255,255,0.1)",
+                  border: "1px solid rgba(255,255,255,0.2)",
+                  color: "#FFFFFF",
+                  fontFamily: "'Nunito Sans', sans-serif",
+                  fontSize: 15,
+                  fontWeight: 600,
+                  borderRadius: 12,
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
