@@ -42,6 +42,10 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
   const fullBleedCream = screen === "homeV2" || screen === "insightsAll";
   const bgClass = dark
     ? "bg-crisis"
+    : screen === "welcome"
+    ? "bg-[#7B5EA7]"
+    : screen === "caregiverWelcome"
+    ? "bg-[#EDE5F7]"
     : caregiverScreens.has(screen)
     ? "bg-background"
     : fullBleedCream
@@ -51,20 +55,17 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
   if (isMobile) {
     return (
       <div
+        className={bgClass}
         style={{
           width: "100vw",
           height: "100svh",
           display: "flex",
           flexDirection: "column",
           overflow: "hidden",
-          // Hard clip — prevents Welcome screen's negative-margin purple from
-          // bleeding above the viewport on Android Chrome
-          clipPath: "inset(0 0 0 0)",
           position: "fixed",
           top: 0,
           left: 0,
-          background: "transparent",
-          backgroundColor: "transparent",
+          paddingTop: "env(safe-area-inset-top)",
         }}
       >
         {children}
