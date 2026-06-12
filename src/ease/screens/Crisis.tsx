@@ -86,7 +86,7 @@ export const Crisis = () => {
                     key={i}
                     onClick={() => handleTap(i)}
                     className={`w-full text-left rounded-2xl bg-crisis-card border py-5 px-5 min-h-[96px] flex items-center gap-4 transition-all duration-150 ease-out ${
-                      tappedIdx === i ? "scale-[1.02] border-primary" : "border-white/10"
+                      tappedIdx === i ? "scale-[0.97] border-primary" : "border-white/10"
                     }`}
                   >
                     <div className="w-11 h-11 rounded-full bg-white text-ink font-sans font-extrabold text-ease-lg flex items-center justify-center shrink-0">
