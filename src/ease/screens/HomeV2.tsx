@@ -85,8 +85,8 @@ export const HomeV2 = () => {
             onClick={() => go("settings")}
             className="flex items-center justify-center"
             style={{
-              width: 32,
-              height: 32,
+              width: 44,
+              height: 44,
               background: "#F0F0F0",
               borderRadius: "50%",
             }}
@@ -891,9 +891,8 @@ const FilledContactCard = ({
           onClick={onEdit}
           className="rounded-full flex items-center justify-center"
           style={{
-            width: 32,
-            height: 32,
-            padding: 6,
+            width: 44,
+            height: 44,
             background: "transparent",
             border: `1px solid ${CORAL}`,
             color: CORAL,

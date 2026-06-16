@@ -33,7 +33,7 @@ export const TopBar = ({
       {back ? (
         <button
           onClick={() => go(back)}
-          className={`w-9 h-9 -ml-2 rounded-full flex items-center justify-center ${
+          className={`w-11 h-11 -ml-2 rounded-full flex items-center justify-center ${
             dark ? "text-white/80 hover:bg-white/5" : "text-foreground hover:bg-muted"
           }`}
         >
@@ -283,7 +283,7 @@ export const CaregiverBottomNav = ({
         >
           <span
             className="w-11 h-11 rounded-full flex items-center justify-center text-white"
-            style={{ backgroundColor: "#F3768D" }}
+            style={{ backgroundColor: "#7B5EA7" }}
           >
             <HelpTriangle />
           </span>

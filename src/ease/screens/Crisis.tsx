@@ -48,7 +48,7 @@ export const Crisis = () => {
         </div>
         <button
           onClick={() => go(closeTo)}
-          className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white"
+          className="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center text-white"
         >
           <X size={18} />
         </button>
@@ -229,26 +229,24 @@ export const Crisis = () => {
         )}
       </div>
 
-      {tab === "plan" && (
-        <div className="px-5 pb-5 shrink-0">
-          <button
-            onClick={() => go("postCrisis")}
-            style={{
-              width: "100%",
-              background: "rgba(255,255,255,0.1)",
-              border: "1px solid rgba(255,255,255,0.2)",
-              borderRadius: 12,
-              padding: 14,
-              color: "#FFFFFF",
-              fontFamily: "'Nunito Sans', sans-serif",
-              fontSize: 15,
-              fontWeight: 600,
-            }}
-          >
-            Add Log
-          </button>
-        </div>
-      )}
+      <div className="px-5 pb-5 shrink-0">
+        <button
+          onClick={() => go("postCrisis")}
+          style={{
+            width: "100%",
+            background: "rgba(255,255,255,0.1)",
+            border: "1px solid rgba(255,255,255,0.2)",
+            borderRadius: 12,
+            padding: 14,
+            color: "#FFFFFF",
+            fontFamily: "'Nunito Sans', sans-serif",
+            fontSize: 15,
+            fontWeight: 600,
+          }}
+        >
+          Add Log
+        </button>
+      </div>
 
       {show911Modal && (
         <div

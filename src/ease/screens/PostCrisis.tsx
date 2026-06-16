@@ -3,7 +3,7 @@ import { ChevronLeft, ArrowRight } from "lucide-react";
 import { useEase } from "../state";
 import { ScrollFade, ScrollHint } from "../primitives";
 import star from "@/assets/Ease_heart_Pink.svg";
-import heart from "@/assets/Ease_heart_Pink.svg";
+import pipContent from "@/assets/Pip_Content.svg";
 
 const DURATIONS = ["Under 5 min", "5-15 min", "15-30 min", "Over 30 min"];
 const TACTICS = ["Yes, they helped", "Not Fully", "No, not really"];
@@ -20,7 +20,7 @@ const Pill = ({
 }) => (
   <button
     onClick={onClick}
-    className={`h-10 px-5 rounded-full text-ease-sm font-semibold border transition inline-flex w-auto items-center justify-center ${
+    className={`h-11 px-5 rounded-full text-ease-sm font-semibold border transition inline-flex w-auto items-center justify-center ${
       active
         ? "bg-primary text-primary-foreground border-primary"
         : "bg-transparent text-white/70 border-white/25"
@@ -82,8 +82,8 @@ export const PostCrisis = () => {
       {/* Header */}
       <div className="px-5 pt-3 pb-2 shrink-0">
         <button
-          onClick={() => go("homeV2")}
-          className="w-9 h-9 -ml-2 rounded-full flex items-center justify-center text-white/80 hover:bg-white/5"
+          onClick={() => go(returnTo)}
+          className="w-11 h-11 -ml-2 rounded-full flex items-center justify-center text-white/80 hover:bg-white/5"
         >
           <ChevronLeft size={22} />
         </button>
@@ -184,7 +184,7 @@ export const PostCrisis = () => {
         </button>
         <button
           onClick={finish}
-          className="flex-1 h-[52px] rounded-full bg-white text-ink font-semibold inline-flex items-center justify-center gap-2"
+          className="flex-1 h-[52px] rounded-full bg-white text-ink font-semibold inline-flex items-center justify-center gap-2 px-6"
         >
           Share with {playbook.parentName.split(" ")[0]} <ArrowRight size={18} />
         </button>
@@ -197,7 +197,7 @@ export const PostCrisis = () => {
             overlayPhase === "in" ? "opacity-100 duration-200" : "opacity-0 duration-300"
           }`}
         >
-          <img src={heart} alt="" className="w-16 h-16" />
+          <img src={pipContent} alt="" style={{ width: 80, height: 80 }} />
           <h2 className="font-display text-ease-2xl text-white mt-5">Session logged.</h2>
           <p className="mt-2 text-ease-sm text-white/55">
             {playbook.childName}'s parent will be notified.

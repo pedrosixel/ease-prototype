@@ -113,10 +113,10 @@ export const Welcome = () => {
             style={{
               width: "100%",
               height: "52px",
-              background: "transparent",
-              border: "1.5px solid #D5D5D5",
+              background: "#FFFFFF",
+              border: "none",
               borderRadius: 16,
-              color: "#000000",
+              color: "#7B5EA7",
               fontSize: 16,
               fontWeight: 600,
               fontFamily: "Nunito Sans",
