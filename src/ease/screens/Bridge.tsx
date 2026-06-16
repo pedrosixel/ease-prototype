@@ -26,17 +26,17 @@ export const Bridge = () => {
           <Row
             icon={<AlertCircle size={18} className="text-secondary" />}
             label="Primary trigger"
-            value={playbook.triggers[0]}
+            value={playbook.triggers[0] ?? "Not specified"}
           />
           <Row
             icon={<Heart size={18} className="text-secondary" />}
             label="Best tactic"
-            value={playbook.calming[0]}
+            value={playbook.calming[0] ?? "Not specified"}
           />
           <Row
             icon={<Ban size={18} className="text-secondary" />}
             label="Avoid"
-            value={playbook.avoid[0]}
+            value={playbook.avoid[0] ?? "Not specified"}
           />
         </div>
       </div>

@@ -32,7 +32,7 @@ const Pill = ({
 
 export const PostCrisis = () => {
   const { go, playbook, crisisOrigin, caregiver, addFeedbackEntry } = useEase();
-  const returnTo = "homeV2";
+  const returnTo = crisisOrigin === "caregiver" ? "caregiverHome" : "homeV2";
   const [duration, setDuration] = useState<string>("Under 5 min");
   const [tactic, setTactic] = useState<string | null>(null);
   const [ctx, setCtx] = useState<string | null>(null);
@@ -186,7 +186,7 @@ export const PostCrisis = () => {
           onClick={finish}
           className="flex-1 h-[52px] rounded-full bg-white text-ink font-semibold inline-flex items-center justify-center gap-2"
         >
-          Share with Mariana <ArrowRight size={18} />
+          Share with {playbook.parentName.split(" ")[0]} <ArrowRight size={18} />
         </button>
       </div>
 

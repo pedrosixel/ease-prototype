@@ -189,9 +189,99 @@ export const CaregiverHome = () => {
             <Divider />
 
             <Section label="CARE & MEDS">
-              <div className="italic" style={{ fontSize: 15, color: MUTED }}>
-                Nothing added yet.
-              </div>
+              {playbook.medications.length === 0 && playbook.dietary.length === 0 ? (
+                <div className="italic" style={{ fontSize: 15, color: MUTED }}>
+                  Nothing added yet.
+                </div>
+              ) : (
+                <div className="flex flex-col" style={{ gap: 8 }}>
+                  {playbook.medications.map((m, i) => (
+                    <span
+                      key={i}
+                      style={{
+                        background: "#FFFFFF",
+                        color: TEXT,
+                        border: "1px solid #CCBFB8",
+                        borderRadius: 8,
+                        padding: "8px 12px",
+                        fontSize: 15,
+                      }}
+                    >
+                      {m}
+                    </span>
+                  ))}
+                  {playbook.dietary.length > 0 && (
+                    <>
+                      <div className="uppercase mt-2" style={sectionLabelStyle}>
+                        Dietary
+                      </div>
+                      {playbook.dietary.map((d, i) => (
+                        <span
+                          key={i}
+                          style={{
+                            background: "#FFFFFF",
+                            color: TEXT,
+                            border: "1px solid #CCBFB8",
+                            borderRadius: 8,
+                            padding: "8px 12px",
+                            fontSize: 15,
+                          }}
+                        >
+                          {d}
+                        </span>
+                      ))}
+                    </>
+                  )}
+                </div>
+              )}
+            </Section>
+
+            <Divider />
+
+            <Section label="FAVOURITE TOY">
+              {playbook.favouriteToy ? (
+                <span
+                  style={{
+                    background: "#FFFFFF",
+                    color: TEXT,
+                    border: "1px solid #CCBFB8",
+                    borderRadius: 8,
+                    padding: "8px 12px",
+                    fontSize: 15,
+                    display: "inline-block",
+                  }}
+                >
+                  {playbook.favouriteToy}
+                </span>
+              ) : (
+                <div className="italic" style={{ fontSize: 15, color: MUTED }}>
+                  Not added yet.
+                </div>
+              )}
+            </Section>
+
+            <Divider />
+
+            <Section label="COMFORT SONG">
+              {playbook.comfortSong ? (
+                <span
+                  style={{
+                    background: "#FFFFFF",
+                    color: TEXT,
+                    border: "1px solid #CCBFB8",
+                    borderRadius: 8,
+                    padding: "8px 12px",
+                    fontSize: 15,
+                    display: "inline-block",
+                  }}
+                >
+                  {playbook.comfortSong}
+                </span>
+              ) : (
+                <div className="italic" style={{ fontSize: 15, color: MUTED }}>
+                  Not added yet.
+                </div>
+              )}
             </Section>
           </div>
         </div>
