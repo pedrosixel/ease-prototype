@@ -45,12 +45,12 @@ export const CaregiverHome = () => {
   }
 
   return (
-    <div className="h-full flex flex-col" style={{ background: "#FFFFFF" }}>
-      <div className="flex-1 overflow-y-auto phone-scroll">
+    <div className="h-full flex flex-col" style={{ background: PURPLE_TINT }}>
+      <div className="flex-1 overflow-y-auto phone-scroll" style={{ background: "transparent" }}>
         {/* Greeting row */}
         <div
           className="flex items-center justify-between"
-          style={{ padding: "14px 20px 0", marginBottom: 12 }}
+          style={{ padding: "56px 20px 0", marginBottom: 12 }}
         >
           <div
             className="font-display"
@@ -59,57 +59,73 @@ export const CaregiverHome = () => {
             Hey Paul
           </div>
           <CaregiverTopBarGear />
-
         </div>
 
-        {/* Centered child block */}
+        {/* Photo above the wave */}
         <div
-          className="flex flex-col items-center"
-          style={{ padding: "20px", gap: 6, marginTop: 8 }}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            position: "relative",
+            zIndex: 3,
+            marginBottom: -60,
+            paddingTop: 16,
+          }}
         >
           <img
             src={CHILD_PHOTOS[activeChildId]}
             alt={playbook.childName}
-            className="object-cover"
             style={{
-              width: 80,
-              height: 80,
+              width: 110,
+              height: 110,
               borderRadius: "50%",
-              border: "3px solid #7B5EA7",
+              border: "5px solid #7B5EA7",
+              objectFit: "cover",
+              boxShadow: "0 0 0 4px #EDE5F7",
             }}
           />
-          <div
-            className="font-display"
-            style={{ fontSize: 22, color: INK, fontWeight: 700, lineHeight: 1.1 }}
-          >
-            {playbook.childName}
-          </div>
-          <div style={{ fontSize: 12, color: MUTED }}>
-            {playbook.childAge} years old · Vancouver, BC
-          </div>
-          <div
-            style={{
-              background: "#7B5EA7",
-              color: "#FFFFFF",
-              fontSize: 11,
-              fontWeight: 700,
-              padding: "3px 12px",
-              borderRadius: 20,
-            }}
-          >
-            {playbook.diagnosis}
-          </div>
         </div>
 
-        {/* White card */}
+        {/* White wave card */}
         <div
           style={{
             background: "#FFFFFF",
-            borderRadius: "20px 20px 0 0",
-            padding: 16,
-            border: "1px solid #CCBFB8",
+            borderRadius: "50% 50% 0 0 / 40px 40px 0 0",
+            width: "100%",
+            paddingTop: 72,
+            paddingBottom: 24,
+            paddingLeft: 20,
+            paddingRight: 20,
+            position: "relative",
+            zIndex: 2,
           }}
         >
+          {/* Name + age + badge */}
+          <div className="flex flex-col items-center" style={{ gap: 6, marginBottom: 16 }}>
+            <div
+              className="font-display"
+              style={{ fontSize: 22, color: INK, fontWeight: 700, lineHeight: 1.1 }}
+            >
+              {playbook.childName}
+            </div>
+            <div style={{ fontSize: 12, color: MUTED }}>
+              {playbook.childAge} years old · Vancouver, BC
+            </div>
+            <div
+              style={{
+                background: PURPLE,
+                color: "#FFFFFF",
+                fontSize: 11,
+                fontWeight: 700,
+                padding: "3px 12px",
+                borderRadius: 20,
+                marginBottom: 8,
+              }}
+            >
+              {playbook.diagnosis}
+            </div>
+          </div>
+
           <div className="flex flex-col" style={{ gap: 20 }}>
             <div>
               <p style={{ fontSize: 15, color: TEXT, lineHeight: 1.6 }}>

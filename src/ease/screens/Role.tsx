@@ -134,38 +134,41 @@ export const Role = () => {
         </PrimaryBtn>
       </div>
 
-      {/* Dark overlay - phase 1 only */}
-      {!isPhase2 && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: "rgba(0,0,0,0.5)",
-            zIndex: 9,
-          }}
-        />
-      )}
+      {/* Dark overlay - fades out on phase transition */}
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: "rgba(0,0,0,0.5)",
+          zIndex: 9,
+          opacity: isPhase2 ? 0 : 1,
+          transition: "opacity 250ms ease-out",
+          pointerEvents: "none",
+        }}
+      />
 
-      {/* Tap overlay - phase 1 only */}
-      {!isPhase2 && (
-        <button
-          onClick={handleTap}
-          aria-label="Continue"
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: 10,
-            background: "transparent",
-            border: "none",
-          }}
-        />
-      )}
+      {/* Tap overlay - disabled after phase changes */}
+      <button
+        onClick={handleTap}
+        aria-label="Continue"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 10,
+          background: "transparent",
+          border: "none",
+          opacity: isPhase2 ? 0 : 1,
+          transition: "opacity 250ms ease-out",
+          pointerEvents: isPhase2 ? "none" : "auto",
+          cursor: isPhase2 ? "default" : "pointer",
+        }}
+      />
 
       {/* Pip */}
       <img
@@ -181,7 +184,7 @@ export const Role = () => {
           opacity: mounted ? 1 : 0,
           transform: `translateX(-50%) translateY(${mounted ? "0px" : "60px"})`,
           transition:
-            "opacity 600ms ease-out, transform 600ms ease-out, top 500ms ease-in-out, width 500ms ease-in-out, height 500ms ease-in-out",
+            "opacity 600ms ease-out, transform 600ms ease-out, top 500ms cubic-bezier(0.77, 0, 0.175, 1), width 500ms ease-out, height 500ms ease-out",
           zIndex: 20,
           pointerEvents: "none",
         }}

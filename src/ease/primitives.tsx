@@ -96,7 +96,7 @@ export const PrimaryBtn = ({
   disabled?: boolean;
 }) => {
   const base =
-    "rounded-[14px] px-6 h-[52px] text-ease-base font-semibold transition active:scale-[0.99] inline-flex items-center justify-center";
+    "rounded-[14px] px-6 h-[52px] text-ease-base font-semibold transition active:scale-[0.97] inline-flex items-center justify-center";
   const styles = {
     coral: "bg-primary text-primary-foreground hover:bg-primary/90",
     blue: "bg-secondary text-secondary-foreground hover:bg-secondary/90",

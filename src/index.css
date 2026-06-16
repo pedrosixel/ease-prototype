@@ -130,3 +130,8 @@
 /* Hide scrollbar inside phone */
 .phone-scroll::-webkit-scrollbar { display: none; }
 .phone-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+
+@keyframes toast-up {
+  from { opacity: 0; transform: translate(-50%, calc(-50% + 8px)); }
+  to   { opacity: 1; transform: translate(-50%, -50%); }
+}

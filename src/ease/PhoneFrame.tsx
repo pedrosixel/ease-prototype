@@ -37,14 +37,16 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
     "caregiverConnect",
     "caregiverList",
     "bridge",
-    "caregiverHome",
   ]);
   const fullBleedCream = screen === "homeV2" || screen === "insightsAll";
+  const fullBleedPurple = screen === "caregiverHome";
   const bgClass = dark
     ? "bg-crisis"
     : screen === "welcome"
     ? "bg-[#7B5EA7]"
     : screen === "caregiverWelcome"
+    ? "bg-[#EDE5F7]"
+    : fullBleedPurple
     ? "bg-[#EDE5F7]"
     : caregiverScreens.has(screen)
     ? "bg-background"
@@ -87,8 +89,9 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
               boxShadow: "0 4px 24px rgba(0,0,0,0.15)",
               whiteSpace: "nowrap",
               zIndex: 9999,
-              opacity: toast.phase === "out" ? 0 : 1,
-              transition: "opacity 500ms ease",
+              opacity: toast.phase === "out" ? 0 : undefined,
+              transition: "opacity 300ms ease-out",
+              animation: toast.phase !== "out" ? "toast-up 300ms ease-out forwards" : undefined,
             }}
           >
             <img src={heart} alt="" style={{ width: "22px", height: "22px", flexShrink: 0 }} />
@@ -127,7 +130,7 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
           )}
 
           {/* Content */}
-          <div className={`absolute inset-0 ${fullBleedCream ? "" : "pt-[44px]"} phone-scroll overflow-hidden`}>
+          <div className={`absolute inset-0 ${fullBleedCream || fullBleedPurple ? "" : "pt-[44px]"} phone-scroll overflow-hidden`}>
             {children}
           </div>
 
@@ -150,8 +153,9 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
                 boxShadow: "0 4px 24px rgba(0,0,0,0.15)",
                 whiteSpace: "nowrap",
                 zIndex: 9999,
-                opacity: toast.phase === "out" ? 0 : 1,
-                transition: "opacity 500ms ease",
+                opacity: toast.phase === "out" ? 0 : undefined,
+                transition: "opacity 300ms ease-out",
+                animation: toast.phase !== "out" ? "toast-up 300ms ease-out forwards" : undefined,
               }}
             >
               <img src={heart} alt="" style={{ width: "22px", height: "22px", flexShrink: 0 }} />
