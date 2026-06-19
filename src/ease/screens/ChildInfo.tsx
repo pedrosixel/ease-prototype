@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ChevronDown, Info } from "lucide-react";
 import { TopBar, PrimaryBtn, StepLabel, Dots } from "../primitives";
 import { useEase } from "../state";
 import { useBackGestures } from "../useBackGestures";
@@ -9,6 +10,7 @@ type LevelOpt = "1" | "2" | "3" | "d" | "nd";
 export const ChildInfo = () => {
   const { go, playbook, setPlaybook } = useEase();
   const [showPrivacy, setShowPrivacy] = useState(false);
+  const [levelInfoOpen, setLevelInfoOpen] = useState(false);
   const current: LevelOpt =
     playbook.diagnosis === "Not Diagnosed"
       ? "nd"
@@ -62,22 +64,76 @@ export const ChildInfo = () => {
           <label className="text-ease-xs uppercase tracking-[0.14em] text-muted-foreground font-bold">
             Age
           </label>
-          <select
-            value={playbook.childAge}
-            onChange={(e) => setPlaybook({ ...playbook, childAge: Number(e.target.value) })}
-            className="mt-2 w-full h-12 rounded-[14px] border border-border bg-card px-4 text-ease-base text-foreground focus:outline-none focus:border-primary"
-          >
-            {Array.from({ length: 12 }, (_, i) => i + 1).map((n) => (
-              <option key={n} value={n}>{n} {n === 1 ? "year" : "years"} old</option>
-            ))}
-          </select>
+          <div className="relative mt-2">
+            <select
+              value={playbook.childAge}
+              onChange={(e) => setPlaybook({ ...playbook, childAge: Number(e.target.value) })}
+              className="appearance-none w-full h-12 rounded-[14px] border border-border bg-card pl-4 pr-10 text-ease-base text-foreground focus:outline-none focus:border-primary"
+            >
+              {Array.from({ length: 12 }, (_, i) => i + 1).map((n) => (
+                <option key={n} value={n}>{n} {n === 1 ? "year" : "years"} old</option>
+              ))}
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+              <ChevronDown size={18} className="text-muted-foreground" />
+            </div>
+          </div>
         </div>
 
         {/* Autism level */}
         <div className="mt-5">
-          <label className="text-ease-xs uppercase tracking-[0.14em] text-muted-foreground font-bold">
-            Autism level
-          </label>
+          <div className="relative">
+            <div className="flex items-center gap-1.5">
+              <label className="text-ease-xs uppercase tracking-[0.14em] text-muted-foreground font-bold">
+                Autism level
+              </label>
+              <button
+                onClick={() => setLevelInfoOpen(true)}
+                className="w-[44px] h-[44px] flex items-center justify-center -ml-2"
+                aria-label="What do the autism levels mean?"
+              >
+                <Info size={15} color="#F3768D" />
+              </button>
+            </div>
+            {levelInfoOpen && (
+              <>
+                <div
+                  onClick={() => setLevelInfoOpen(false)}
+                  style={{ position: "fixed", inset: 0, zIndex: 40 }}
+                />
+                <div
+                  className="animate-in fade-in zoom-in-95 duration-[180ms]"
+                  style={{
+                    position: "absolute",
+                    top: "100%",
+                    left: 0,
+                    right: 0,
+                    zIndex: 50,
+                    marginTop: 6,
+                    transformOrigin: "top left",
+                    background: "#FFFFFF",
+                    border: "1px solid #CCBFB8",
+                    borderRadius: 8,
+                    padding: 14,
+                  }}
+                >
+                  <div style={{ fontFamily: "'Nunito Sans', sans-serif", fontSize: 13, fontWeight: 600, color: "#444444", marginBottom: 10 }}>
+                    What does this mean?
+                  </div>
+                  {[
+                    { label: "Level 1 — Needs support", desc: "Often has strong communication skills, but social situations and unexpected changes can be challenging." },
+                    { label: "Level 2 — Needs substantial support", desc: "Social communication is more affected. Behaviors may be more noticeable in daily settings." },
+                    { label: "Level 3 — Needs very substantial support", desc: "Communication is significantly impacted. Intensive daily support is essential." },
+                  ].map((d, i) => (
+                    <div key={i} style={{ marginTop: i > 0 ? 10 : 0 }}>
+                      <div style={{ fontFamily: "'Nunito Sans', sans-serif", fontSize: 12, fontWeight: 600, color: "#F3768D" }}>{d.label}</div>
+                      <div style={{ fontFamily: "'Nunito Sans', sans-serif", fontSize: 12, fontWeight: 400, color: "#777777", marginTop: 2 }}>{d.desc}</div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
           <div className="mt-2 grid grid-cols-2 gap-2">
             {([
               { v: "1" as LevelOpt, label: "Level 1", span: false },
@@ -96,7 +152,7 @@ export const ChildInfo = () => {
                     opt.span ? "col-span-2" : ""
                   } ${
                     active
-                      ? "bg-primary text-white border-[1.5px] border-primary"
+                      ? "bg-primary text-[#1A1A1A] border-[1.5px] border-primary"
                       : "bg-card text-foreground"
                   }`}
                 >
@@ -132,7 +188,7 @@ export const ChildInfo = () => {
             </p>
             <button
               onClick={() => setShowPrivacy(false)}
-              style={{ marginTop: "20px", width: "100%", height: "48px", background: "#F3768D", color: "#fff", fontFamily: "'Nunito Sans', sans-serif", fontSize: "15px", border: "none", borderRadius: "999px" }}
+              style={{ marginTop: "20px", width: "100%", height: "48px", background: "#F3768D", color: "#1A1A1A", fontFamily: "'Nunito Sans', sans-serif", fontSize: "15px", border: "none", borderRadius: "999px" }}
             >
               Got it
             </button>

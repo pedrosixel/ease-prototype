@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Check } from "lucide-react";
+import { Check, Info } from "lucide-react";
 import { Avatar, CaregiverBottomNav, CaregiverTopBarGear } from "../primitives";
 import { useEase, ChildId } from "../state";
 import { CHILD_PHOTOS } from "../assets";
@@ -26,6 +26,7 @@ export const CaregiverList = () => {
   const ids: ChildId[] = ["tyler", "heitor"];
   const [modal, setModal] = useState<Modal>(null);
   const [addOpen, setAddOpen] = useState(false);
+  const [levelInfoOpen, setLevelInfoOpen] = useState(false);
   const [addLink, setAddLink] = useState("");
   const [pendingCheckInId, setPendingCheckInId] = useState<ChildId | null>(null);
 
@@ -102,8 +103,15 @@ export const CaregiverList = () => {
                 />
                 <div className="flex-1 min-w-0">
                   <div className="font-display text-ease-lg text-ink truncate">{c.childName}</div>
-                  <div className="text-ease-sm text-muted-foreground">
-                    Age {c.childAge} · {c.diagnosis}
+                  <div className="flex items-center text-ease-sm text-muted-foreground">
+                    <span>Age {c.childAge} · {c.diagnosis}</span>
+                    <button
+                      onClick={() => setLevelInfoOpen(true)}
+                      className="w-[44px] h-[44px] flex items-center justify-center shrink-0"
+                      aria-label="What do the autism levels mean?"
+                    >
+                      <Info size={13} color="#7B5EA7" />
+                    </button>
                   </div>
                   <div className="flex items-center gap-1.5 mt-2">
                     <span
@@ -250,6 +258,44 @@ export const CaregiverList = () => {
           )}
         </div>
       </div>
+
+      {levelInfoOpen && (
+        <>
+          <div
+            onClick={() => setLevelInfoOpen(false)}
+            style={{ position: "fixed", inset: 0, zIndex: 40 }}
+          />
+          <div
+            className="animate-in fade-in zoom-in-95 duration-[180ms]"
+            style={{
+              position: "fixed",
+              bottom: 96,
+              left: 16,
+              right: 16,
+              zIndex: 50,
+              transformOrigin: "bottom center",
+              background: "#FFFFFF",
+              border: "1px solid #CCBFB8",
+              borderRadius: 8,
+              padding: 14,
+            }}
+          >
+            <div style={{ fontFamily: "'Nunito Sans', sans-serif", fontSize: 13, fontWeight: 600, color: "#444444", marginBottom: 10 }}>
+              What does this mean?
+            </div>
+            {[
+              { label: "Level 1 — Needs support", desc: "Often has strong communication skills, but social situations and unexpected changes can be challenging." },
+              { label: "Level 2 — Needs substantial support", desc: "Social communication is more affected. Behaviors may be more noticeable in daily settings." },
+              { label: "Level 3 — Needs very substantial support", desc: "Communication is significantly impacted. Intensive daily support is essential." },
+            ].map((d, i) => (
+              <div key={i} style={{ marginTop: i > 0 ? 10 : 0 }}>
+                <div style={{ fontFamily: "'Nunito Sans', sans-serif", fontSize: 12, fontWeight: 600, color: "#7B5EA7" }}>{d.label}</div>
+                <div style={{ fontFamily: "'Nunito Sans', sans-serif", fontSize: 12, fontWeight: 400, color: "#777777", marginTop: 2 }}>{d.desc}</div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
 
       <CaregiverBottomNav active="caregiverList" />
 

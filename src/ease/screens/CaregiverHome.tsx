@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { Info } from "lucide-react";
 import { CaregiverBottomNav, PrimaryBtn, CaregiverTopBarGear } from "../primitives";
 import { useEase } from "../state";
 import { CHILD_PHOTOS } from "../assets";
@@ -21,6 +23,7 @@ const sectionLabelStyle = {
 
 export const CaregiverHome = () => {
   const { go, playbook, activeChildId, checkedInChildId } = useEase();
+  const [levelInfoOpen, setLevelInfoOpen] = useState(false);
 
   if (!checkedInChildId) {
     return (
@@ -101,7 +104,7 @@ export const CaregiverHome = () => {
           }}
         >
           {/* Name + age + badge */}
-          <div className="flex flex-col items-center" style={{ gap: 6, marginBottom: 16 }}>
+          <div className="relative flex flex-col items-center" style={{ gap: 6, marginBottom: 16 }}>
             <div
               className="font-display"
               style={{ fontSize: 22, color: INK, fontWeight: 700, lineHeight: 1.1 }}
@@ -111,19 +114,65 @@ export const CaregiverHome = () => {
             <div style={{ fontSize: 12, color: MUTED }}>
               {playbook.childAge} years old · Vancouver, BC
             </div>
-            <div
-              style={{
-                background: PURPLE,
-                color: "#FFFFFF",
-                fontSize: 11,
-                fontWeight: 700,
-                padding: "3px 12px",
-                borderRadius: 20,
-                marginBottom: 8,
-              }}
-            >
-              {playbook.diagnosis}
+            <div className="flex items-center gap-1.5" style={{ marginBottom: 8 }}>
+              <div
+                style={{
+                  background: PURPLE,
+                  color: "#FFFFFF",
+                  fontSize: 11,
+                  fontWeight: 700,
+                  padding: "3px 12px",
+                  borderRadius: 20,
+                }}
+              >
+                {playbook.diagnosis}
+              </div>
+              <button
+                onClick={() => setLevelInfoOpen(true)}
+                className="w-[44px] h-[44px] flex items-center justify-center"
+                aria-label="What do the autism levels mean?"
+              >
+                <Info size={14} color="#7B5EA7" />
+              </button>
             </div>
+            {levelInfoOpen && (
+              <>
+                <div
+                  onClick={() => setLevelInfoOpen(false)}
+                  style={{ position: "fixed", inset: 0, zIndex: 40 }}
+                />
+                <div
+                  className="animate-in fade-in zoom-in-95 duration-[180ms]"
+                  style={{
+                    position: "absolute",
+                    top: "100%",
+                    left: 0,
+                    right: 0,
+                    zIndex: 50,
+                    marginTop: 4,
+                    transformOrigin: "top center",
+                    background: "#FFFFFF",
+                    border: "1px solid #CCBFB8",
+                    borderRadius: 8,
+                    padding: 14,
+                  }}
+                >
+                  <div style={{ fontFamily: "'Nunito Sans', sans-serif", fontSize: 13, fontWeight: 600, color: "#444444", marginBottom: 10 }}>
+                    What does this mean?
+                  </div>
+                  {[
+                    { label: "Level 1 — Needs support", desc: "Often has strong communication skills, but social situations and unexpected changes can be challenging." },
+                    { label: "Level 2 — Needs substantial support", desc: "Social communication is more affected. Behaviors may be more noticeable in daily settings." },
+                    { label: "Level 3 — Needs very substantial support", desc: "Communication is significantly impacted. Intensive daily support is essential." },
+                  ].map((d, i) => (
+                    <div key={i} style={{ marginTop: i > 0 ? 10 : 0 }}>
+                      <div style={{ fontFamily: "'Nunito Sans', sans-serif", fontSize: 12, fontWeight: 600, color: "#7B5EA7" }}>{d.label}</div>
+                      <div style={{ fontFamily: "'Nunito Sans', sans-serif", fontSize: 12, fontWeight: 400, color: "#777777", marginTop: 2 }}>{d.desc}</div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
           <div className="flex flex-col" style={{ gap: 20 }}>
