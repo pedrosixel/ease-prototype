@@ -98,7 +98,7 @@ export const PrimaryBtn = ({
   const base =
     "rounded-[14px] px-6 h-[52px] text-ease-base font-semibold transition active:scale-[0.97] inline-flex items-center justify-center";
   const styles = {
-    coral: "bg-primary text-[#1A1A1A] hover:bg-primary/90",
+    coral: "bg-primary text-primary-foreground hover:bg-primary/90",
     blue: "bg-secondary text-secondary-foreground hover:bg-secondary/90",
     ghost: "bg-card text-ink border border-border hover:bg-muted",
     dark: "bg-white text-ink hover:bg-white/90",
@@ -226,7 +226,6 @@ export const ParentBottomNav = ({ active }: { active: "home" | "circle" }) => {
           className={`flex flex-col items-center gap-1 ${helpActive ? "text-primary" : "text-muted-foreground"}`}
           aria-label="Open crisis view"
         >
-          {/* TODO: HelpTriangle white-on-pink fails WCAG 3:1 (2.70:1). Consider thicker SVG stroke or dark fill in a future pass. */}
           <span
             className="w-11 h-11 rounded-full flex items-center justify-center text-white"
             style={{ backgroundColor: "#F3768D" }}

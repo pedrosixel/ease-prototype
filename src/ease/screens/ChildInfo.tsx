@@ -152,7 +152,7 @@ export const ChildInfo = () => {
                     opt.span ? "col-span-2" : ""
                   } ${
                     active
-                      ? "bg-primary text-[#1A1A1A] border-[1.5px] border-primary"
+                      ? "bg-primary text-white border-[1.5px] border-primary"
                       : "bg-card text-foreground"
                   }`}
                 >
@@ -188,7 +188,7 @@ export const ChildInfo = () => {
             </p>
             <button
               onClick={() => setShowPrivacy(false)}
-              style={{ marginTop: "20px", width: "100%", height: "48px", background: "#F3768D", color: "#1A1A1A", fontFamily: "'Nunito Sans', sans-serif", fontSize: "15px", border: "none", borderRadius: "999px" }}
+              style={{ marginTop: "20px", width: "100%", height: "48px", background: "#F3768D", color: "#fff", fontFamily: "'Nunito Sans', sans-serif", fontSize: "15px", border: "none", borderRadius: "999px" }}
             >
               Got it
             </button>
