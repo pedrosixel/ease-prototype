@@ -1,4 +1,5 @@
 import { ReactNode, useEffect } from "react";
+import { Signal, Wifi, BatteryFull } from "lucide-react";
 import { useEase } from "./state";
 import { useIsMobile } from "@/hooks/use-mobile";
 import heart from "@/assets/Ease_heart_Pink.svg";
@@ -40,6 +41,8 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
   ]);
   const fullBleedCream = screen === "homeV2" || screen === "insightsAll";
   const fullBleedPurple = screen === "caregiverHome";
+  const fullBleedWelcome = screen === "welcome";
+  const noSafeArea = fullBleedCream || fullBleedPurple || fullBleedWelcome;
   const bgClass = dark
     ? "bg-crisis"
     : screen === "welcome"
@@ -104,37 +107,67 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
 
   return (
     <div className="relative">
-      {/* Phone */}
-      <div className="relative w-[402px] h-[874px] rounded-[48px] bg-[#0e0e10] p-[6px] ease-shadow">
+      {/* Phone chassis — aspect-ratio drives height; no hardcoded h */}
+      <div
+        className="relative w-[402px] rounded-[48px] bg-[#0e0e10] p-[6px] ease-shadow"
+        style={{ aspectRatio: "393/852" }}
+      >
         <div
-          className={`relative w-full h-full rounded-[42px] overflow-hidden ${bgClass}`}
+          className={`relative w-full h-full rounded-[44px] overflow-hidden ${bgClass}`}
         >
-          {/* Notch */}
-          {!isMobile && (
-            <div className="absolute top-2 left-1/2 -translate-x-1/2 z-50 w-[110px] h-[30px] bg-black rounded-full" />
-          )}
-          {/* Status bar */}
-          {!isMobile && (
-            <div
-              className={`absolute top-0 left-0 right-0 h-[44px] z-40 flex items-end justify-between px-7 pb-1 text-[13px] font-semibold ${
-                dark ? "text-white" : "text-ink"
-              }`}
-            >
-              <span>9:41</span>
-              <span className="flex items-center gap-1">
-                <span className="w-4 h-3 border-[1.5px] border-current rounded-[2px] relative">
-                  <span className="absolute inset-[2px] bg-current rounded-[1px]" />
-                </span>
-              </span>
-            </div>
-          )}
+          {/* Dynamic Island */}
+          <div
+            className="absolute bg-black pointer-events-none"
+            style={{
+              width: "32%",
+              height: "37px",
+              top: "12px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              borderRadius: "20px",
+              zIndex: 20,
+            }}
+          />
 
-          {/* Content */}
-          <div className={`absolute inset-0 ${fullBleedCream || fullBleedPurple ? "" : "pt-[44px]"} phone-scroll overflow-hidden`}>
+          {/* Status bar — 54px, Nunito Sans 15/600, lucide icons */}
+          <div
+            className="absolute top-0 left-0 right-0 pointer-events-none"
+            style={{ height: 54, zIndex: 10 }}
+          >
+            <div
+              className="h-full flex items-end justify-between"
+              style={{
+                paddingLeft: 20,
+                paddingRight: 20,
+                paddingBottom: 8,
+                color: dark ? "#FFFFFF" : "#1A1A1A",
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "'Nunito Sans', sans-serif",
+                  fontSize: 15,
+                  fontWeight: 600,
+                }}
+              >
+                9:41
+              </span>
+              <div className="flex items-center gap-1.5">
+                <Signal size={15} />
+                <Wifi size={15} />
+                <BatteryFull size={15} />
+              </div>
+            </div>
+          </div>
+
+          {/* Content — 54px safe area; welcome/homeV2/insightsAll/caregiverHome skip it */}
+          <div
+            className={`absolute inset-0 ${noSafeArea ? "" : "pt-[54px]"} phone-scroll overflow-hidden`}
+          >
             {children}
           </div>
 
-          {/* Toast slot */}
+          {/* Toast */}
           {toast && (
             <div
               key={toast.id}
@@ -164,13 +197,11 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
           )}
 
           {/* Home indicator */}
-          {!isMobile && (
-            <div
-              className={`absolute bottom-1.5 left-1/2 -translate-x-1/2 w-[134px] h-[5px] rounded-full z-50 ${
-                dark ? "bg-white/70" : "bg-black/80"
-              }`}
-            />
-          )}
+          <div
+            className={`absolute bottom-1.5 left-1/2 -translate-x-1/2 w-[134px] h-[5px] rounded-full z-50 ${
+              dark ? "bg-white/70" : "bg-black/80"
+            }`}
+          />
         </div>
       </div>
     </div>
