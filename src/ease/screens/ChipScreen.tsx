@@ -162,10 +162,9 @@ export const ChipScreen = ({ field }: { field: Field }) => {
             </div>
           )}
           <div
-            className="phone-scroll"
+            className="phone-scroll scrollbar-hide -mx-7 px-7"
             style={{
-              width: "100%",
-              overflowX: "auto",
+              overflowX: "scroll",
               display: "flex",
               flexDirection: "row",
               gap: 8,
