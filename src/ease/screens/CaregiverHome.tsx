@@ -22,7 +22,7 @@ const sectionLabelStyle = {
 };
 
 export const CaregiverHome = () => {
-  const { go, playbook, activeChildId, checkedInChildId } = useEase();
+  const { go, playbook, activeChildId, checkedInChildId, caregiver } = useEase();
   const [levelInfoOpen, setLevelInfoOpen] = useState(false);
 
   if (!checkedInChildId) {
@@ -59,7 +59,7 @@ export const CaregiverHome = () => {
             className="font-display"
             style={{ fontSize: 20, color: INK, fontWeight: 500 }}
           >
-            Hey Paul
+            Hey {caregiver.firstName || "there"}
           </div>
           <CaregiverTopBarGear />
         </div>

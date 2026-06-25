@@ -31,7 +31,7 @@ const Pill = ({
 );
 
 export const PostCrisis = () => {
-  const { go, playbook, crisisOrigin, caregiver, addFeedbackEntry } = useEase();
+  const { go, playbook, crisisOrigin, caregiver, user, addFeedbackEntry } = useEase();
   const returnTo = crisisOrigin === "caregiver" ? "caregiverHome" : "homeV2";
   const [duration, setDuration] = useState<string>("Under 5 min");
   const [tactic, setTactic] = useState<string | null>(null);
@@ -140,10 +140,10 @@ export const PostCrisis = () => {
           <div className="mt-5">
             <div className="text-ease-sm text-white font-semibold inline-flex items-center">
               <img src={star} alt="" className="w-4 h-4 mr-1.5" />
-              Any insight for {playbook.parentName.split(" ")[0]}?
+              Any insight for {user.firstName || "the parent"}?
             </div>
             <div className="text-ease-xs text-white/45 mt-0.5">
-              This helps {playbook.parentName.split(" ")[0]} refine the playbook.
+              This helps {user.firstName || "the parent"} refine the playbook.
             </div>
             <textarea
               value={notes}
@@ -186,7 +186,7 @@ export const PostCrisis = () => {
           onClick={finish}
           className="flex-1 h-[52px] rounded-full bg-white text-ink font-semibold inline-flex items-center justify-center gap-2 px-6"
         >
-          Share with {playbook.parentName.split(" ")[0]} <ArrowRight size={18} />
+          Share with {user.firstName || "the parent"} <ArrowRight size={18} />
         </button>
       </div>
 

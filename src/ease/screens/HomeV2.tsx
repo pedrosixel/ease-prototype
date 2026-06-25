@@ -58,7 +58,7 @@ const WaveCard = ({ children, topPad = 32 }: { children: React.ReactNode; topPad
 );
 
 export const HomeV2 = () => {
-  const { go } = useEase();
+  const { go, user } = useEase();
   const [tab, setTab] = useState<Tab>("profile");
 
   const tabs: { id: Tab; label: string }[] = [
@@ -79,7 +79,7 @@ export const HomeV2 = () => {
             className="font-display"
             style={{ fontSize: 20, color: INK, fontWeight: 500 }}
           >
-            Hey Mariana
+            Hey {user.firstName || "there"}
           </div>
           <button
             onClick={() => go("settings")}
