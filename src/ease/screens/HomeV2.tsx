@@ -511,17 +511,7 @@ const ProfileTab = () => {
             <ProfileDivider />
 
             <ProfileSection label={`About ${playbook.childName.trim() || "your child"}`}>
-              <div
-                style={{
-                  background: "#FFFFFF",
-                  border: "1px solid #CCBFB8",
-                  borderRadius: 8,
-                  padding: "14px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 16,
-                }}
-              >
+              <div className="flex flex-col" style={{ gap: 16 }}>
                 {/* Favourite toy */}
                 <div>
                   <div
