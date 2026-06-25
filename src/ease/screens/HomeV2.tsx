@@ -133,7 +133,7 @@ export const HomeV2 = () => {
   );
 };
 
-type EditSection = "triggers" | "calming" | "avoid" | "careMeds";
+type EditSection = "triggers" | "calming" | "avoid" | "careMeds" | "dietary";
 
 const ProfileTab = () => {
   const { playbook, setPlaybook, activeChildId } = useEase();
@@ -145,6 +145,9 @@ const ProfileTab = () => {
     calming: [...playbook.calming],
     avoid: [...playbook.avoid],
     careMeds: [...playbook.medications],
+    favouriteToy: playbook.favouriteToy,
+    comfortSong: playbook.comfortSong,
+    dietary: [...playbook.dietary],
   });
   const [confirmRemove, setConfirmRemove] = useState<
     { section: EditSection; index: number } | null
@@ -159,6 +162,9 @@ const ProfileTab = () => {
       calming: [...playbook.calming],
       avoid: [...playbook.avoid],
       careMeds: [...playbook.medications],
+      favouriteToy: playbook.favouriteToy,
+      comfortSong: playbook.comfortSong,
+      dietary: [...playbook.dietary],
     });
     setEditMode(true);
   };
@@ -171,6 +177,9 @@ const ProfileTab = () => {
       calming: draft.calming.filter((s) => s.trim().length > 0),
       avoid: draft.avoid.filter((s) => s.trim().length > 0),
       medications: draft.careMeds.filter((s) => s.trim().length > 0),
+      favouriteToy: draft.favouriteToy.trim(),
+      comfortSong: draft.comfortSong.trim(),
+      dietary: draft.dietary.filter((s) => s.trim().length > 0),
     });
     setEditMode(false);
   };
@@ -494,6 +503,114 @@ const ProfileTab = () => {
                     </div>
                   ))
                 )}
+              </div>
+            </ProfileSection>
+
+            <ProfileDivider />
+
+            <ProfileSection label={`About ${playbook.childName.trim() || "your child"}`}>
+              <div
+                style={{
+                  background: "#FFFFFF",
+                  border: "1px solid #CCBFB8",
+                  borderRadius: 8,
+                  padding: "14px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 16,
+                }}
+              >
+                {/* Favourite toy */}
+                <div>
+                  <div
+                    style={{
+                      fontSize: 11,
+                      color: MUTED,
+                      fontWeight: 700,
+                      textTransform: "uppercase",
+                      letterSpacing: "1.5px",
+                      marginBottom: 6,
+                    }}
+                  >
+                    Favourite toy
+                  </div>
+                  {editMode ? (
+                    <div style={{ background: CREAM, border: "1px solid #CCBFB8", borderRadius: 8, padding: "12px 14px" }}>
+                      <input
+                        className={bareInputCls}
+                        style={bareInputStyle}
+                        value={draft.favouriteToy}
+                        placeholder="Add a favourite toy..."
+                        onChange={(e) => setDraft({ ...draft, favouriteToy: e.target.value })}
+                      />
+                    </div>
+                  ) : playbook.favouriteToy ? (
+                    <div style={triggerChipStyle}>{playbook.favouriteToy}</div>
+                  ) : (
+                    <div className="italic" style={{ fontSize: 15, color: MUTED }}>Add a favourite toy...</div>
+                  )}
+                </div>
+
+                {/* Comfort song */}
+                <div>
+                  <div
+                    style={{
+                      fontSize: 11,
+                      color: MUTED,
+                      fontWeight: 700,
+                      textTransform: "uppercase",
+                      letterSpacing: "1.5px",
+                      marginBottom: 6,
+                    }}
+                  >
+                    Comfort song
+                  </div>
+                  {editMode ? (
+                    <div style={{ background: CREAM, border: "1px solid #CCBFB8", borderRadius: 8, padding: "12px 14px" }}>
+                      <input
+                        className={bareInputCls}
+                        style={bareInputStyle}
+                        value={draft.comfortSong}
+                        placeholder="Add a comfort song..."
+                        onChange={(e) => setDraft({ ...draft, comfortSong: e.target.value })}
+                      />
+                    </div>
+                  ) : playbook.comfortSong ? (
+                    <div style={triggerChipStyle}>{playbook.comfortSong}</div>
+                  ) : (
+                    <div className="italic" style={{ fontSize: 15, color: MUTED }}>Add a comfort song...</div>
+                  )}
+                </div>
+
+                {/* Dietary notes */}
+                <div>
+                  <div
+                    style={{
+                      fontSize: 11,
+                      color: MUTED,
+                      fontWeight: 700,
+                      textTransform: "uppercase",
+                      letterSpacing: "1.5px",
+                      marginBottom: 6,
+                    }}
+                  >
+                    Dietary notes
+                  </div>
+                  <div className="flex flex-col" style={{ gap: 8 }}>
+                    {editMode ? (
+                      <>
+                        {draft.dietary.map((item, i) => renderEditCard("dietary", item, i))}
+                        {addBtn("dietary")}
+                      </>
+                    ) : playbook.dietary.length === 0 ? (
+                      <div className="italic" style={{ fontSize: 15, color: MUTED }}>Add dietary notes...</div>
+                    ) : (
+                      playbook.dietary.map((item, i) => (
+                        <div key={i} style={triggerChipStyle}>{item}</div>
+                      ))
+                    )}
+                  </div>
+                </div>
               </div>
             </ProfileSection>
           </div>
