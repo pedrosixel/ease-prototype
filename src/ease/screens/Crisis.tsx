@@ -75,6 +75,7 @@ export const Crisis = () => {
       </div>
 
       <div className="flex-1 px-5 overflow-y-auto phone-scroll pb-4">
+        <div key={tab} className="animate-in fade-in duration-[100ms] ease-out">
         {tab === "plan" && (
           <>
             <div style={sectionLabelStyle}>What to do</div>
@@ -227,6 +228,7 @@ export const Crisis = () => {
             </div>
           </>
         )}
+        </div>
       </div>
 
       <div className="px-5 pb-5 shrink-0">
@@ -250,6 +252,7 @@ export const Crisis = () => {
 
       {show911Modal && (
         <div
+          className="animate-in fade-in duration-[150ms]"
           style={{
             position: "absolute",
             inset: 0,
@@ -262,6 +265,7 @@ export const Crisis = () => {
           }}
         >
           <div
+            className="animate-in fade-in zoom-in-95 duration-[150ms] ease-out"
             style={{
               background: "#1A1A1A",
               border: "1px solid rgba(255,255,255,0.15)",

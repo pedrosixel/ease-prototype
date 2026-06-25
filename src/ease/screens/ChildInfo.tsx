@@ -177,10 +177,12 @@ export const ChildInfo = () => {
       {showPrivacy && (
         <div
           onClick={() => setShowPrivacy(false)}
+          className="animate-in fade-in duration-[200ms]"
           style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.4)", display: "flex", alignItems: "flex-end", zIndex: 50 }}
         >
           <div
             onClick={(e) => e.stopPropagation()}
+            className="animate-in slide-in-from-bottom duration-[250ms] ease-out"
             style={{ width: "100%", background: "#fff", borderRadius: "20px 20px 0 0", padding: "24px" }}
           >
             <p style={{ fontFamily: "'Nunito Sans', sans-serif", fontSize: "14px", color: "#444", lineHeight: 1.6, margin: 0 }}>

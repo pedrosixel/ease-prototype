@@ -123,9 +123,11 @@ export const HomeV2 = () => {
           })}
         </div>
 
-        {tab === "profile" && <ProfileTab />}
-        {tab === "insights" && <InsightsTab />}
-        {tab === "emergency" && <EmergencyTab />}
+        <div key={tab} className="animate-in fade-in slide-in-from-bottom-1 duration-[150ms] ease-out">
+          {tab === "profile" && <ProfileTab />}
+          {tab === "insights" && <InsightsTab />}
+          {tab === "emergency" && <EmergencyTab />}
+        </div>
       </div>
 
       <ParentBottomNav active="home" />

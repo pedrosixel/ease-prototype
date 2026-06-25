@@ -194,7 +194,7 @@ export const PostCrisis = () => {
       {overlayPhase !== "hidden" && (
         <div
           className={`absolute inset-0 z-[70] bg-[#1A1A1A]/95 flex flex-col items-center justify-center transition-opacity ${
-            overlayPhase === "in" ? "opacity-100 duration-200" : "opacity-0 duration-300"
+            overlayPhase === "in" ? "opacity-100 duration-200" : "opacity-0 duration-150"
           }`}
         >
           <img src={pipContent} alt="" style={{ width: 80, height: 80 }} />

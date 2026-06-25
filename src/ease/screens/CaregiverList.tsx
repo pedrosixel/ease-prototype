@@ -394,7 +394,7 @@ export const CaregiverList = () => {
 };
 
 const Overlay = ({ children }: { children: React.ReactNode }) => (
-  <div className="absolute inset-0 bg-black/50 flex items-center justify-center px-6 z-50">
-    <div className="w-full bg-card rounded-2xl p-5 shadow-xl">{children}</div>
+  <div className="animate-in fade-in duration-[150ms] absolute inset-0 bg-black/50 flex items-center justify-center px-6 z-50">
+    <div className="animate-in fade-in zoom-in-95 duration-[150ms] ease-out w-full bg-card rounded-2xl p-5 shadow-xl">{children}</div>
   </div>
 );
