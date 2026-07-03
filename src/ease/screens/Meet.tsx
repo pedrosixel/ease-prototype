@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Camera } from "lucide-react";
 import { TopBar, PrimaryBtn, StepLabel, Dots } from "../primitives";
 import { useEase } from "../state";
 import { useBackGestures } from "../useBackGestures";
@@ -45,17 +44,6 @@ export const Meet = () => {
           className="w-full rounded-2xl border border-border bg-card p-4 focus:outline-none focus:border-primary"
           placeholder="What's their favourite topic? Do they have a favourite toy or activity they always come back to?"
         />
-        <button
-          type="button"
-          onClick={() => document.getElementById("meet-photo-input")?.click()}
-          style={{ marginTop: "12px", width: "100%", boxSizing: "border-box", display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "8px 16px", background: "#ffffff", border: "1px solid #CCBFB8", borderRadius: "999px" }}
-        >
-          <Camera size={16} color="#777777" />
-          <span style={{ fontFamily: "'Nunito Sans', sans-serif", fontSize: "13px", color: "#777777" }}>
-            Add a photo — optional
-          </span>
-        </button>
-        <input id="meet-photo-input" type="file" accept="image/*" hidden />
       </div>
       <div className="px-7 pb-8 pt-3 shrink-0">
         <PrimaryBtn onClick={() => go("triggers")}>Continue</PrimaryBtn>

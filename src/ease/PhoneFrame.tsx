@@ -32,7 +32,7 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
     };
   }, [isMobile]);
 
-  const dark = screen === "crisis" || screen === "postCrisis";
+  const dark = screen === "crisis" || screen === "postCrisis" || screen === "welcome";
   const caregiverScreens = new Set([
     "caregiverBio",
     "caregiverConnect",
