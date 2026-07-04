@@ -3,6 +3,7 @@ import { ChevronLeft, ArrowRight } from "lucide-react";
 import { useEase } from "../state";
 import { ScrollFade, ScrollHint } from "../primitives";
 import star from "@/assets/Ease_heart_Pink.svg";
+import starPurple from "@/assets/Ease_Star_Purple.svg";
 import pipContent from "@/assets/Pip_Content.svg";
 
 const DURATIONS = ["Under 5 min", "5-15 min", "15-30 min", "Over 30 min"];
@@ -13,16 +14,20 @@ const Pill = ({
   label,
   active,
   onClick,
+  isCaregiver = false,
 }: {
   label: string;
   active: boolean;
   onClick: () => void;
+  isCaregiver?: boolean;
 }) => (
   <button
     onClick={onClick}
     className={`h-11 px-5 rounded-full text-ease-sm font-semibold border transition inline-flex w-auto items-center justify-center ${
       active
-        ? "bg-primary text-primary-foreground border-primary"
+        ? isCaregiver
+          ? "bg-[#7B5EA7] text-white border-[#7B5EA7]"
+          : "bg-[#F3768D] text-white border-[#F3768D]"
         : "bg-transparent text-white/70 border-white/25"
     }`}
   >
@@ -33,6 +38,7 @@ const Pill = ({
 export const PostCrisis = () => {
   const { go, playbook, crisisOrigin, caregiver, user, addFeedbackEntry } = useEase();
   const returnTo = crisisOrigin === "caregiver" ? "caregiverHome" : "homeV2";
+  const isCaregiver = crisisOrigin === "caregiver";
   const [duration, setDuration] = useState<string>("Under 5 min");
   const [tactic, setTactic] = useState<string | null>(null);
   const [ctx, setCtx] = useState<string | null>(null);
@@ -117,6 +123,7 @@ export const PostCrisis = () => {
                 label={d}
                 active={duration === d}
                 onClick={() => setDuration(d)}
+                isCaregiver={isCaregiver}
               />
             ))}
           </div>
@@ -125,7 +132,7 @@ export const PostCrisis = () => {
         {/* TACTICS */}
         <section>
           <div className="text-[11px] uppercase tracking-[0.18em] text-white/40 font-bold mb-2 inline-flex items-center">
-            <img src={star} alt="" className="w-4 h-4 mr-1.5" />
+            <img src={isCaregiver ? starPurple : star} alt="" className="w-4 h-4 mr-1.5" />
             Tactics
           </div>
           <div className="text-ease-base text-white font-semibold mb-3">
@@ -133,13 +140,13 @@ export const PostCrisis = () => {
           </div>
           <div className="flex flex-wrap gap-2.5">
             {TACTICS.map((t) => (
-              <Pill key={t} label={t} active={tactic === t} onClick={() => setTactic(t)} />
+              <Pill key={t} label={t} active={tactic === t} onClick={() => setTactic(t)} isCaregiver={isCaregiver} />
             ))}
           </div>
 
           <div className="mt-5">
             <div className="text-ease-sm text-white font-semibold inline-flex items-center">
-              <img src={star} alt="" className="w-4 h-4 mr-1.5" />
+              <img src={isCaregiver ? starPurple : star} alt="" className="w-4 h-4 mr-1.5" />
               Any insight for {user.firstName || "the parent"}?
             </div>
             <div className="text-ease-xs text-white/45 mt-0.5">
@@ -150,7 +157,7 @@ export const PostCrisis = () => {
               onChange={(e) => setNotes(e.target.value)}
               rows={3}
               placeholder="e.g. he didn't respond to the weighted blanket this time..."
-              className="mt-3 w-full rounded-[15px] border border-primary bg-transparent text-white placeholder:italic placeholder:text-white/40 px-4 py-3 text-ease-sm focus:outline-none resize-none"
+              className={`mt-3 w-full rounded-[15px] border ${isCaregiver ? "border-[#7B5EA7]" : "border-primary"} bg-transparent text-white placeholder:italic placeholder:text-white/40 px-4 py-3 text-ease-sm focus:outline-none resize-none`}
             />
           </div>
         </section>
@@ -165,7 +172,7 @@ export const PostCrisis = () => {
           </div>
           <div className="flex flex-wrap gap-2.5">
             {CONTEXT.map((c) => (
-              <Pill key={c} label={c} active={ctx === c} onClick={() => setCtx(c)} />
+              <Pill key={c} label={c} active={ctx === c} onClick={() => setCtx(c)} isCaregiver={isCaregiver} />
             ))}
           </div>
         </section>

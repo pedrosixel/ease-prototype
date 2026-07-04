@@ -37,6 +37,7 @@ export const Bridge = () => {
             icon={<Ban size={18} className="text-secondary" />}
             label="Avoid"
             value={playbook.avoid[0] ?? "Not specified"}
+            withStrip
           />
         </div>
       </div>
@@ -54,12 +55,14 @@ const Row = ({
   icon,
   label,
   value,
+  withStrip = false,
 }: {
   icon: React.ReactNode;
   label: string;
   value: string;
+  withStrip?: boolean;
 }) => (
-  <div className="rounded-2xl bg-card border border-[#CCBFB8] border-l-[3px] border-l-secondary p-4 flex gap-3">
+  <div className={`rounded-2xl bg-card border border-[#CCBFB8] ${withStrip ? "border-l-[3px] border-l-secondary" : ""} p-4 flex gap-3`}>
     <div className="w-9 h-9 rounded-full bg-secondary-tint flex items-center justify-center shrink-0">
       {icon}
     </div>

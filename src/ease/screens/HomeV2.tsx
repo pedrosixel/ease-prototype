@@ -493,24 +493,43 @@ const ProfileTab = () => {
                   <>
                     {draft.careMeds.map((t, i) => renderEditCard("careMeds", t, i))}
                     {addBtn("careMeds")}
+                    <div style={{ fontSize: 11, color: MUTED, fontWeight: 700, textTransform: "uppercase", letterSpacing: "1.5px", marginTop: 12, marginBottom: 6 }}>
+                      Dietary
+                    </div>
+                    {draft.dietary.map((item, i) => renderEditCard("dietary", item, i))}
+                    {addBtn("dietary")}
                   </>
-                ) : playbook.medications.length === 0 ? (
+                ) : playbook.medications.length === 0 && playbook.dietary.length === 0 ? (
                   <div className="italic" style={{ fontSize: 15, color: MUTED }}>
                     Nothing added yet.
                   </div>
                 ) : (
-                  playbook.medications.map((t, i) => (
-                    <div key={i} style={careChipReadStyle}>
-                      {t}
-                    </div>
-                  ))
+                  <>
+                    {playbook.medications.map((t, i) => (
+                      <div key={i} style={careChipReadStyle}>
+                        {t}
+                      </div>
+                    ))}
+                    {playbook.dietary.length > 0 && (
+                      <>
+                        <div style={{ fontSize: 11, color: MUTED, fontWeight: 700, textTransform: "uppercase", letterSpacing: "1.5px", marginTop: 12, marginBottom: 6 }}>
+                          Dietary
+                        </div>
+                        {playbook.dietary.map((d, i) => (
+                          <div key={i} style={careChipReadStyle}>
+                            {d}
+                          </div>
+                        ))}
+                      </>
+                    )}
+                  </>
                 )}
               </div>
             </ProfileSection>
 
             <ProfileDivider />
 
-            <ProfileSection label={`About ${playbook.childName.trim() || "your child"}`}>
+            <ProfileSection label="COMFORT ITEMS">
               <div className="flex flex-col" style={{ gap: 16 }}>
                 {/* Favourite toy */}
                 <div>
@@ -574,35 +593,6 @@ const ProfileTab = () => {
                   )}
                 </div>
 
-                {/* Dietary notes */}
-                <div>
-                  <div
-                    style={{
-                      fontSize: 11,
-                      color: MUTED,
-                      fontWeight: 700,
-                      textTransform: "uppercase",
-                      letterSpacing: "1.5px",
-                      marginBottom: 6,
-                    }}
-                  >
-                    Dietary notes
-                  </div>
-                  <div className="flex flex-col" style={{ gap: 8 }}>
-                    {editMode ? (
-                      <>
-                        {draft.dietary.map((item, i) => renderEditCard("dietary", item, i))}
-                        {addBtn("dietary")}
-                      </>
-                    ) : playbook.dietary.length === 0 ? (
-                      <div className="italic" style={{ fontSize: 15, color: MUTED }}>Add dietary notes...</div>
-                    ) : (
-                      playbook.dietary.map((item, i) => (
-                        <div key={i} style={triggerChipStyle}>{item}</div>
-                      ))
-                    )}
-                  </div>
-                </div>
               </div>
             </ProfileSection>
           </div>
