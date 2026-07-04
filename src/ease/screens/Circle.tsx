@@ -18,7 +18,7 @@ type Member = {
 const members: Member[] = [
   { name: "Paul Smith", role: "EA · School", initials: "P", last: "Viewed 2h ago", tone: "blue", photo: paulPhoto, isPaul: true, phone: "+16045550147" },
   { name: "Anna Oliveira", role: "Grandmother", initials: "A", last: "Viewed yesterday", tone: "coral", phone: "" },
-  { name: "Dr. Marcus Lee", role: "Pediatrician", initials: "M", last: "Viewed 3d ago", tone: "neutral", phone: "" },
+  { name: "Dr. Marcus Lee", role: "Pediatrician", initials: "M", last: "Viewed 3d ago", tone: "coral", phone: "" },
 ];
 
 export const Circle = () => {
@@ -67,7 +67,7 @@ export const Circle = () => {
                   <Avatar size={48} initials={m.initials} tone={m.tone} />
                 )}
                 <div className="flex-1 min-w-0">
-                  <div className="font-display text-ease-md text-ink flex items-center whitespace-nowrap">
+                  <div className="font-semibold text-ease-md text-ink flex items-center whitespace-nowrap">
                     {m.name}
                     {isActive && (
                       <span className="relative inline-flex w-2 h-2 ml-2 shrink-0">
@@ -94,13 +94,13 @@ export const Circle = () => {
                 <div className="mt-3 flex gap-2">
                   <a
                     href={`tel:${m.phone}`}
-                    className="flex-1 h-10 rounded-full border border-primary text-primary text-ease-sm font-bold inline-flex items-center justify-center gap-1.5"
+                    className="flex-1 h-11 rounded-full border border-primary text-primary text-ease-sm font-bold inline-flex items-center justify-center gap-1.5"
                   >
                     <Phone size={14} /> Call {m.name.split(" ")[0]}
                   </a>
                   <a
                     href={`sms:${m.phone}`}
-                    className="flex-1 h-10 rounded-full border border-primary text-primary text-ease-sm font-bold inline-flex items-center justify-center gap-1.5"
+                    className="flex-1 h-11 rounded-full border border-primary text-primary text-ease-sm font-bold inline-flex items-center justify-center gap-1.5"
                   >
                     <MessageSquare size={14} /> Message {m.name.split(" ")[0]}
                   </a>
