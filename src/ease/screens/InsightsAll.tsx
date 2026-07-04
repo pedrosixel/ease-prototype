@@ -1,48 +1,22 @@
-import { ChevronLeft } from "lucide-react";
-import { useEase } from "../state";
-import { ParentBottomNav } from "../primitives";
+import { TopBar, ParentBottomNav } from "../primitives";
+import pipHappy from "@/assets/Pip_Happy.svg";
 
 const CREAM = "#FEF2F1";
-const INK = "#1A1A1A";
 const MUTED = "#777777";
 
 export const InsightsAll = () => {
-  const { go } = useEase();
   return (
     <div className="h-full flex flex-col" style={{ background: CREAM }}>
       <div className="flex-1 overflow-y-auto phone-scroll" style={{ background: "transparent" }}>
-        <div style={{ paddingTop: 56 }}>
-          <div style={{ padding: "0 12px" }}>
-            <button
-              onClick={() => go("homeV2")}
-              aria-label="Back"
-              className="w-9 h-9 rounded-full flex items-center justify-center"
-              style={{ color: INK, background: "transparent" }}
-            >
-              <ChevronLeft size={24} />
-            </button>
-          </div>
-          <h1
-            className="font-display"
-            style={{
-              fontSize: 24,
-              color: INK,
-              fontWeight: 600,
-              padding: "8px 20px 0",
-            }}
-          >
-            All Insights
-          </h1>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: "120px 20px",
-            }}
-          >
-            <div style={{ fontSize: 15, color: MUTED, textAlign: "center" }}>
-              More insights coming soon.
+        <TopBar back="homeV2" title="All Insights" />
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingTop: 40 }}>
+          <img src={pipHappy} alt="" style={{ width: 100, height: 100 }} />
+          <div style={{ marginTop: 48, textAlign: "center", padding: "0 32px" }}>
+            <div style={{ fontSize: 18, fontWeight: 600, color: "#444444" }}>
+              Insights are on their way.
+            </div>
+            <div style={{ fontSize: 14, color: MUTED, marginTop: 12, lineHeight: 1.5 }}>
+              When caregivers log a session, their notes and feedback will appear here.
             </div>
           </div>
         </div>

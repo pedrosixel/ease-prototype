@@ -12,12 +12,13 @@ type Member = {
   tone: "blue" | "coral" | "neutral";
   photo?: string;
   isPaul?: boolean;
+  phone: string;
 };
 
 const members: Member[] = [
-  { name: "Paul Smith", role: "EA · School", initials: "P", last: "Viewed 2h ago", tone: "blue", photo: paulPhoto, isPaul: true },
-  { name: "Anna Oliveira", role: "Grandmother", initials: "A", last: "Viewed yesterday", tone: "coral" },
-  { name: "Dr. Marcus Lee", role: "Pediatrician", initials: "M", last: "Viewed 3d ago", tone: "neutral" },
+  { name: "Paul Smith", role: "EA · School", initials: "P", last: "Viewed 2h ago", tone: "blue", photo: paulPhoto, isPaul: true, phone: "+16045550147" },
+  { name: "Anna Oliveira", role: "Grandmother", initials: "A", last: "Viewed yesterday", tone: "coral", phone: "" },
+  { name: "Dr. Marcus Lee", role: "Pediatrician", initials: "M", last: "Viewed 3d ago", tone: "neutral", phone: "" },
 ];
 
 export const Circle = () => {
@@ -84,23 +85,24 @@ export const Circle = () => {
                       : "text-muted-foreground"
                   }`}
                 >
-                  {isActive ? "In session with Tyler · started 2:14 PM" : m.last}
+                  {/* TODO: replace static time with session start timestamp */}
+                  {isActive ? `In session with ${playbook.childName} · started 2:14 PM` : m.last}
                 </div>
               </div>
 
               {isActive && (
                 <div className="mt-3 flex gap-2">
                   <a
-                    href="tel:+16045550147"
+                    href={`tel:${m.phone}`}
                     className="flex-1 h-10 rounded-full border border-primary text-primary text-ease-sm font-bold inline-flex items-center justify-center gap-1.5"
                   >
-                    <Phone size={14} /> Call Paul
+                    <Phone size={14} /> Call {m.name.split(" ")[0]}
                   </a>
                   <a
-                    href="sms:+16045550147"
+                    href={`sms:${m.phone}`}
                     className="flex-1 h-10 rounded-full border border-primary text-primary text-ease-sm font-bold inline-flex items-center justify-center gap-1.5"
                   >
-                    <MessageSquare size={14} /> Message Paul
+                    <MessageSquare size={14} /> Message {m.name.split(" ")[0]}
                   </a>
                 </div>
               )}
