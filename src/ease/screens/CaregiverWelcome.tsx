@@ -1,16 +1,20 @@
+import { BookOpen, Shield, BarChart2, LucideIcon } from "lucide-react";
 import { useEase } from "../state";
 import easeLogo from "@/assets/Ease_Logo_Pink.svg";
 
-const CARDS = [
+const CARDS: { Icon: LucideIcon; title: string; body: string }[] = [
   {
+    Icon: BookOpen,
     title: "The Playbook",
     body: "Each child's parent builds a personal guide with triggers, tactics, and what to avoid.",
   },
   {
+    Icon: Shield,
     title: "Crisis Support",
     body: "When a child is overwhelmed, get the right response in under 10 seconds.",
   },
   {
+    Icon: BarChart2,
     title: "Feedback Loop",
     body: "After each session, log what happened. Parents see your insights directly.",
   },
@@ -59,7 +63,7 @@ export const CaregiverWelcome = () => {
             lineHeight: 1.5,
           }}
         >
-          Everything you need to support the children in your care — in one place.
+          Everything you need to support the children in your care, in one place.
         </p>
       </div>
 
@@ -80,13 +84,18 @@ export const CaregiverWelcome = () => {
           >
             <div
               style={{
-                width: 40,
-                height: 40,
+                width: 44,
+                height: 44,
                 borderRadius: "50%",
                 background: "#EDE5F7",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
                 flexShrink: 0,
               }}
-            />
+            >
+              <c.Icon size={18} color="#7B5EA7" />
+            </div>
             <div style={{ flex: 1 }}>
               <div
                 style={{
