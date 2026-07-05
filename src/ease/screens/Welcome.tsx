@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useEase } from "../state";
 import EaseLogoColor from "@/assets/Ease_Logo_Pink.svg";
 import PipAsset from "@/assets/Pip_Happy.svg";
@@ -9,6 +10,34 @@ export const Welcome = () => {
   const onMobile =
     typeof window !== "undefined" &&
     window.matchMedia("(max-width: 768px)").matches;
+
+  const [showSplash, setShowSplash] = useState(
+    () => !sessionStorage.getItem("ease.splashPlayed")
+  );
+
+  if (showSplash) {
+    return (
+      <video
+        autoPlay
+        muted
+        playsInline
+        style={{
+          width: "100%",
+          height: onMobile ? "100%" : "calc(100% + 44px)",
+          minHeight: onMobile ? "100%" : "calc(100% + 44px)",
+          marginTop: onMobile ? 0 : "-44px",
+          objectFit: "cover",
+          display: "block",
+        }}
+        onEnded={() => {
+          sessionStorage.setItem("ease.splashPlayed", "1");
+          setShowSplash(false);
+        }}
+      >
+        <source src="/Welcome_Screen.mp4" type="video/mp4" />
+      </video>
+    );
+  }
 
   return (
     <div
