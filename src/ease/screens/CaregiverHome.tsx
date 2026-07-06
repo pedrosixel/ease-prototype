@@ -112,7 +112,7 @@ export const CaregiverHome = () => {
               {playbook.childName}
             </div>
             <div style={{ fontSize: 12, color: MUTED }}>
-              {playbook.childAge} years old · Vancouver, BC
+              {playbook.childAge} years old
             </div>
             <div className="flex items-center gap-1.5" style={{ marginBottom: 8 }}>
               <div
@@ -161,9 +161,9 @@ export const CaregiverHome = () => {
                     What does this mean?
                   </div>
                   {[
-                    { label: "Level 1 — Needs support", desc: "Often has strong communication skills, but social situations and unexpected changes can be challenging." },
-                    { label: "Level 2 — Needs substantial support", desc: "Social communication is more affected. Behaviors may be more noticeable in daily settings." },
-                    { label: "Level 3 — Needs very substantial support", desc: "Communication is significantly impacted. Intensive daily support is essential." },
+                    { label: "Level 1: Needs support", desc: "Often has strong communication skills, but social situations and unexpected changes can be challenging." },
+                    { label: "Level 2: Needs substantial support", desc: "Social communication is more affected. Behaviors may be more noticeable in daily settings." },
+                    { label: "Level 3: Needs very substantial support", desc: "Communication is significantly impacted. Intensive daily support is essential." },
                   ].map((d, i) => (
                     <div key={i} style={{ marginTop: i > 0 ? 10 : 0 }}>
                       <div style={{ fontFamily: "'Nunito Sans', sans-serif", fontSize: 12, fontWeight: 600, color: "#7B5EA7" }}>{d.label}</div>

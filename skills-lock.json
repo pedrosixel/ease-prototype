@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "skills": {
+    "app-store-screenshots": {
+      "source": "ParthJadhav/app-store-screenshots",
+      "sourceType": "github",
+      "skillPath": "skills/app-store-screenshots/SKILL.md",
+      "computedHash": "31fe3ed0d459bf3bab2a4fa9432599a46a66a8f134131c74e4b70addae6dfde4"
+    },
+    "emil-design-eng": {
+      "source": "emilkowalski/skill",
+      "sourceType": "github",
+      "skillPath": "skills/emil-design-eng/SKILL.md",
+      "computedHash": "8bdf9e4e6de7a4969147bf4828a4ad2c5aacd9fba4b690b250a85e0467ca387d"
+    },
+    "ui-refactor": {
+      "source": "LovroPodobnik/refactoring-ui-skill",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/ui-refactor/SKILL.md",
+      "computedHash": "0b94bd62d8e648aa371199f4c7ac482c9bb457239fe0e9fdba339e0adcaf19bc"
+    }
+  }
+}

@@ -86,7 +86,7 @@ const SCREEN_DEPTH: Record<ScreenId, number> = {
   calming: 8,
   avoid: 9,
   emergency: 10,
-  complete: 11,
+  complete: 10,
   home: 10,
   playbook: 11,
   circle: 11,
@@ -103,7 +103,7 @@ const SCREEN_DEPTH: Record<ScreenId, number> = {
   caregiverWelcome: 10,
   caregiverSettings: 14,
   bridge: 12,
-  homeV2: 10,
+  homeV2: 11,
   insightsAll: 12,
 };
 
@@ -163,7 +163,7 @@ const TYLER_DEMO_DATA = {
   childAge: 5,
   diagnosis: "Autism Level 1",
   meet:
-    "Tyler is a curious, soft-hearted 5-year-old who loves dinosaurs, building train tracks, and singing the same three songs on repeat. He notices everything — the hum of the fridge, a new sticker on the wall — and gives the best slow hugs once he trusts you.",
+    "Tyler is a curious, soft-hearted 5-year-old who loves dinosaurs, building train tracks, and singing the same three songs on repeat. He notices everything (the hum of the fridge, a new sticker on the wall) and gives the best slow hugs once he trusts you.",
   triggers: ["Loud unexpected noises", "Crowded rooms", "Sudden plan changes"],
   calming: [
     "Ask Tyler for a hug. Hold gently until he calms.",
@@ -198,7 +198,7 @@ const tyler: ChildPlaybook = {
   diagnosis: "Autism Level 1",
   parentName: "Mariana Oliveira",
   meet:
-    "Tyler is a curious, soft-hearted 5-year-old who loves dinosaurs, building train tracks, and singing the same three songs on repeat. He notices everything — the hum of the fridge, a new sticker on the wall — and gives the best slow hugs once he trusts you.",
+    "Tyler is a curious, soft-hearted 5-year-old who loves dinosaurs, building train tracks, and singing the same three songs on repeat. He notices everything (the hum of the fridge, a new sticker on the wall) and gives the best slow hugs once he trusts you.",
   triggers: ["Loud unexpected noises", "Crowded rooms", "Sudden plan changes"],
   calming: [
     "Ask Tyler for a hug. Hold gently until he calms.",
@@ -211,7 +211,7 @@ const tyler: ChildPlaybook = {
     { name: "Ewerton Santos", phone: "+1 604 555 0199", relation: "Father" },
   ],
   medications: ["Omega-3, 1 capsule with breakfast"],
-  dietary: ["No sugar after 2pm — affects behaviour significantly"],
+  dietary: ["No sugar after 2pm. Affects behaviour significantly."],
   favouriteToy: "Rex the T-Rex",
   comfortSong: "Twinkle Twinkle",
   updatedAt: seedUpdatedAt(),
@@ -233,7 +233,7 @@ const tyler: ChildPlaybook = {
       dateLabel: "Apr 8",
       duration: "Under 5 min",
       helped: "not_fully",
-      note: "He didn't respond to the hug this time — needed the quiet room first.",
+      note: "He didn't respond to the hug this time. Needed the quiet room first.",
       timestamp: new Date(2026, 3, 8, 9, 42).getTime(),
       context: "Not Sure",
     },
@@ -280,7 +280,7 @@ const heitor: ChildPlaybook = {
     { name: "Beatriz Lima", phone: "+1 604 555 0144", relation: "Primary" },
   ],
   medications: [],
-  dietary: ["No artificial dyes — causes restlessness"],
+  dietary: ["No artificial dyes. Causes restlessness."],
   favouriteToy: "Solar System Puzzle",
   comfortSong: "Twinkle Twinkle",
   updatedAt: seedUpdatedAt({ meet: 6, triggers: 8, calming: 4, avoid: 6, emergency: 10, favouriteToy: 2, comfortSong: 5 }),
@@ -401,7 +401,7 @@ export const EaseProvider = ({ children }: { children: ReactNode }) => {
   const [activeChildId, setActiveChildId] = useState<ChildId>("tyler");
   const [checkedInChildId, setCheckedInChildId] = useState<ChildId | null>("tyler");
   const [caregiver, setCaregiver] = useState<CaregiverProfile>({
-    firstName: "Paul",
+    firstName: "",
     role: "Educational Assistant",
     org: "",
     phone: "+1 604 555 0147",

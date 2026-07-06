@@ -40,7 +40,7 @@ export const CaregiverConnect = () => {
           onClick={() => go("caregiverList")}
           className="text-ease-sm text-muted-foreground underline mb-4 self-center"
         >
-          I don't have a link yet — I'll add one later
+          I don't have a link yet. I'll add one later.
         </button>
       </div>
       <div className="px-7 pb-8">

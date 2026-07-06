@@ -12,11 +12,11 @@ export const Settings = () => {
   const { darkMode, toggleDarkMode, setIsNewUser, go, playbook, setIndexOpen } = useEase();
 
   const [values, setValues] = useState<Record<FieldKey, string>>({
-    fullName: playbook.parentName || "Mariana Oliveira",
-    childName: playbook.childName || "Tyler",
+    fullName: playbook.parentName || "",
+    childName: playbook.childName || "",
     relationship: "Mother",
     phone: playbook.emergencyContacts[0]?.phone || "+1 (604) 555-0182",
-    email: "mariana@example.com",
+    email: "",
   });
   const [expanded, setExpanded] = useState<FieldKey | null>(null);
   const [draft, setDraft] = useState("");

@@ -51,7 +51,7 @@ export const PlaybookIntro = () => {
           marginBottom: 32,
         }}
       >
-        The Playbook is {name}'s personal guide — triggers, what helps, and what to avoid. Every caregiver gets it instantly.
+        The Playbook is {name}'s personal guide: triggers, what helps, and what to avoid. Every caregiver gets it instantly.
       </p>
 
       {/* Feature rows */}
