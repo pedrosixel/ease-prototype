@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useLayoutEffect } from "react";
 import { Signal, Wifi, BatteryFull } from "lucide-react";
 import { useEase } from "./state";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -29,9 +29,10 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
     (typeof window !== "undefined" &&
       window.matchMedia("(max-width: 767px)").matches);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!isMobile) return;
     const color = SCREEN_COLORS[screen] ?? "#FFFFFF";
+    console.log("[Ease] theme-color →", screen, color);
     let meta = document.querySelector('meta[name="theme-color"]') as HTMLMetaElement | null;
     if (!meta) {
       meta = document.createElement("meta");
