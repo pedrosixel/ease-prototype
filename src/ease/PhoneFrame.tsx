@@ -4,6 +4,22 @@ import { useEase } from "./state";
 import { useIsMobile } from "@/hooks/use-mobile";
 import heart from "@/assets/Ease_heart_Pink.svg";
 
+// Exact background color for each screen that is NOT white.
+// Used for two purposes on mobile:
+//   1. bgClass — fills the paddingTop (safe-area) zone with the correct color
+//   2. theme-color meta + document.body — Safari reads these to paint the status
+//      bar area; iOS caches the first-paint value and reuses it on every navigation,
+//      so it must update on every screen change or a persistent strip appears.
+const SCREEN_COLORS: Record<string, string> = {
+  welcome:         "#7B5EA7",
+  crisis:          "#1A1A1A",
+  postCrisis:      "#1A1A1A",
+  caregiverHome:   "#EDE5F7",
+  caregiverWelcome:"#EDE5F7",
+  homeV2:          "#FEF2F1",
+  insightsAll:     "#FEF2F1",
+};
+
 export const PhoneFrame = ({ children }: { children: ReactNode }) => {
   const { screen, toast } = useEase();
   const isMobileHook = useIsMobile();
@@ -15,22 +31,19 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (!isMobile) return;
-
-    // Force white status bar on Android Chrome (prevents purple bleed from Welcome screen)
-    let meta = document.querySelector(
-      'meta[name="theme-color"]'
-    ) as HTMLMetaElement | null;
+    const color = SCREEN_COLORS[screen] ?? "#FFFFFF";
+    let meta = document.querySelector('meta[name="theme-color"]') as HTMLMetaElement | null;
     if (!meta) {
       meta = document.createElement("meta");
       meta.setAttribute("name", "theme-color");
       document.head.appendChild(meta);
     }
-    meta.setAttribute("content", "#FFFFFF");
-
+    meta.setAttribute("content", color);
+    document.body.style.backgroundColor = color;
     return () => {
       document.body.style.backgroundColor = "";
     };
-  }, [isMobile]);
+  }, [screen, isMobile]);
 
   const dark = screen === "crisis" || screen === "postCrisis" || screen === "welcome";
   const caregiverScreens = new Set([
@@ -43,10 +56,12 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
   const fullBleedPurple = screen === "caregiverHome";
   const fullBleedWelcome = screen === "welcome";
   const noSafeArea = fullBleedCream || fullBleedPurple || fullBleedWelcome;
-  const bgClass = dark
-    ? "bg-crisis"
-    : screen === "welcome"
+  // Welcome must come first — it is in the `dark` set (for desktop status bar text colour)
+  // but its background is purple, not the crisis dark. The dead-code branch was the bug.
+  const bgClass = screen === "welcome"
     ? "bg-[#7B5EA7]"
+    : dark
+    ? "bg-crisis"
     : screen === "caregiverWelcome"
     ? "bg-[#EDE5F7]"
     : fullBleedPurple
