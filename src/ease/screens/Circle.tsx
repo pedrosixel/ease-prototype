@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { X, Phone, MessageSquare } from "lucide-react";
-import { TopBar, Avatar, ParentBottomNav } from "../primitives";
+import { Avatar, ParentBottomNav } from "../primitives";
 import { useEase } from "../state";
 import { paulPhoto } from "../assets";
 
@@ -40,7 +40,6 @@ export const Circle = () => {
 
   return (
     <div className="h-full flex flex-col">
-      <TopBar title="Caregivers" />
       <div className="px-6 pt-3 shrink-0">
         <h1 className="font-display text-ease-xl text-ink">{playbook.childName}'s Caregivers</h1>
         <p className="text-ease-sm text-muted-foreground mt-1">
@@ -54,7 +53,7 @@ export const Circle = () => {
           return (
             <div
               key={m.name}
-              className="p-4 rounded-2xl bg-card border border-[#CCBFB8]"
+              className="p-4 rounded-2xl bg-card border border-[#7B5EA7]"
             >
               <div className="flex items-center gap-4">
                 {m.photo ? (
