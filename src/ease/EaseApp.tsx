@@ -31,6 +31,7 @@ import { AddToPlaybook } from "./screens/AddToPlaybook";
 import { PlaybookIntro } from "./screens/PlaybookIntro";
 import { HomeV2 } from "./screens/HomeV2";
 import { InsightsAll } from "./screens/InsightsAll";
+import { InviteCaregiver } from "./screens/InviteCaregiver";
 
 
 const Router = () => {
@@ -67,6 +68,7 @@ const Router = () => {
     case "playbookIntro": return <PlaybookIntro />;
     case "homeV2": return <HomeV2 />;
     case "insightsAll": return <InsightsAll />;
+    case "inviteCaregiver": return <InviteCaregiver />;
     default: return <Welcome />;
   }
 };

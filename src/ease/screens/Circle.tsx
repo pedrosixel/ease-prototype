@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { X, Phone, MessageSquare } from "lucide-react";
+import { Phone, MessageSquare } from "lucide-react";
 import { Avatar, ParentBottomNav } from "../primitives";
 import { useEase } from "../state";
 import { paulPhoto } from "../assets";
@@ -22,18 +21,9 @@ const members: Member[] = [
 ];
 
 export const Circle = () => {
-  const { playbook, showToast, checkedInChildId } = useEase();
-  const [expanded, setExpanded] = useState(false);
-  const [invite, setInvite] = useState("");
-
-  const sendInvite = () => {
-    setExpanded(false);
-    setInvite("");
-    showToast("Invite sent");
-  };
+  const { playbook, go, checkedInChildId } = useEase();
 
   const paulActive = checkedInChildId === "tyler";
-  // Sort: active Paul to top (already first, but enforce)
   const sortedMembers = paulActive
     ? [...members].sort((a, b) => (a.isPaul ? -1 : b.isPaul ? 1 : 0))
     : members;
@@ -109,62 +99,29 @@ export const Circle = () => {
           );
         })}
 
-        {!expanded ? (
-          <button
-            onClick={() => setExpanded(true)}
-            className="w-full flex items-center gap-3 p-4 rounded-2xl bg-white border border-[#CCBFB8]"
+        <button
+          onClick={() => go("inviteCaregiver")}
+          className="w-full flex items-center gap-3 p-4 rounded-2xl bg-white border border-[#CCBFB8]"
+        >
+          <div
+            className="flex items-center justify-center shrink-0"
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: "50%",
+              border: "1.5px dashed #F3768D",
+              background: "transparent",
+              color: "#F3768D",
+              fontSize: 20,
+              lineHeight: 1,
+            }}
           >
-            <div
-              className="flex items-center justify-center shrink-0"
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: "50%",
-                border: "1.5px dashed #F3768D",
-                background: "transparent",
-                color: "#F3768D",
-                fontSize: 20,
-                lineHeight: 1,
-              }}
-            >
-              +
-            </div>
-            <span className="font-semibold text-ease-md" style={{ color: "#F3768D" }}>
-              Add a caregiver
-            </span>
-          </button>
-        ) : (
-          <div className="rounded-2xl border border-primary/40 bg-primary-tint/30 p-4">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-ease-xs uppercase tracking-[0.14em] text-primary font-bold">
-                Invite a caregiver
-              </span>
-              <button
-                onClick={() => {
-                  setExpanded(false);
-                  setInvite("");
-                }}
-                className="w-7 h-7 rounded-full bg-card/70 flex items-center justify-center text-muted-foreground"
-              >
-                <X size={14} />
-              </button>
-            </div>
-            <div className="flex gap-2">
-              <input
-                value={invite}
-                onChange={(e) => setInvite(e.target.value)}
-                placeholder="Enter email or name"
-                className="flex-1 h-11 rounded-[12px] border border-border bg-card px-3 text-ease-sm text-foreground focus:outline-none focus:border-primary"
-              />
-              <button
-                onClick={sendInvite}
-                className="shrink-0 px-4 h-11 rounded-[12px] bg-primary text-primary-foreground text-ease-sm font-bold"
-              >
-                Invite a caregiver
-              </button>
-            </div>
+            +
           </div>
-        )}
+          <span className="font-semibold text-ease-md" style={{ color: "#F3768D" }}>
+            Add a caregiver
+          </span>
+        </button>
       </div>
 
       <ParentBottomNav active="circle" />
