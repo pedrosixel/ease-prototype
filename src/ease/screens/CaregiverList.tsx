@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Check, Info, QrCode, Link } from "lucide-react";
+import { Check, Info, QrCode, Link, X } from "lucide-react";
 import { Avatar, CaregiverBottomNav, CaregiverTopBarGear } from "../primitives";
 import { useEase, ChildId } from "../state";
 import { CHILD_PHOTOS } from "../assets";
@@ -28,10 +28,10 @@ export const CaregiverList = () => {
   const { go, children, checkedInChildId, checkIn, checkOut, setActiveChild, showToast, hasSeenCaregiverWelcome } = useEase();
   const ids: ChildId[] = ["tyler", "heitor"];
   const [modal, setModal] = useState<Modal>(null);
-  const [addOpen, setAddOpen] = useState(false);
+  const [showAddChild, setShowAddChild] = useState(false);
   const [levelInfoOpen, setLevelInfoOpen] = useState(false);
   const [addLink, setAddLink] = useState("");
-  const [addMode, setAddMode] = useState<"scan" | "paste">("scan");
+  const [addMode, setAddMode] = useState<"scan" | "paste">("paste");
   const [pendingCheckInId, setPendingCheckInId] = useState<ChildId | null>(null);
 
   useEffect(() => {
@@ -71,13 +71,13 @@ export const CaregiverList = () => {
   };
 
   const closeAddCard = () => {
-    setAddOpen(false);
+    setShowAddChild(false);
     setAddLink("");
-    setAddMode("scan");
+    setAddMode("paste");
   };
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="relative h-full flex flex-col">
       <div className="px-6 pt-5 pb-2 shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -187,9 +187,8 @@ export const CaregiverList = () => {
           }}
         >
           <button
-            onClick={() => !addOpen && setAddOpen(true)}
+            onClick={() => setShowAddChild(true)}
             className="w-full flex items-center gap-3 text-left"
-            disabled={addOpen}
           >
             <div
               className="flex items-center justify-center shrink-0"
@@ -210,134 +209,6 @@ export const CaregiverList = () => {
               Add a child — paste a link from a parent
             </span>
           </button>
-
-          {addOpen && (
-            <div className="mt-3 flex flex-col gap-3">
-              {/* Mode toggle */}
-              <div style={{ display: "flex", gap: 8 }}>
-                <button
-                  onClick={() => setAddMode("scan")}
-                  style={{
-                    flex: 1,
-                    height: 44,
-                    borderRadius: 10,
-                    fontFamily: "'Nunito Sans', sans-serif",
-                    fontSize: 14,
-                    fontWeight: 600,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 6,
-                    cursor: "pointer",
-                    background: addMode === "scan" ? PURPLE : "white",
-                    color: addMode === "scan" ? "white" : "#777777",
-                    border: addMode === "scan" ? "none" : "1px solid #CCBFB8",
-                  }}
-                >
-                  <QrCode size={16} />
-                  Scan QR Code
-                </button>
-                <button
-                  onClick={() => setAddMode("paste")}
-                  style={{
-                    flex: 1,
-                    height: 44,
-                    borderRadius: 10,
-                    fontFamily: "'Nunito Sans', sans-serif",
-                    fontSize: 14,
-                    fontWeight: 600,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 6,
-                    cursor: "pointer",
-                    background: addMode === "paste" ? PURPLE : "white",
-                    color: addMode === "paste" ? "white" : "#777777",
-                    border: addMode === "paste" ? "none" : "1px solid #CCBFB8",
-                  }}
-                >
-                  <Link size={16} />
-                  Paste Link
-                </button>
-              </div>
-
-              {addMode === "scan" ? (
-                <>
-                  <QrScanner
-                    onScan={() => {
-                      showToast("Child added successfully");
-                      closeAddCard();
-                    }}
-                    onSwitchToPaste={() => setAddMode("paste")}
-                  />
-                  <p
-                    style={{
-                      fontFamily: "'Nunito Sans', sans-serif",
-                      fontSize: 13,
-                      color: "#777777",
-                      textAlign: "center",
-                    }}
-                  >
-                    Point your camera at the QR code the parent shared
-                  </p>
-                </>
-              ) : (
-                <input
-                  value={addLink}
-                  onChange={(e) => setAddLink(e.target.value)}
-                  placeholder="Paste link from parent"
-                  autoFocus
-                  style={{
-                    height: 44,
-                    borderRadius: 12,
-                    border: "1px solid #CCBFB8",
-                    background: "#FFFFFF",
-                    padding: "0 12px",
-                    fontSize: 14,
-                    width: "100%",
-                    outline: "none",
-                  }}
-                />
-              )}
-
-              <button
-                onClick={() => {
-                  if (!addLink.trim()) return;
-                  showToast("Child added successfully");
-                  closeAddCard();
-                }}
-                disabled={addMode === "scan" || !addLink.trim()}
-                style={{
-                  background: PURPLE,
-                  color: "#FFFFFF",
-                  height: 40,
-                  borderRadius: 12,
-                  fontWeight: 700,
-                  fontSize: 14,
-                  width: "100%",
-                  opacity: addMode === "scan" || !addLink.trim() ? 0.5 : 1,
-                  border: "none",
-                  cursor: addMode === "scan" || !addLink.trim() ? "default" : "pointer",
-                }}
-              >
-                Add Child
-              </button>
-              <button
-                onClick={closeAddCard}
-                style={{
-                  background: "transparent",
-                  color: PURPLE,
-                  fontSize: 14,
-                  fontWeight: 600,
-                  textAlign: "center",
-                  border: "none",
-                  cursor: "pointer",
-                }}
-              >
-                Cancel
-              </button>
-            </div>
-          )}
         </div>
       </div>
 
@@ -375,6 +246,218 @@ export const CaregiverList = () => {
                 <div style={{ fontFamily: "'Nunito Sans', sans-serif", fontSize: 12, fontWeight: 400, color: "#777777", marginTop: 2 }}>{d.desc}</div>
               </div>
             ))}
+          </div>
+        </>
+      )}
+
+      {showAddChild && (
+        <>
+          {/* Layer A — Backdrop */}
+          <div
+            className="animate-in fade-in duration-[200ms]"
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              width: "100vw",
+              height: "100vh",
+              background: "rgba(0, 0, 0, 0.5)",
+              zIndex: 40,
+            }}
+            onClick={closeAddCard}
+          />
+
+          {/* Layer B — Card */}
+          <div
+            className="absolute z-50 animate-in fade-in zoom-in-95 duration-[200ms]"
+            style={{
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "calc(100% - 48px)",
+              maxWidth: 360,
+              background: "#FFFFFF",
+              borderRadius: 24,
+              padding: 24,
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header row */}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <span
+                style={{
+                  fontFamily: "'Nunito Sans', sans-serif",
+                  fontSize: 18,
+                  fontWeight: 600,
+                  color: "#444444",
+                }}
+              >
+                Add a Child
+              </span>
+              <button
+                onClick={closeAddCard}
+                style={{
+                  width: 44,
+                  height: 44,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                  background: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                }}
+              >
+                <X size={20} color="#777777" />
+              </button>
+            </div>
+
+            {/* Subtext */}
+            <p
+              style={{
+                fontFamily: "'Nunito Sans', sans-serif",
+                fontSize: 13,
+                color: "#777777",
+                marginTop: 4,
+              }}
+            >
+              Paste a link from a parent or scan their QR code.
+            </p>
+
+            {/* Mode toggle */}
+            <div style={{ display: "flex", gap: 8, marginTop: 16, marginBottom: 12 }}>
+              <button
+                onClick={() => setAddMode("scan")}
+                style={{
+                  flex: 1,
+                  height: 44,
+                  borderRadius: 10,
+                  fontFamily: "'Nunito Sans', sans-serif",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 6,
+                  cursor: "pointer",
+                  background: addMode === "scan" ? PURPLE : "white",
+                  color: addMode === "scan" ? "white" : "#777777",
+                  border: addMode === "scan" ? "none" : "1px solid #CCBFB8",
+                }}
+              >
+                <QrCode size={16} />
+                Scan QR Code
+              </button>
+              <button
+                onClick={() => setAddMode("paste")}
+                style={{
+                  flex: 1,
+                  height: 44,
+                  borderRadius: 10,
+                  fontFamily: "'Nunito Sans', sans-serif",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 6,
+                  cursor: "pointer",
+                  background: addMode === "paste" ? PURPLE : "white",
+                  color: addMode === "paste" ? "white" : "#777777",
+                  border: addMode === "paste" ? "none" : "1px solid #CCBFB8",
+                }}
+              >
+                <Link size={16} />
+                Paste Link
+              </button>
+            </div>
+
+            {/* Content */}
+            {addMode === "scan" ? (
+              <>
+                <QrScanner
+                  onScan={() => {
+                    showToast("Child added successfully");
+                    closeAddCard();
+                  }}
+                  onSwitchToPaste={() => setAddMode("paste")}
+                />
+                <p
+                  style={{
+                    fontFamily: "'Nunito Sans', sans-serif",
+                    fontSize: 13,
+                    color: "#777777",
+                    textAlign: "center",
+                    marginTop: 8,
+                  }}
+                >
+                  Point your camera at the QR code the parent shared
+                </p>
+              </>
+            ) : (
+              <input
+                value={addLink}
+                onChange={(e) => setAddLink(e.target.value)}
+                placeholder="Paste link from parent"
+                autoFocus
+                style={{
+                  height: 44,
+                  borderRadius: 12,
+                  border: "1px solid #CCBFB8",
+                  background: "#FFFFFF",
+                  padding: "0 12px",
+                  fontSize: 14,
+                  width: "100%",
+                  outline: "none",
+                  boxSizing: "border-box",
+                }}
+              />
+            )}
+
+            {/* Add Child button */}
+            <button
+              onClick={() => {
+                if (!addLink.trim()) return;
+                showToast("Child added successfully");
+                closeAddCard();
+              }}
+              disabled={addMode === "scan" || !addLink.trim()}
+              style={{
+                background: PURPLE,
+                color: "#FFFFFF",
+                height: 40,
+                borderRadius: 12,
+                fontWeight: 700,
+                fontSize: 14,
+                width: "100%",
+                marginTop: 16,
+                opacity: addMode === "scan" || !addLink.trim() ? 0.5 : 1,
+                border: "none",
+                cursor: addMode === "scan" || !addLink.trim() ? "default" : "pointer",
+              }}
+            >
+              Add Child
+            </button>
+
+            {/* Cancel */}
+            <button
+              onClick={closeAddCard}
+              style={{
+                display: "block",
+                margin: "12px auto 0",
+                background: "transparent",
+                color: PURPLE,
+                fontSize: 14,
+                fontWeight: 600,
+                textAlign: "center",
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              Cancel
+            </button>
           </div>
         </>
       )}

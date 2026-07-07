@@ -9,7 +9,7 @@ const PURPLE = "#7B5EA7";
 export const CaregiverConnect = () => {
   const { go } = useEase();
   const [link, setLink] = useState("");
-  const [mode, setMode] = useState<"scan" | "paste">("scan");
+  const [mode, setMode] = useState<"scan" | "paste">("paste");
 
   const handleScan = (_value: string) => {
     // Demo: any valid QR scan auto-resolves to caregiverList

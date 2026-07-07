@@ -18,6 +18,7 @@ interface QrScannerProps {
 
 export const QrScanner = ({ onScan, onSwitchToPaste }: QrScannerProps) => {
   const [unavailable, setUnavailable] = useState(false);
+  const [retryKey, setRetryKey] = useState(0);
 
   useEffect(() => {
     let active = true;
@@ -28,6 +29,8 @@ export const QrScanner = ({ onScan, onSwitchToPaste }: QrScannerProps) => {
       try {
         const { Html5Qrcode } = await import("html5-qrcode");
         const scanner = new Html5Qrcode(SCANNER_ID);
+        await new Promise<void>((resolve) => setTimeout(resolve, 300));
+        if (!active) return;
 
         await scanner.start(
           { facingMode: "environment" },
@@ -46,7 +49,8 @@ export const QrScanner = ({ onScan, onSwitchToPaste }: QrScannerProps) => {
           return;
         }
         scannerInstance = scanner;
-      } catch {
+      } catch (err) {
+        console.error("Camera start failed:", err);
         if (active) setUnavailable(true);
       }
     };
@@ -60,7 +64,7 @@ export const QrScanner = ({ onScan, onSwitchToPaste }: QrScannerProps) => {
         scannerInstance = null;
       }
     };
-  }, []);
+  }, [retryKey]);
 
   return (
     <div
@@ -135,6 +139,23 @@ export const QrScanner = ({ onScan, onSwitchToPaste }: QrScannerProps) => {
             }}
           >
             Switch to Paste Link
+          </button>
+          <button
+            onClick={() => { setUnavailable(false); setRetryKey((k) => k + 1); }}
+            style={{
+              background: "transparent",
+              color: "#CCBFB8",
+              border: "1px solid #CCBFB8",
+              borderRadius: 10,
+              height: 40,
+              padding: "0 20px",
+              fontFamily: "'Nunito Sans', sans-serif",
+              fontSize: 13,
+              fontWeight: 600,
+              cursor: "pointer",
+            }}
+          >
+            Try again
           </button>
         </div>
       ) : (
