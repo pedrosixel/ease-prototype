@@ -40,7 +40,7 @@ export const Circle = () => {
 
   return (
     <div className="h-full flex flex-col">
-      <TopBar back="homeV2" title="Caregivers" />
+      <TopBar title="Caregivers" />
       <div className="px-6 pt-3 shrink-0">
         <h1 className="font-display text-ease-xl text-ink">{playbook.childName}'s Caregivers</h1>
         <p className="text-ease-sm text-muted-foreground mt-1">
@@ -54,7 +54,7 @@ export const Circle = () => {
           return (
             <div
               key={m.name}
-              className={`p-4 rounded-2xl bg-card border border-[#CCBFB8] ${isActive ? "border-l-[3px] border-l-[#7B5EA7]" : ""}`}
+              className="p-4 rounded-2xl bg-card border border-[#CCBFB8]"
             >
               <div className="flex items-center gap-4">
                 {m.photo ? (
