@@ -31,8 +31,7 @@ export type ScreenId =
   | "addToPlaybook"
   | "playbookIntro"
   | "homeV2"
-  | "insightsAll"
-  | "inviteCaregiver";
+  | "insightsAll";
 
 export const SCREENS: { id: ScreenId; label: string; flow: string }[] = [
   // Onboarding (numbered 1–13 in flow order)
@@ -57,7 +56,6 @@ export const SCREENS: { id: ScreenId; label: string; flow: string }[] = [
   { id: "editField", label: "Edit Field", flow: "Parent" },
   { id: "addContact", label: "Add Contact", flow: "Parent" },
   { id: "addToPlaybook", label: "Add to Playbook", flow: "Parent" },
-  { id: "inviteCaregiver", label: "Invite Caregiver", flow: "Parent" },
   // Crisis
   { id: "crisis", label: "Crisis View", flow: "Crisis" },
   { id: "postCrisis", label: "Post-Crisis", flow: "Crisis" },
@@ -107,7 +105,6 @@ const SCREEN_DEPTH: Record<ScreenId, number> = {
   bridge: 12,
   homeV2: 11,
   insightsAll: 12,
-  inviteCaregiver: 12,
 };
 
 export type EmergencyContact = { name: string; phone: string; relation: string };
