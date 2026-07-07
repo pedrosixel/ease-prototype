@@ -158,8 +158,18 @@ export const Circle = () => {
         <>
           {/* Layer A — Backdrop */}
           <div
-            className="absolute inset-0 z-40 animate-in fade-in duration-[200ms]"
-            style={{ background: "rgba(0, 0, 0, 0.5)" }}
+            className="animate-in fade-in duration-[200ms]"
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              width: "100vw",
+              height: "100vh",
+              background: "rgba(0, 0, 0, 0.5)",
+              zIndex: 40,
+            }}
             onClick={() => setShowInvite(false)}
           />
 
