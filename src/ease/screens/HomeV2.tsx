@@ -5,16 +5,6 @@ import { CHILD_PHOTOS, paulPhoto } from "../assets";
 import { ParentBottomNav } from "../primitives";
 import InsightStarBlue from "@/assets/Ease_Star_Purple.svg";
 import { CrisisLog } from "./CrisisLog";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 
 type Tab = "profile" | "insights" | "emergency";
 
@@ -190,6 +180,15 @@ const ProfileTab = () => {
   const [confirmRemove, setConfirmRemove] = useState<
     { section: EditSection; index: number } | null
   >(null);
+  const [confirmClosing, setConfirmClosing] = useState(false);
+
+  const dismissConfirm = () => {
+    setConfirmClosing(true);
+    setTimeout(() => {
+      setConfirmRemove(null);
+      setConfirmClosing(false);
+    }, 150);
+  };
   const lastInputRef = useRef<HTMLInputElement | null>(null);
   const focusNextRef = useRef<{ section: EditSection; index: number } | null>(null);
 
@@ -635,33 +634,49 @@ const ProfileTab = () => {
         </div>
       </div>
 
-      <AlertDialog
-        open={confirmRemove !== null}
-        onOpenChange={(open) => !open && setConfirmRemove(null)}
-      >
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Remove this entry?</AlertDialogTitle>
-            <AlertDialogDescription>
+      {confirmRemove && (
+        <div
+          onClick={dismissConfirm}
+          className={`fixed inset-0 bg-black/50 flex items-center justify-center px-6 z-50 ${
+            confirmClosing
+              ? "animate-out fade-out fill-mode-forwards duration-[150ms]"
+              : "animate-in fade-in duration-[150ms]"
+          }`}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className={`w-full bg-card rounded-2xl p-5 shadow-xl ${
+              confirmClosing
+                ? "animate-out fade-out zoom-out-95 fill-mode-forwards duration-[150ms]"
+                : "animate-in fade-in zoom-in-95 duration-[150ms] ease-out"
+            }`}
+          >
+            <h2 className="font-display text-ease-lg text-ink">Remove this entry?</h2>
+            <p className="mt-2 text-ease-sm text-muted-foreground">
               This will remove the entry from your playbook.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={() => {
-                if (confirmRemove) {
-                  removeAt(confirmRemove.section, confirmRemove.index);
-                  setConfirmRemove(null);
-                }
-              }}
-              className="bg-[#F3768D] text-white hover:bg-[#F3768D]/90"
-            >
-              Remove
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+            </p>
+            <div className="mt-5 flex gap-3">
+              <button
+                onClick={dismissConfirm}
+                className="flex-1 h-11 rounded-full bg-muted text-foreground text-ease-sm font-bold"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  if (confirmRemove) {
+                    removeAt(confirmRemove.section, confirmRemove.index);
+                  }
+                  dismissConfirm();
+                }}
+                className="flex-1 h-11 rounded-full bg-[#F3768D] text-white text-ease-sm font-bold"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

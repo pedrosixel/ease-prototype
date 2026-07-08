@@ -5,6 +5,7 @@ import { ScrollFade, ScrollHint } from "../primitives";
 import star from "@/assets/Ease_heart_Pink.svg";
 import starPurple from "@/assets/Ease_Star_Purple.svg";
 import pipContent from "@/assets/Pip_Content.svg";
+import fipHappy from "@/assets/Fip_Happy.svg";
 
 const DURATIONS = ["Under 5 min", "5-15 min", "15-30 min", "Over 30 min"];
 const TACTICS = ["Yes, they helped", "Not Fully", "No, not really"];
@@ -210,7 +211,11 @@ export const PostCrisis = () => {
             overlayPhase === "in" ? "opacity-100 duration-200" : "opacity-0 duration-150"
           }`}
         >
-          <img src={pipContent} alt="" style={{ width: 80, height: 80 }} />
+          <img
+            src={isCaregiver ? fipHappy : pipContent}
+            alt=""
+            style={{ width: 80, height: 80, objectFit: "contain" }}
+          />
           <h2 className="font-display text-ease-2xl text-white mt-5">Session logged.</h2>
           <p className="mt-2 text-ease-sm text-white/55">
             {isCaregiver
