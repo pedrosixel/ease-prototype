@@ -17,7 +17,7 @@ const SCREEN_COLORS: Record<string, string> = {
   caregiverHome:   "#EDE5F7",
   caregiverWelcome:"#EDE5F7",
   homeV2:          "#FEF2F1",
-  insightsAll:     "#FEF2F1",
+  insightsAll:     "#FFFFFF",
 };
 
 export const PhoneFrame = ({ children }: { children: ReactNode }) => {
@@ -53,7 +53,7 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
     "caregiverList",
     "bridge",
   ]);
-  const fullBleedCream = screen === "homeV2" || screen === "insightsAll";
+  const fullBleedCream = screen === "homeV2";
   const fullBleedPurple = screen === "caregiverHome";
   const fullBleedWelcome = screen === "welcome";
   const noSafeArea = fullBleedCream || fullBleedPurple || fullBleedWelcome;
@@ -71,6 +71,8 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
     ? "bg-background"
     : fullBleedCream
     ? "bg-[#FEF2F1]"
+    : screen === "insightsAll"
+    ? "bg-white"
     : "bg-[hsl(var(--parent-bg))]";
 
   if (isMobile) {

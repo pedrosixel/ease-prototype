@@ -9,8 +9,8 @@ export const InsightsAll = () => {
 
   return (
     <div className="h-full flex flex-col" style={{ background: "#FFFFFF" }}>
-      <div className="flex-1 overflow-y-auto phone-scroll" style={{ background: "transparent" }}>
-        <TopBar back="homeV2" title="All Insights" />
+      <TopBar back="homeV2" title="All Insights" />
+      <div className="flex-1 overflow-y-auto phone-scroll">
         {entries.length === 0 ? (
           <div
             style={{
