@@ -696,8 +696,19 @@ const InsightsTab = () => {
   );
 };
 
-const FeedbackCard = ({ entry }: { entry: FeedbackEntry }) => {
-  const helpedYes = entry.helped === "yes";
+export const FeedbackCard = ({ entry }: { entry: FeedbackEntry }) => {
+  const helpedChip =
+    entry.helped === "yes"
+      ? { bg: "#E8F7F2", color: "#3A8C6E", label: "Tactics Helped" }
+      : entry.helped === "no"
+      ? { bg: "#FCE8ED", color: "#C0445A", label: "Tactics didn't help" }
+      : { bg: "#FFF3CD", color: "#856404", label: "Helped a little" };
+  const initials = entry.caregiverName
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
   return (
     <div
       style={{
@@ -709,18 +720,40 @@ const FeedbackCard = ({ entry }: { entry: FeedbackEntry }) => {
     >
       {/* Row 1 */}
       <div className="flex items-center" style={{ gap: 10 }}>
-        <img
-          src={paulPhoto}
-          alt={entry.caregiverName}
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: "50%",
-            border: `2px solid ${BLUE}`,
-            objectFit: "cover",
-            flexShrink: 0,
-          }}
-        />
+        {entry.caregiverName.toLowerCase().includes("paul") ? (
+          <img
+            src={paulPhoto}
+            alt={entry.caregiverName}
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: "50%",
+              border: `2px solid ${BLUE}`,
+              objectFit: "cover",
+              flexShrink: 0,
+            }}
+          />
+        ) : (
+          <div
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: "50%",
+              border: `2px solid ${BLUE}`,
+              background: "#EDE5F7",
+              color: "#7B5EA7",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontFamily: "'Nunito Sans', sans-serif",
+              fontWeight: 600,
+              fontSize: 14,
+              flexShrink: 0,
+            }}
+          >
+            {initials}
+          </div>
+        )}
         <div
           style={{
             fontSize: 14,
@@ -757,19 +790,19 @@ const FeedbackCard = ({ entry }: { entry: FeedbackEntry }) => {
         </span>
         <span
           style={{
-            background: helpedYes ? "#D4EDDA" : "#FFF3CD",
-            color: helpedYes ? "#1D9E75" : "#856404",
+            background: helpedChip.bg,
+            color: helpedChip.color,
             borderRadius: 999,
             padding: "4px 12px",
             fontSize: 13,
             fontWeight: 600,
           }}
         >
-          {helpedYes ? "Tactics Helped" : "Not Fully"}
+          {helpedChip.label}
         </span>
       </div>
 
-      {/* Optional note + Read more */}
+      {/* Optional note */}
       {entry.note && (
         <>
           <p
@@ -792,6 +825,37 @@ const FeedbackCard = ({ entry }: { entry: FeedbackEntry }) => {
             </button>
           </div>
         </>
+      )}
+
+      {/* Context field */}
+      {entry.context && (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+            marginTop: 6,
+          }}
+        >
+          <div
+            style={{
+              width: 6,
+              height: 6,
+              borderRadius: "50%",
+              background: "#CCBFB8",
+              flexShrink: 0,
+            }}
+          />
+          <span
+            style={{
+              fontFamily: "'Nunito Sans', sans-serif",
+              fontSize: 12,
+              color: "#777777",
+            }}
+          >
+            Trigger: {entry.context}
+          </span>
+        </div>
       )}
     </div>
   );

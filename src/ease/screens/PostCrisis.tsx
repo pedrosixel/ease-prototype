@@ -52,7 +52,7 @@ export const PostCrisis = () => {
     addFeedbackEntry({
       caregiverName: caregiver.firstName,
       caregiverRole: caregiver.role,
-      dateLabel: "Today",
+      dateLabel: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" }),
       duration,
       helped: helpedVal,
       note: noteText.trim() || undefined,
