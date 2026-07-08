@@ -3,7 +3,7 @@ import { Info } from "lucide-react";
 import { CaregiverBottomNav, PrimaryBtn, CaregiverTopBarGear } from "../primitives";
 import { useEase } from "../state";
 import { CHILD_PHOTOS } from "../assets";
-import pipSad from "@/assets/Pip_Sad.svg";
+import fipSad from "@/assets/Fip_Sad.png";
 
 const PURPLE = "#7B5EA7";
 const PURPLE_TINT = "#EDE5F7";
@@ -36,7 +36,7 @@ export const CaregiverHome = () => {
     return (
       <div className="h-full flex flex-col" style={{ background: "#FFFFFF" }}>
         <div className="flex-1 flex flex-col items-center justify-center px-6">
-          <img src={pipSad} alt="Pip" width={160} height={160} />
+          <img src={fipSad} alt="Fip" style={{ width: 160, height: 160, objectFit: "contain" }} />
           <h1 className="font-display" style={{ fontSize: 18, color: "#1A1A1A", fontWeight: 600, marginTop: 20, textAlign: "center" }}>
             No child selected yet.
           </h1>
@@ -247,10 +247,10 @@ export const CaregiverHome = () => {
                     key={i}
                     style={{
                       background: "#FFFFFF",
-                      color: "#CC0000",
+                      color: PURPLE,
                       fontWeight: 600,
                       border: "1px solid #CCBFB8",
-                      borderLeft: "3px solid #CC0000",
+                      borderLeft: `3px solid ${PURPLE}`,
                       borderRadius: 8,
                       padding: "8px 12px",
                       fontSize: 15,

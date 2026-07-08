@@ -182,7 +182,7 @@ export const CaregiverList = () => {
                 {isCheckedIn ? (
                   <button
                     onClick={() => handleCheckOut(id)}
-                    className="px-5 h-10 rounded-full text-ease-sm font-bold text-white"
+                    className="px-5 h-10 rounded-full text-ease-sm font-bold text-white transition-transform active:scale-[0.97]"
                     style={{ background: "#7B5EA7" }}
                   >
                     Check Out
@@ -190,7 +190,7 @@ export const CaregiverList = () => {
                 ) : (
                   <button
                     onClick={() => handleCheckIn(id)}
-                    className="px-5 h-10 rounded-full text-ease-sm font-bold bg-white"
+                    className="px-5 h-10 rounded-full text-ease-sm font-bold bg-white transition-transform active:scale-[0.97]"
                     style={{ border: "2px solid #7B5EA7", color: "#7B5EA7" }}
                   >
                     Check In
@@ -212,7 +212,7 @@ export const CaregiverList = () => {
         >
           <button
             onClick={() => setShowAddChild(true)}
-            className="w-full flex items-center gap-3 text-left"
+            className="w-full flex items-center gap-3 text-left transition-transform active:scale-[0.98]"
           >
             <div
               className="flex items-center justify-center shrink-0"

@@ -109,7 +109,7 @@ export const HomeV2 = () => {
                   setTab(t.id);
                   setActiveTab(t.id);
                 }}
-                className="transition"
+                className="transition active:scale-[0.97]"
                 style={{
                   flex: 1,
                   height: 34,

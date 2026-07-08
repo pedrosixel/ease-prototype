@@ -138,7 +138,7 @@ export const Circle = () => {
 
         <button
           onClick={() => setShowInvite(true)}
-          className="w-full flex items-center gap-3 p-4 rounded-2xl bg-white border border-[#CCBFB8]"
+          className="w-full flex items-center gap-3 p-4 rounded-2xl bg-white border border-[#CCBFB8] transition-transform active:scale-[0.98]"
         >
           <div
             className="flex items-center justify-center shrink-0"

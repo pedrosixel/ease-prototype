@@ -1,6 +1,6 @@
 import { BookOpen, Shield, BarChart2, LucideIcon } from "lucide-react";
 import { useEase } from "../state";
-import easeLogo from "@/assets/Ease_Logo_Pink.svg";
+import fipHappy from "@/assets/Fip_Happy.png";
 
 const CARDS: { Icon: LucideIcon; title: string; body: string }[] = [
   {
@@ -39,7 +39,11 @@ export const CaregiverWelcome = () => {
       }}
     >
       <div className="flex flex-col items-center" style={{ marginTop: 64 }}>
-        <img src={easeLogo} alt="Ease" style={{ width: 120 }} />
+        <img
+          src={fipHappy}
+          alt="Fip"
+          style={{ width: 120, height: 120, objectFit: "contain" }}
+        />
         <h1
           className="font-display"
           style={{
@@ -137,6 +141,7 @@ export const CaregiverWelcome = () => {
             setHasSeenCaregiverWelcome(true);
             go("caregiverList");
           }}
+          className="transition-transform duration-[160ms] active:scale-[0.97]"
           style={{
             width: "100%",
             height: 52,

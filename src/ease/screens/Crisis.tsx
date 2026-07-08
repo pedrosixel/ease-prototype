@@ -20,7 +20,9 @@ export const Crisis = () => {
   const [tappedIdx, setTappedIdx] = useState<number | null>(null);
   const [show911Modal, setShow911Modal] = useState(false);
   const [closing911, setClosing911] = useState(false);
-  const closeTo = crisisOrigin === "caregiver" ? "caregiverHome" : "homeV2";
+  const isCaregiver = crisisOrigin === "caregiver";
+  const closeTo = isCaregiver ? "caregiverHome" : "homeV2";
+  const accent = isCaregiver ? "#7B5EA7" : "#F3768D";
 
   const close911 = () => {
     setClosing911(true);
@@ -47,7 +49,10 @@ export const Crisis = () => {
             style={{ border: "3px solid #7B5EA7" }}
           />
           <div>
-            <div className="text-ease-xs uppercase tracking-[0.18em] text-primary font-bold">
+            <div
+              className="text-ease-xs uppercase tracking-[0.18em] font-bold"
+              style={{ color: accent }}
+            >
               Help Now
             </div>
             <div className="font-display text-ease-lg text-white mt-0.5">
@@ -67,7 +72,7 @@ export const Crisis = () => {
       <div className="px-5 mb-3 flex gap-2 shrink-0">
         <button
           onClick={() => setTab("plan")}
-          className={`flex-1 h-10 rounded-full text-[11px] uppercase tracking-[0.16em] font-bold transition ${
+          className={`flex-1 h-10 rounded-full text-[11px] uppercase tracking-[0.16em] font-bold transition active:scale-[0.97] ${
             tab === "plan" ? "bg-white text-[#1A1A1A]" : "bg-[#2A2A2A] text-[#AAAAAA]"
           }`}
         >
@@ -75,7 +80,7 @@ export const Crisis = () => {
         </button>
         <button
           onClick={() => setTab("emergency")}
-          className={`flex-1 h-10 rounded-full text-[11px] uppercase tracking-[0.16em] font-bold transition ${
+          className={`flex-1 h-10 rounded-full text-[11px] uppercase tracking-[0.16em] font-bold transition active:scale-[0.97] ${
             tab === "emergency" ? "bg-white text-[#1A1A1A]" : "bg-[#2A2A2A] text-[#AAAAAA]"
           }`}
         >
@@ -97,8 +102,9 @@ export const Crisis = () => {
                     key={i}
                     onClick={() => handleTap(i)}
                     className={`w-full text-left rounded-2xl bg-crisis-card border py-5 px-5 min-h-[96px] flex items-center gap-4 transition-all duration-150 ease-out ${
-                      tappedIdx === i ? "scale-[0.97] border-primary" : "border-white/10"
+                      tappedIdx === i ? "scale-[0.97]" : ""
                     }`}
+                    style={{ borderColor: tappedIdx === i ? accent : "rgba(255,255,255,0.1)" }}
                   >
                     <div className="w-11 h-11 rounded-full bg-white text-ink font-sans font-extrabold text-ease-lg flex items-center justify-center shrink-0">
                       {i + 1}
@@ -122,7 +128,7 @@ export const Crisis = () => {
                     style={{
                       background: "rgba(255,255,255,0.08)",
                       border: "1px solid rgba(255,255,255,0.15)",
-                      borderLeft: "3px solid #F3768D",
+                      borderLeft: `3px solid ${accent}`,
                       color: "#FFFFFF",
                       borderRadius: 8,
                       padding: "10px 14px",
@@ -169,7 +175,7 @@ export const Crisis = () => {
                       display: "inline-flex",
                       alignItems: "center",
                       gap: 6,
-                      color: "#F3768D",
+                      color: accent,
                       fontFamily: "'Nunito Sans', sans-serif",
                       fontSize: 14,
                       fontWeight: 600,
