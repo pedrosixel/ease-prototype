@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ChevronLeft, ArrowRight } from "lucide-react";
+import { ChevronLeft, ArrowRight, Check } from "lucide-react";
 import { useEase } from "../state";
 import { ScrollFade, ScrollHint } from "../primitives";
 import star from "@/assets/Ease_heart_Pink.svg";
@@ -147,10 +147,14 @@ export const PostCrisis = () => {
           <div className="mt-5">
             <div className="text-ease-sm text-white font-semibold inline-flex items-center">
               <img src={isCaregiver ? starPurple : star} alt="" className="w-4 h-4 mr-1.5" />
-              Any insight for {user.firstName || "the parent"}?
+              {isCaregiver
+                ? `Any insight for ${user.firstName || "the parent"}?`
+                : "Add a note to this log entry"}
             </div>
             <div className="text-ease-xs text-white/45 mt-0.5">
-              This helps {user.firstName || "the parent"} refine the playbook.
+              {isCaregiver
+                ? `This helps ${user.firstName || "the parent"} refine the playbook.`
+                : "Optional — you can add details about what happened."}
             </div>
             <textarea
               value={notes}
@@ -193,7 +197,11 @@ export const PostCrisis = () => {
           onClick={finish}
           className="flex-1 h-[52px] rounded-full bg-white text-ink font-semibold inline-flex items-center justify-center gap-2 px-6"
         >
-          Share with {user.firstName || "the parent"} <ArrowRight size={18} />
+          {isCaregiver ? (
+            <>Share with {user.firstName || "the parent"} <ArrowRight size={18} /></>
+          ) : (
+            <>Save to Log <Check size={18} /></>
+          )}
         </button>
       </div>
 

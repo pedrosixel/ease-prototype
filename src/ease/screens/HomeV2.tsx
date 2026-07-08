@@ -783,10 +783,13 @@ export const FeedbackCard = ({ entry }: { entry: FeedbackEntry }) => {
             borderRadius: 999,
             padding: "4px 12px",
             fontSize: 13,
-            fontWeight: 600,
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 4,
           }}
         >
-          {entry.duration}
+          <span style={{ fontWeight: 400 }}>Crisis:</span>
+          <span style={{ fontWeight: 600 }}>{entry.duration}</span>
         </span>
         <span
           style={{

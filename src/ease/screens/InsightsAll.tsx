@@ -3,14 +3,12 @@ import { TopBar, ParentBottomNav } from "../primitives";
 import { FeedbackCard } from "./HomeV2";
 import pipHappy from "@/assets/Pip_Happy.svg";
 
-const CREAM = "#FEF2F1";
-
 export const InsightsAll = () => {
   const { playbook } = useEase();
   const entries = playbook.feedbackEntries;
 
   return (
-    <div className="h-full flex flex-col" style={{ background: CREAM }}>
+    <div className="h-full flex flex-col" style={{ background: "#FFFFFF" }}>
       <div className="flex-1 overflow-y-auto phone-scroll" style={{ background: "transparent" }}>
         <TopBar back="homeV2" title="All Insights" />
         {entries.length === 0 ? (
@@ -46,7 +44,7 @@ export const InsightsAll = () => {
             </div>
           </div>
         ) : (
-          <div style={{ padding: "16px 20px 96px" }}>
+          <div style={{ padding: "16px 20px 100px" }}>
             {entries.map((entry) => (
               <div key={entry.id} style={{ marginBottom: 12 }}>
                 <FeedbackCard entry={entry} />
