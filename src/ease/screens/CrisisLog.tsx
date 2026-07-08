@@ -34,9 +34,8 @@ const helpedLabelFor = (helped: FeedbackEntry["helped"]) =>
   helped === "yes" ? "Tactics helped" : helped === "no" ? "Did not help" : "Not fully";
 
 export const CrisisLog = ({ entries }: { entries: FeedbackEntry[] }) => {
-  // Default seed view to April 2026 since that's where data lives
-  const [viewYear, setViewYear] = useState(2026);
-  const [viewMonth, setViewMonth] = useState(3); // April = 3 (0-indexed)
+  const [viewYear, setViewYear] = useState(() => new Date().getFullYear());
+  const [viewMonth, setViewMonth] = useState(() => new Date().getMonth());
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
 
   const entriesByDay = useMemo(() => {

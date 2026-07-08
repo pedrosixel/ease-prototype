@@ -93,7 +93,7 @@ const SCREEN_DEPTH: Record<ScreenId, number> = {
   editField: 12,
   addContact: 12,
   addToPlaybook: 12,
-  settings: 11,
+  settings: 12,
   crisis: 20,
   postCrisis: 21,
   caregiverBio: 5,

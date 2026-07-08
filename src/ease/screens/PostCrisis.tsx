@@ -50,8 +50,8 @@ export const PostCrisis = () => {
     const helpedVal: "yes" | "not_fully" | "no" =
       tactic === "Yes, they helped" ? "yes" : tactic === "No, not really" ? "no" : "not_fully";
     addFeedbackEntry({
-      caregiverName: caregiver.firstName,
-      caregiverRole: caregiver.role,
+      caregiverName: isCaregiver ? caregiver.firstName : user.firstName || "Mariana",
+      caregiverRole: isCaregiver ? caregiver.role : "Parent",
       dateLabel: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" }),
       duration,
       helped: helpedVal,
@@ -67,8 +67,6 @@ export const PostCrisis = () => {
   };
 
   const handleSkip = () => {
-    setNotes("");
-    persistEntry("");
     setOverlayPhase("in");
   };
 
@@ -215,7 +213,9 @@ export const PostCrisis = () => {
           <img src={pipContent} alt="" style={{ width: 80, height: 80 }} />
           <h2 className="font-display text-ease-2xl text-white mt-5">Session logged.</h2>
           <p className="mt-2 text-ease-sm text-white/55">
-            {playbook.childName}'s parent will be notified.
+            {isCaregiver
+              ? `${playbook.childName}'s parent will be notified.`
+              : `Saved to ${playbook.childName}'s log.`}
           </p>
         </div>
       )}

@@ -31,7 +31,7 @@ export const ChildInfo = () => {
     <div className="h-full flex flex-col relative" {...handlers}>
       <TapBack />
       <TopBar back="role" />
-      <div className="px-7 mt-3 shrink-0"><Dots total={7} current={0} /></div>
+      <div className="px-7 mt-3 shrink-0"><Dots total={6} current={0} /></div>
       <div className="px-7 mt-3 shrink-0" style={{ display: "flex", alignItems: "center", gap: 16 }}>
         <img src={pipDefault} alt="Pip" style={{ width: 120, height: 120, objectFit: "contain", flexShrink: 0 }} />
         <div style={{ background: "#FFFFFF", border: "1.5px solid #CCBFB8", borderRadius: 16, padding: "12px 16px", position: "relative", flex: 1 }}>

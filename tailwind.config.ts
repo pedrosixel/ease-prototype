@@ -112,7 +112,7 @@ export default {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "slide-in-right": "slide-in-right 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-        "slide-in-left": "slide-in-left 200ms cubic-bezier(0.55, 0, 1, 0.45)",
+        "slide-in-left": "slide-in-left 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
         "toast-up": "toast-up 300ms ease-out forwards",
       },
     },
