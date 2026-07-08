@@ -132,6 +132,7 @@ export const PhoneFrame = ({ children }: { children: ReactNode }) => {
       >
         <div
           className={`relative w-full h-full rounded-[44px] overflow-hidden ${bgClass}`}
+          style={{ transform: "translateZ(0)" }}
         >
           {/* Dynamic Island */}
           <div

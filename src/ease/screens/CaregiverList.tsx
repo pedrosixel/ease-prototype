@@ -5,20 +5,11 @@ import { useEase, ChildId } from "../state";
 import { CHILD_PHOTOS } from "../assets";
 import { QrScanner } from "../QrScanner";
 import starBlue from "@/assets/Ease_Star_Purple.svg";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 
 const PURPLE = "#7B5EA7";
 
 type Modal =
+  | { kind: "confirmCheckIn"; childId: ChildId }
   | { kind: "confirmCheckOut"; childId: ChildId }
   | { kind: "confirmSwitch"; from: ChildId; to: ChildId }
   | { kind: "switchedToast"; toName: string }
@@ -50,7 +41,6 @@ export const CaregiverList = () => {
   };
   const [addLink, setAddLink] = useState("");
   const [addMode, setAddMode] = useState<"scan" | "paste">("paste");
-  const [pendingCheckInId, setPendingCheckInId] = useState<ChildId | null>(null);
 
   useEffect(() => {
     if (!hasSeenCaregiverWelcome) {
@@ -68,24 +58,16 @@ export const CaregiverList = () => {
     }
   }, [modal, go]);
 
-  const handleCheckOut = (_id: ChildId) => {
-    checkOut();
+  const handleCheckOut = (id: ChildId) => {
+    setModal({ kind: "confirmCheckOut", childId: id });
   };
 
   const handleCheckIn = (id: ChildId) => {
     if (checkedInChildId && checkedInChildId !== id) {
       setModal({ kind: "confirmSwitch", from: checkedInChildId, to: id });
     } else {
-      setPendingCheckInId(id);
+      setModal({ kind: "confirmCheckIn", childId: id });
     }
-  };
-
-  const confirmCheckIn = () => {
-    if (!pendingCheckInId) return;
-    checkIn(pendingCheckInId);
-    setActiveChild(pendingCheckInId);
-    setPendingCheckInId(null);
-    go("bridge");
   };
 
   const [addClosing, setAddClosing] = useState(false);
@@ -293,30 +275,30 @@ export const CaregiverList = () => {
               left: 0,
               right: 0,
               bottom: 0,
-              width: "100vw",
-              height: "100vh",
               background: "rgba(0, 0, 0, 0.5)",
               zIndex: 40,
             }}
             onClick={closeAddCard}
           />
 
-          {/* Layer B — Card */}
+          {/* Layer B — Card (flex-centered so the zoom animation never fights a centering transform) */}
           <div
-            className={`absolute z-50 ${
+            className="fixed inset-0 z-50 flex items-center justify-center"
+            style={{ pointerEvents: "none" }}
+          >
+          <div
+            className={
               addClosing
                 ? "animate-out fade-out zoom-out-95 fill-mode-forwards duration-[150ms]"
                 : "animate-in fade-in zoom-in-95 duration-[200ms]"
-            }`}
+            }
             style={{
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
               width: "calc(100% - 48px)",
               maxWidth: 360,
               background: "#FFFFFF",
               borderRadius: 24,
               padding: 24,
+              pointerEvents: "auto",
             }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -495,10 +477,41 @@ export const CaregiverList = () => {
               Cancel
             </button>
           </div>
+          </div>
         </>
       )}
 
       <CaregiverBottomNav active="caregiverList" />
+
+      {modal?.kind === "confirmCheckIn" && (
+        <Overlay closing={modalClosing}>
+          <h2 className="font-display text-ease-lg text-ink">
+            Check in with {children[modal.childId].childName.split(" ")[0]}?
+          </h2>
+          <p className="mt-2 text-ease-sm text-muted-foreground">
+            You'll have access to their Playbook for this session.
+          </p>
+          <div className="mt-5 flex gap-3">
+            <button
+              onClick={dismissModal}
+              className="flex-1 h-11 rounded-full bg-muted text-foreground text-ease-sm font-bold"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => {
+                checkIn(modal.childId);
+                setActiveChild(modal.childId);
+                setModal(null);
+                go("bridge");
+              }}
+              className="flex-1 h-11 rounded-full bg-[#7B5EA7] text-white text-ease-sm font-bold"
+            >
+              Check In
+            </button>
+          </div>
+        </Overlay>
+      )}
 
       {modal?.kind === "confirmCheckOut" && (
         <Overlay closing={modalClosing}>
@@ -569,34 +582,13 @@ export const CaregiverList = () => {
         </Overlay>
       )}
 
-      <AlertDialog open={pendingCheckInId !== null} onOpenChange={(open) => { if (!open) setPendingCheckInId(null); }}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>
-              {pendingCheckInId ? `Check in with ${children[pendingCheckInId].childName.split(" ")[0]}?` : ""}
-            </AlertDialogTitle>
-            <AlertDialogDescription>
-              You'll have access to their Playbook for this session.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={confirmCheckIn}
-              style={{ background: "#7B5EA7", color: "#FFFFFF" }}
-            >
-              Check In
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
     </div>
   );
 };
 
 const Overlay = ({ children, closing = false }: { children: React.ReactNode; closing?: boolean }) => (
   <div
-    className={`absolute inset-0 bg-black/50 flex items-center justify-center px-6 z-50 ${
+    className={`fixed inset-0 bg-black/50 flex items-center justify-center px-6 z-50 ${
       closing
         ? "animate-out fade-out fill-mode-forwards duration-[150ms]"
         : "animate-in fade-in duration-[150ms]"

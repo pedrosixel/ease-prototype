@@ -33,7 +33,7 @@ export const Role = () => {
   const ctaLabel =
     role === "parent" ? "Continue as Parent" : role === "caregiver" ? "Continue as Caregiver" : "Get Started";
 
-  const pipSize = isPhase2 ? 100 : 180;
+  const pipScale = isPhase2 ? 100 / 180 : 1;
   const pipTop: number | string = isPhase2 ? 32 : "30%";
   const bubbleTop: number | string = isPhase2 ? 144 : `calc(30% + 196px)`;
   const stackZ = isPhase2 ? 11 : 8;
@@ -181,13 +181,14 @@ export const Role = () => {
           position: "absolute",
           left: "50%",
           top: pipTop,
-          width: pipSize,
-          height: pipSize,
+          width: 180,
+          height: 180,
           objectFit: "contain",
+          transformOrigin: "top center",
           opacity: mounted ? 1 : 0,
-          transform: `translateX(-50%) translateY(${mounted ? "0px" : "60px"})`,
+          transform: `translateX(-50%) translateY(${mounted ? "0px" : "60px"}) scale(${pipScale})`,
           transition:
-            "opacity 600ms ease-out, transform 600ms ease-out, top 500ms cubic-bezier(0.77, 0, 0.175, 1), width 500ms ease-out, height 500ms ease-out",
+            "opacity 600ms ease-out, transform 500ms cubic-bezier(0.33, 1, 0.68, 1), top 500ms cubic-bezier(0.33, 1, 0.68, 1)",
           zIndex: 20,
           pointerEvents: "none",
         }}

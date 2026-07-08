@@ -10,10 +10,12 @@ export const CaregiverConnect = () => {
   const { go } = useEase();
   const [link, setLink] = useState("");
   const [mode, setMode] = useState<"scan" | "paste">("paste");
+  // The welcome screen is part of the onboarding flow — always shown after connecting.
+  const nextScreen = "caregiverWelcome" as const;
 
   const handleScan = (_value: string) => {
-    // Demo: any valid QR scan auto-resolves to caregiverList
-    go("caregiverList");
+    // Demo: any valid QR scan auto-resolves forward
+    go(nextScreen);
   };
 
   return (
@@ -108,7 +110,7 @@ export const CaregiverConnect = () => {
         <div className="flex-1" />
 
         <button
-          onClick={() => go("caregiverList")}
+          onClick={() => go(nextScreen)}
           className="text-ease-sm text-muted-foreground underline mb-4 self-center"
         >
           I don't have a link yet. I'll add one later.
@@ -117,7 +119,7 @@ export const CaregiverConnect = () => {
       <div className="px-7 pb-8">
         <PrimaryBtn
           variant="blue"
-          onClick={() => go("caregiverList")}
+          onClick={() => go(nextScreen)}
           disabled={mode === "scan"}
         >
           Connect

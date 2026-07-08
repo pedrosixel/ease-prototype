@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Phone, Pencil, Settings, X } from "lucide-react";
 import { useEase, FeedbackEntry } from "../state";
 import { CHILD_PHOTOS, paulPhoto } from "../assets";
@@ -58,10 +58,15 @@ const WaveCard = ({ children, topPad = 32 }: { children: React.ReactNode; topPad
 );
 
 export const HomeV2 = () => {
-  const { go, user, activeTab, setActiveTab } = useEase();
+  const { go, user, activeTab, setActiveTab, unseenInsightCount, markInsightsSeen } = useEase();
   const [tab, setTab] = useState<Tab>(
     activeTab === "insights" || activeTab === "emergency" ? activeTab : "profile",
   );
+
+  useEffect(() => {
+    if (tab === "insights") markInsightsSeen();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tab]);
 
   const tabs: { id: Tab; label: string }[] = [
     { id: "profile", label: "Profile" },
@@ -120,9 +125,35 @@ export const HomeV2 = () => {
                   color: active ? "#ffffff" : "#666666",
                   border: "none",
                   outline: "none",
+                  position: "relative",
                 }}
               >
                 {t.label}
+                {t.id === "insights" && unseenInsightCount > 0 && (
+                  <span
+                    style={{
+                      position: "absolute",
+                      top: -5,
+                      right: -3,
+                      minWidth: 18,
+                      height: 18,
+                      borderRadius: 9,
+                      background: CORAL,
+                      color: "#FFFFFF",
+                      fontSize: 11,
+                      fontWeight: 700,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: "0 5px",
+                      border: "2px solid #FEF2F1",
+                      boxSizing: "border-box",
+                      lineHeight: 1,
+                    }}
+                  >
+                    {unseenInsightCount}
+                  </span>
+                )}
               </button>
             );
           })}

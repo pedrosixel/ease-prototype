@@ -178,30 +178,30 @@ export const Circle = () => {
               left: 0,
               right: 0,
               bottom: 0,
-              width: "100vw",
-              height: "100vh",
               background: "rgba(0, 0, 0, 0.5)",
               zIndex: 40,
             }}
             onClick={closeInvite}
           />
 
-          {/* Layer B — Card */}
+          {/* Layer B — Card (flex-centered so the zoom animation never fights a centering transform) */}
           <div
-            className={`absolute z-50 ${
+            className="fixed inset-0 z-50 flex items-center justify-center"
+            style={{ pointerEvents: "none" }}
+          >
+          <div
+            className={
               inviteClosing
                 ? "animate-out fade-out zoom-out-95 fill-mode-forwards duration-[150ms]"
                 : "animate-in fade-in zoom-in-95 duration-[200ms]"
-            }`}
+            }
             style={{
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
               width: "calc(100% - 48px)",
               maxWidth: 360,
               background: "#FFFFFF",
               borderRadius: 24,
               padding: 24,
+              pointerEvents: "auto",
             }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -344,6 +344,7 @@ export const Circle = () => {
             >
               Only people with this link can view {playbook.childName}'s Playbook.
             </p>
+          </div>
           </div>
         </>
       )}

@@ -71,7 +71,7 @@ export const Meet = () => {
               ? "animate-out fade-out fill-mode-forwards duration-[150ms]"
               : "animate-in fade-in duration-[200ms]"
           }
-          style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.4)", display: "flex", alignItems: "flex-end", zIndex: 50 }}
+          style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.4)", display: "flex", alignItems: "flex-end", zIndex: 50 }}
         >
           <div
             onClick={(e) => e.stopPropagation()}

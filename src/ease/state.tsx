@@ -394,6 +394,9 @@ type Ctx = {
   addFeedbackToSection: (entryId: string, section: "calming" | "triggers" | "avoid", text: string) => void;
   addFeedbackEntry: (entry: Omit<FeedbackEntry, "id">) => void;
   dismissFeedback: (entryId: string) => void;
+  // unseen caregiver-insight badge
+  unseenInsightCount: number;
+  markInsightsSeen: () => void;
   // toast
   toast: Toast;
   showToast: (text: string) => void;
@@ -432,7 +435,7 @@ export const EaseProvider = ({ children }: { children: ReactNode }) => {
     heitor,
   });
   const [activeChildId, setActiveChildId] = useState<ChildId>("tyler");
-  const [checkedInChildId, setCheckedInChildId] = useState<ChildId | null>("tyler");
+  const [checkedInChildId, setCheckedInChildId] = useState<ChildId | null>(null);
   const [caregiver, setCaregiver] = useState<CaregiverProfile>({
     firstName: "",
     role: "Educational Assistant",
@@ -443,6 +446,7 @@ export const EaseProvider = ({ children }: { children: ReactNode }) => {
   const [indexOpen, setIndexOpen] = useState(false);
   const [crisisOrigin, setCrisisOrigin] = useState<CrisisOrigin>("parent");
   const [activeFeedbackId, setActiveFeedbackId] = useState<string | null>(null);
+  const [unseenInsightIds, setUnseenInsightIds] = useState<string[]>([]);
   const [toast, setToast] = useState<Toast>(null);
   const toastTimers = useRef<{ fade: number | null; clear: number | null }>({ fade: null, clear: null });
   const [darkMode, setDarkMode] = useState<boolean>(() => {
@@ -693,9 +697,9 @@ export const EaseProvider = ({ children }: { children: ReactNode }) => {
         });
       },
       addFeedbackEntry: (entry) => {
+        const newEntry: FeedbackEntry = { ...entry, id: `fb-${Date.now()}` };
         setChildrenMap((m) => {
           const child = m[activeChildId];
-          const newEntry: FeedbackEntry = { ...entry, id: `fb-${Date.now()}` };
           return {
             ...m,
             [activeChildId]: {
@@ -704,6 +708,10 @@ export const EaseProvider = ({ children }: { children: ReactNode }) => {
             },
           };
         });
+        // Only caregiver-sent insights raise the parent's badge
+        if (entry.caregiverRole !== "Parent") {
+          setUnseenInsightIds((prev) => [...prev, newEntry.id]);
+        }
       },
       dismissFeedback: (entryId) => {
         setChildrenMap((m) => {
@@ -716,6 +724,10 @@ export const EaseProvider = ({ children }: { children: ReactNode }) => {
             },
           };
         });
+      },
+      unseenInsightCount: unseenInsightIds.length,
+      markInsightsSeen: () => {
+        setUnseenInsightIds((prev) => (prev.length ? [] : prev));
       },
       toast,
       showToast,
@@ -744,7 +756,7 @@ export const EaseProvider = ({ children }: { children: ReactNode }) => {
       hasSeenCaregiverWelcome,
       setHasSeenCaregiverWelcome,
     }),
-    [screen, direction, childrenMap, activeChildId, checkedInChildId, caregiver, editContext, indexOpen, crisisOrigin, activeFeedbackId, toast, darkMode, user, isNewUser, activeTab, userIntents, selectedRole, userTestMode, hasSeenCaregiverWelcome],
+    [screen, direction, childrenMap, activeChildId, checkedInChildId, caregiver, editContext, indexOpen, crisisOrigin, activeFeedbackId, unseenInsightIds, toast, darkMode, user, isNewUser, activeTab, userIntents, selectedRole, userTestMode, hasSeenCaregiverWelcome],
   );
 
   return <EaseCtx.Provider value={value}>{children}</EaseCtx.Provider>;
@@ -781,6 +793,8 @@ export const useEase = () => {
       addFeedbackToSection: () => {},
       addFeedbackEntry: () => {},
       dismissFeedback: () => {},
+      unseenInsightCount: 0,
+      markInsightsSeen: () => {},
       toast: null,
       showToast: () => {},
       darkMode: false,

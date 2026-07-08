@@ -3,7 +3,7 @@ import { Info } from "lucide-react";
 import { CaregiverBottomNav, PrimaryBtn, CaregiverTopBarGear } from "../primitives";
 import { useEase } from "../state";
 import { CHILD_PHOTOS } from "../assets";
-import fipSad from "@/assets/Fip_Sad.png";
+import fipSad from "@/assets/Fip_Sad.svg";
 
 const PURPLE = "#7B5EA7";
 const PURPLE_TINT = "#EDE5F7";

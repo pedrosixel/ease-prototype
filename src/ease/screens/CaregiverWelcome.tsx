@@ -1,6 +1,6 @@
 import { BookOpen, Shield, BarChart2, LucideIcon } from "lucide-react";
 import { useEase } from "../state";
-import fipHappy from "@/assets/Fip_Happy.png";
+import fipHappy from "@/assets/Fip_Happy.svg";
 
 const CARDS: { Icon: LucideIcon; title: string; body: string }[] = [
   {
