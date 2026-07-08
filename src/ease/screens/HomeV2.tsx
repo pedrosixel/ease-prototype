@@ -58,8 +58,10 @@ const WaveCard = ({ children, topPad = 32 }: { children: React.ReactNode; topPad
 );
 
 export const HomeV2 = () => {
-  const { go, user } = useEase();
-  const [tab, setTab] = useState<Tab>("profile");
+  const { go, user, activeTab, setActiveTab } = useEase();
+  const [tab, setTab] = useState<Tab>(
+    activeTab === "insights" || activeTab === "emergency" ? activeTab : "profile",
+  );
 
   const tabs: { id: Tab; label: string }[] = [
     { id: "profile", label: "Profile" },
@@ -103,7 +105,10 @@ export const HomeV2 = () => {
             return (
               <button
                 key={t.id}
-                onClick={() => setTab(t.id)}
+                onClick={() => {
+                  setTab(t.id);
+                  setActiveTab(t.id);
+                }}
                 className="transition"
                 style={{
                   flex: 1,
@@ -661,7 +666,7 @@ const Section = ({ label, children }: { label: string; children: React.ReactNode
 const Divider = () => <div style={{ height: 1, background: "#CCBFB8" }} />;
 
 const InsightsTab = () => {
-  const { playbook, go } = useEase();
+  const { playbook, go, setActiveTab } = useEase();
   const visible = playbook.feedbackEntries.slice(0, 2);
 
   return (
@@ -676,7 +681,10 @@ const InsightsTab = () => {
             </div>
             {playbook.feedbackEntries.length > 2 && (
               <button
-                onClick={() => go("insightsAll")}
+                onClick={() => {
+                  setActiveTab("insights");
+                  go("insightsAll");
+                }}
                 className="mt-3 text-[14px] font-semibold"
                 style={{ color: CORAL }}
               >
@@ -807,27 +815,12 @@ export const FeedbackCard = ({ entry }: { entry: FeedbackEntry }) => {
 
       {/* Optional note */}
       {entry.note && (
-        <>
-          <p
-            className="italic"
-            style={{ fontSize: 14, color: TEXT, marginTop: 10, lineHeight: 1.5 }}
-          >
-            "{entry.note}"
-          </p>
-          <div className="flex justify-end" style={{ marginTop: 10 }}>
-            <button
-              style={{
-                color: CORAL,
-                fontSize: 13,
-                fontWeight: 600,
-                background: "transparent",
-                border: "none",
-              }}
-            >
-              Read more
-            </button>
-          </div>
-        </>
+        <p
+          className="italic"
+          style={{ fontSize: 14, color: TEXT, marginTop: 10, lineHeight: 1.5 }}
+        >
+          "{entry.note}"
+        </p>
       )}
 
       {/* Context field */}

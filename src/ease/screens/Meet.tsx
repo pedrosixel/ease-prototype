@@ -7,6 +7,15 @@ import pipStarstruck from "@/assets/Pip_Starstruck.svg";
 export const Meet = () => {
   const { go, playbook, setPlaybook, caregiver } = useEase();
   const [showPrivacy, setShowPrivacy] = useState(false);
+  const [privacyClosing, setPrivacyClosing] = useState(false);
+
+  const closePrivacy = () => {
+    setPrivacyClosing(true);
+    setTimeout(() => {
+      setShowPrivacy(false);
+      setPrivacyClosing(false);
+    }, 150);
+  };
   const name = playbook.childName?.trim() || "your child";
   const cgName = caregiver?.firstName || "a caregiver";
   const { handlers, TapBack } = useBackGestures("childInfo");
@@ -56,20 +65,28 @@ export const Meet = () => {
       </div>
       {showPrivacy && (
         <div
-          onClick={() => setShowPrivacy(false)}
-          className="animate-in fade-in duration-[200ms]"
+          onClick={closePrivacy}
+          className={
+            privacyClosing
+              ? "animate-out fade-out fill-mode-forwards duration-[150ms]"
+              : "animate-in fade-in duration-[200ms]"
+          }
           style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.4)", display: "flex", alignItems: "flex-end", zIndex: 50 }}
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="animate-in slide-in-from-bottom duration-[250ms] ease-out"
+            className={
+              privacyClosing
+                ? "animate-out fade-out slide-out-to-bottom fill-mode-forwards duration-[150ms]"
+                : "animate-in slide-in-from-bottom duration-[250ms] ease-out"
+            }
             style={{ width: "100%", background: "#fff", borderRadius: "20px 20px 0 0", padding: "24px" }}
           >
             <p style={{ fontFamily: "'Nunito Sans', sans-serif", fontSize: "14px", color: "#444", lineHeight: 1.6, margin: 0 }}>
               Your child's information is stored securely and never shared without your permission. Ease complies with PIPEDA (Personal Information Protection and Electronic Documents Act), Canada's federal privacy law for the protection of personal information. You can review, update, or delete your data at any time from Settings.
             </p>
             <button
-              onClick={() => setShowPrivacy(false)}
+              onClick={closePrivacy}
               style={{ marginTop: "20px", width: "100%", height: "48px", background: "#F3768D", color: "#fff", fontFamily: "'Nunito Sans', sans-serif", fontSize: "15px", border: "none", borderRadius: "999px" }}
             >
               Got it

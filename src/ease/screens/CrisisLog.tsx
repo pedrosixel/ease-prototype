@@ -120,7 +120,7 @@ export const CrisisLog = ({ entries }: { entries: FeedbackEntry[] }) => {
         <div className="flex items-center justify-between mb-3">
           <button
             onClick={goPrev}
-            className="w-8 h-8 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground"
+            className="w-11 h-11 -my-1.5 -ml-1.5 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground"
             aria-label="Previous month"
           >
             <ChevronLeft size={18} />
@@ -130,7 +130,7 @@ export const CrisisLog = ({ entries }: { entries: FeedbackEntry[] }) => {
           </div>
           <button
             onClick={goNext}
-            className="w-8 h-8 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground"
+            className="w-11 h-11 -my-1.5 -mr-1.5 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground"
             aria-label="Next month"
           >
             <ChevronRight size={18} />

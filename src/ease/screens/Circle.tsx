@@ -28,6 +28,15 @@ const members: Member[] = [
 export const Circle = () => {
   const { playbook, showToast, checkedInChildId } = useEase();
   const [showInvite, setShowInvite] = useState(false);
+  const [inviteClosing, setInviteClosing] = useState(false);
+
+  const closeInvite = () => {
+    setInviteClosing(true);
+    setTimeout(() => {
+      setShowInvite(false);
+      setInviteClosing(false);
+    }, 150);
+  };
 
   const paulActive = checkedInChildId === "tyler";
   const sortedMembers = paulActive
@@ -158,7 +167,11 @@ export const Circle = () => {
         <>
           {/* Layer A — Backdrop */}
           <div
-            className="animate-in fade-in duration-[200ms]"
+            className={
+              inviteClosing
+                ? "animate-out fade-out fill-mode-forwards duration-[150ms]"
+                : "animate-in fade-in duration-[200ms]"
+            }
             style={{
               position: "fixed",
               top: 0,
@@ -170,12 +183,16 @@ export const Circle = () => {
               background: "rgba(0, 0, 0, 0.5)",
               zIndex: 40,
             }}
-            onClick={() => setShowInvite(false)}
+            onClick={closeInvite}
           />
 
           {/* Layer B — Card */}
           <div
-            className="absolute z-50 animate-in fade-in zoom-in-95 duration-[200ms]"
+            className={`absolute z-50 ${
+              inviteClosing
+                ? "animate-out fade-out zoom-out-95 fill-mode-forwards duration-[150ms]"
+                : "animate-in fade-in zoom-in-95 duration-[200ms]"
+            }`}
             style={{
               top: "50%",
               left: "50%",
@@ -201,7 +218,7 @@ export const Circle = () => {
                 Invite to {playbook.childName}'s Playbook
               </span>
               <button
-                onClick={() => setShowInvite(false)}
+                onClick={closeInvite}
                 style={{
                   width: 44,
                   height: 44,

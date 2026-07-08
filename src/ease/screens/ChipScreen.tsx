@@ -145,7 +145,23 @@ export const ChipScreen = ({ field }: { field: Field }) => {
                 }}
               >
                 {it}
-                <button onClick={() => remove(i)} style={{ color: chipColor, display: "flex" }}>
+                <button
+                  onClick={() => remove(i)}
+                  aria-label={`Remove ${it}`}
+                  style={{
+                    color: chipColor,
+                    width: 44,
+                    height: 44,
+                    margin: "-12px -14px -12px -8px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    background: "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
+                >
                   <X size={13} />
                 </button>
               </span>

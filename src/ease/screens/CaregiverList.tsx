@@ -70,10 +70,16 @@ export const CaregiverList = () => {
     go("bridge");
   };
 
+  const [addClosing, setAddClosing] = useState(false);
+
   const closeAddCard = () => {
-    setShowAddChild(false);
-    setAddLink("");
-    setAddMode("paste");
+    setAddClosing(true);
+    setTimeout(() => {
+      setShowAddChild(false);
+      setAddLink("");
+      setAddMode("paste");
+      setAddClosing(false);
+    }, 150);
   };
 
   return (
@@ -254,7 +260,11 @@ export const CaregiverList = () => {
         <>
           {/* Layer A — Backdrop */}
           <div
-            className="animate-in fade-in duration-[200ms]"
+            className={
+              addClosing
+                ? "animate-out fade-out fill-mode-forwards duration-[150ms]"
+                : "animate-in fade-in duration-[200ms]"
+            }
             style={{
               position: "fixed",
               top: 0,
@@ -271,7 +281,11 @@ export const CaregiverList = () => {
 
           {/* Layer B — Card */}
           <div
-            className="absolute z-50 animate-in fade-in zoom-in-95 duration-[200ms]"
+            className={`absolute z-50 ${
+              addClosing
+                ? "animate-out fade-out zoom-out-95 fill-mode-forwards duration-[150ms]"
+                : "animate-in fade-in zoom-in-95 duration-[200ms]"
+            }`}
             style={{
               top: "50%",
               left: "50%",

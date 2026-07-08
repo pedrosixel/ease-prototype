@@ -100,7 +100,7 @@ const SCREEN_DEPTH: Record<ScreenId, number> = {
   caregiverConnect: 6,
   caregiverHome: 13,
   caregiverList: 11,
-  caregiverWelcome: 10,
+  caregiverWelcome: 11,
   caregiverSettings: 14,
   bridge: 12,
   homeV2: 11,
@@ -321,7 +321,7 @@ const heitor: ChildPlaybook = {
 };
 
 export type EditKind = "favouriteToy" | "comfortSong" | "tactic" | "avoid" | "med" | "dietary";
-export type HomeTab = "profile" | "crisis" | "care" | "emergency";
+export type HomeTab = "profile" | "insights" | "crisis" | "care" | "emergency";
 export type EditContext = {
   kind: EditKind;
   index: number;
@@ -455,7 +455,13 @@ export const EaseProvider = ({ children }: { children: ReactNode }) => {
   const [userIntents, setUserIntents] = useState<string[]>([]);
   const [selectedRole, setSelectedRole] = useState<"parent" | "caregiver" | null>(null);
   const [userTestMode, setUserTestModeState] = useState<boolean>(false);
-  const [hasSeenCaregiverWelcome, setHasSeenCaregiverWelcomeState] = useState<boolean>(false);
+  const [hasSeenCaregiverWelcome, setHasSeenCaregiverWelcomeState] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem("ease.hasSeenCaregiverWelcome") === "1";
+    } catch {
+      return false;
+    }
+  });
   const setHasSeenCaregiverWelcome = (b: boolean) => {
     setHasSeenCaregiverWelcomeState(b);
     if (typeof window !== "undefined") {

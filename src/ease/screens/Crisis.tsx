@@ -19,7 +19,16 @@ export const Crisis = () => {
   const [tab, setTab] = useState<Tab>("plan");
   const [tappedIdx, setTappedIdx] = useState<number | null>(null);
   const [show911Modal, setShow911Modal] = useState(false);
+  const [closing911, setClosing911] = useState(false);
   const closeTo = crisisOrigin === "caregiver" ? "caregiverHome" : "homeV2";
+
+  const close911 = () => {
+    setClosing911(true);
+    setTimeout(() => {
+      setShow911Modal(false);
+      setClosing911(false);
+    }, 150);
+  };
 
   const handleTap = (i: number) => {
     setTappedIdx(i);
@@ -252,7 +261,11 @@ export const Crisis = () => {
 
       {show911Modal && (
         <div
-          className="animate-in fade-in duration-[150ms]"
+          className={
+            closing911
+              ? "animate-out fade-out fill-mode-forwards duration-[150ms]"
+              : "animate-in fade-in duration-[150ms]"
+          }
           style={{
             position: "absolute",
             inset: 0,
@@ -265,7 +278,11 @@ export const Crisis = () => {
           }}
         >
           <div
-            className="animate-in fade-in zoom-in-95 duration-[150ms] ease-out"
+            className={
+              closing911
+                ? "animate-out fade-out zoom-out-95 fill-mode-forwards duration-[150ms]"
+                : "animate-in fade-in zoom-in-95 duration-[150ms] ease-out"
+            }
             style={{
               background: "#1A1A1A",
               border: "1px solid rgba(255,255,255,0.15)",
@@ -304,7 +321,7 @@ export const Crisis = () => {
                 Call 911
               </button>
               <button
-                onClick={() => setShow911Modal(false)}
+                onClick={close911}
                 style={{
                   width: "100%",
                   height: 52,
