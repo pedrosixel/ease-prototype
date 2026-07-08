@@ -28,8 +28,26 @@ export const CaregiverList = () => {
   const { go, children, checkedInChildId, checkIn, checkOut, setActiveChild, showToast, hasSeenCaregiverWelcome } = useEase();
   const ids: ChildId[] = ["tyler", "heitor"];
   const [modal, setModal] = useState<Modal>(null);
+  const [modalClosing, setModalClosing] = useState(false);
+
+  const dismissModal = () => {
+    setModalClosing(true);
+    setTimeout(() => {
+      setModal(null);
+      setModalClosing(false);
+    }, 150);
+  };
   const [showAddChild, setShowAddChild] = useState(false);
   const [levelInfoOpen, setLevelInfoOpen] = useState(false);
+  const [levelInfoClosing, setLevelInfoClosing] = useState(false);
+
+  const closeLevelInfo = () => {
+    setLevelInfoClosing(true);
+    setTimeout(() => {
+      setLevelInfoOpen(false);
+      setLevelInfoClosing(false);
+    }, 150);
+  };
   const [addLink, setAddLink] = useState("");
   const [addMode, setAddMode] = useState<"scan" | "paste">("paste");
   const [pendingCheckInId, setPendingCheckInId] = useState<ChildId | null>(null);
@@ -221,11 +239,15 @@ export const CaregiverList = () => {
       {levelInfoOpen && (
         <>
           <div
-            onClick={() => setLevelInfoOpen(false)}
+            onClick={closeLevelInfo}
             style={{ position: "fixed", inset: 0, zIndex: 40 }}
           />
           <div
-            className="animate-in fade-in zoom-in-95 duration-[180ms]"
+            className={
+              levelInfoClosing
+                ? "animate-out fade-out zoom-out-95 fill-mode-forwards duration-[150ms]"
+                : "animate-in fade-in zoom-in-95 duration-[180ms]"
+            }
             style={{
               position: "fixed",
               bottom: 96,
@@ -479,7 +501,7 @@ export const CaregiverList = () => {
       <CaregiverBottomNav active="caregiverList" />
 
       {modal?.kind === "confirmCheckOut" && (
-        <Overlay>
+        <Overlay closing={modalClosing}>
           <h2 className="font-display text-ease-lg text-ink">
             Check out of {children[modal.childId].childName}'s session?
           </h2>
@@ -488,7 +510,7 @@ export const CaregiverList = () => {
           </p>
           <div className="mt-5 flex gap-3">
             <button
-              onClick={() => setModal(null)}
+              onClick={dismissModal}
               className="flex-1 h-11 rounded-full bg-muted text-foreground text-ease-sm font-bold"
             >
               Cancel
@@ -496,7 +518,7 @@ export const CaregiverList = () => {
             <button
               onClick={() => {
                 checkOut();
-                setModal(null);
+                dismissModal();
               }}
               className="flex-1 h-11 rounded-full bg-[#7B5EA7] text-white text-ease-sm font-bold"
             >
@@ -507,7 +529,7 @@ export const CaregiverList = () => {
       )}
 
       {modal?.kind === "confirmSwitch" && (
-        <Overlay>
+        <Overlay closing={modalClosing}>
           <h2 className="font-display text-ease-lg text-ink">
             You're currently with {children[modal.from].childName.split(" ")[0]} — check out first?
           </h2>
@@ -516,7 +538,7 @@ export const CaregiverList = () => {
           </p>
           <div className="mt-5 flex gap-3">
             <button
-              onClick={() => setModal(null)}
+              onClick={dismissModal}
               className="flex-1 h-11 rounded-full bg-muted text-foreground text-ease-sm font-bold"
             >
               Cancel
@@ -537,7 +559,7 @@ export const CaregiverList = () => {
       )}
 
       {modal?.kind === "switchedToast" && (
-        <Overlay>
+        <Overlay closing={modalClosing}>
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full flex items-center justify-center text-white shrink-0 bg-green-500">
               <Check size={20} strokeWidth={3} />
@@ -572,8 +594,22 @@ export const CaregiverList = () => {
   );
 };
 
-const Overlay = ({ children }: { children: React.ReactNode }) => (
-  <div className="animate-in fade-in duration-[150ms] absolute inset-0 bg-black/50 flex items-center justify-center px-6 z-50">
-    <div className="animate-in fade-in zoom-in-95 duration-[150ms] ease-out w-full bg-card rounded-2xl p-5 shadow-xl">{children}</div>
+const Overlay = ({ children, closing = false }: { children: React.ReactNode; closing?: boolean }) => (
+  <div
+    className={`absolute inset-0 bg-black/50 flex items-center justify-center px-6 z-50 ${
+      closing
+        ? "animate-out fade-out fill-mode-forwards duration-[150ms]"
+        : "animate-in fade-in duration-[150ms]"
+    }`}
+  >
+    <div
+      className={`w-full bg-card rounded-2xl p-5 shadow-xl ${
+        closing
+          ? "animate-out fade-out zoom-out-95 fill-mode-forwards duration-[150ms]"
+          : "animate-in fade-in zoom-in-95 duration-[150ms] ease-out"
+      }`}
+    >
+      {children}
+    </div>
   </div>
 );

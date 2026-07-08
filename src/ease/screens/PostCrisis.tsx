@@ -67,7 +67,7 @@ export const PostCrisis = () => {
   };
 
   const handleSkip = () => {
-    setOverlayPhase("in");
+    go(returnTo);
   };
 
   useEffect(() => {

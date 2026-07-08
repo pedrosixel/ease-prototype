@@ -767,7 +767,7 @@ export const FeedbackCard = ({ entry }: { entry: FeedbackEntry }) => {
             fontSize: 14,
             fontWeight: 700,
             color: INK,
-            whiteSpace: "nowrap",
+            minWidth: 0,
           }}
         >
           {entry.caregiverName} · {entry.caregiverRole}

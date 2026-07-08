@@ -213,7 +213,7 @@ export const ParentBottomNav = ({ active }: { active: "home" | "circle" }) => {
       <div className="absolute inset-0 flex items-center justify-around px-8 pb-4">
         <button
           onClick={() => go("homeV2")}
-          className={`flex flex-col items-center gap-1 min-w-[44px] min-h-[44px] justify-center ${active === "home" ? "text-primary" : "text-muted-foreground"}`}
+          className={`flex flex-col items-center gap-1 min-w-[44px] min-h-[44px] justify-center transition-all duration-[100ms] active:scale-[0.93] ${active === "home" ? "text-primary" : "text-muted-foreground"}`}
         >
           <BookOpen size={22} />
           <span className="text-ease-xs font-semibold">Playbook</span>
@@ -236,7 +236,7 @@ export const ParentBottomNav = ({ active }: { active: "home" | "circle" }) => {
         </button>
         <button
           onClick={() => go("circle")}
-          className={`flex flex-col items-center gap-1 min-w-[44px] min-h-[44px] justify-center ${active === "circle" ? "text-primary" : "text-muted-foreground"}`}
+          className={`flex flex-col items-center gap-1 min-w-[44px] min-h-[44px] justify-center transition-all duration-[100ms] active:scale-[0.93] ${active === "circle" ? "text-primary" : "text-muted-foreground"}`}
         >
           <span className="relative inline-block">
             <Users size={22} />
@@ -267,7 +267,7 @@ export const CaregiverBottomNav = ({
       <div className="absolute inset-0 flex items-center justify-around px-8 pb-4">
         <button
           onClick={() => go("caregiverList")}
-          className="flex flex-col items-center gap-1 min-w-[44px] min-h-[44px] justify-center"
+          className="flex flex-col items-center gap-1 min-w-[44px] min-h-[44px] justify-center transition-all duration-[100ms] active:scale-[0.93]"
           style={{ color: listActive ? ACTIVE : INACTIVE }}
         >
           <Users size={24} />
@@ -291,7 +291,7 @@ export const CaregiverBottomNav = ({
         </button>
         <button
           onClick={() => go("caregiverHome")}
-          className="flex flex-col items-center gap-1 min-w-[44px] min-h-[44px] justify-center"
+          className="flex flex-col items-center gap-1 min-w-[44px] min-h-[44px] justify-center transition-all duration-[100ms] active:scale-[0.93]"
           style={{ color: playbookActive ? ACTIVE : INACTIVE }}
         >
           <BookOpen size={24} />

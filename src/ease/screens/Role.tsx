@@ -11,13 +11,16 @@ export const Role = () => {
   const [phase, setPhase] = useState<"phase1" | "phase2">("phase1");
   const [mounted, setMounted] = useState(false);
   const [bubbleVisible, setBubbleVisible] = useState(false);
+  const [hintVisible, setHintVisible] = useState(false);
 
   useEffect(() => {
     const m = setTimeout(() => setMounted(true), 50);
     const b = setTimeout(() => setBubbleVisible(true), 450);
+    const h = setTimeout(() => setHintVisible(true), 800);
     return () => {
       clearTimeout(m);
       clearTimeout(b);
+      clearTimeout(h);
     };
   }, []);
 
@@ -253,6 +256,34 @@ export const Role = () => {
           />
         </div>
       </div>
+
+      {/* Tap-to-continue hint (phase 1 only) */}
+      {!isPhase2 && (
+        <div
+          style={{
+            position: "absolute",
+            left: "50%",
+            top: "calc(30% + 265px)",
+            transform: "translateX(-50%)",
+            zIndex: 20,
+            opacity: hintVisible ? 1 : 0,
+            transition: "opacity 500ms ease-out",
+            pointerEvents: "none",
+          }}
+        >
+          <span
+            className="animate-pulse"
+            style={{
+              fontFamily: "'Nunito Sans', sans-serif",
+              fontSize: 13,
+              color: "#777777",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Tap to continue
+          </span>
+        </div>
+      )}
     </div>
   );
 };

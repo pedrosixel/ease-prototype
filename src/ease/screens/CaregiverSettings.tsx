@@ -171,6 +171,7 @@ export const CaregiverSettings = () => {
                           padding: "0 18px",
                           fontWeight: 700,
                           fontSize: 14,
+                          fontFamily: "'Nunito Sans', sans-serif",
                         }}
                       >
                         Save
@@ -181,6 +182,7 @@ export const CaregiverSettings = () => {
                           color: "#7B5EA7",
                           fontSize: 14,
                           fontWeight: 600,
+                          fontFamily: "'Nunito Sans', sans-serif",
                         }}
                       >
                         Cancel
@@ -193,10 +195,8 @@ export const CaregiverSettings = () => {
           })}
         </div>
 
-        <div className="border-t border-border" style={{ marginTop: 24, marginBottom: 24 }} />
-
         {/* Coming soon */}
-        <div className="space-y-3">
+        <div className="space-y-3" style={{ marginTop: 8 }}>
           {["Notifications", "Privacy", "About"].map((s) => (
             <div
               key={s}
@@ -213,17 +213,30 @@ export const CaregiverSettings = () => {
         {/* Security badge */}
         <div
           style={{
-            marginTop: 24,
-            background: "#F5F8FF",
-            border: "1px solid #EDE5F7",
+            margin: "24px 0 0 0",
+            padding: "16px 20px",
+            background: "#EDE5F7",
+            border: "1px solid #CCBFB8",
             borderRadius: 12,
-            padding: 16,
             display: "flex",
             alignItems: "flex-start",
             gap: 12,
           }}
         >
-          <ShieldCheck size={32} color="#7B5EA7" style={{ flexShrink: 0 }} />
+          <div
+            style={{
+              width: 36,
+              height: 36,
+              borderRadius: "50%",
+              background: "#7B5EA7",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+            }}
+          >
+            <ShieldCheck size={18} color="#FFFFFF" />
+          </div>
           <div>
             <p
               style={{
@@ -238,7 +251,7 @@ export const CaregiverSettings = () => {
             </p>
             <p
               style={{
-                fontSize: 13,
+                fontSize: 12,
                 color: "#777777",
                 lineHeight: 1.5,
                 fontFamily: "'Nunito Sans', sans-serif",
@@ -252,8 +265,7 @@ export const CaregiverSettings = () => {
 
         <button
           onClick={resetDemo}
-          className="mt-8 mx-auto block text-ease-xs underline"
-          style={{ color: "#777777", fontSize: 13 }}
+          className="mt-8 mx-auto block text-ease-xs text-muted-foreground underline"
         >
           Reset demo
         </button>

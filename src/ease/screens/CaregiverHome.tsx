@@ -7,8 +7,6 @@ import pipSad from "@/assets/Pip_Sad.svg";
 
 const PURPLE = "#7B5EA7";
 const PURPLE_TINT = "#EDE5F7";
-const PINK = "#F3768D";
-const PINK_TINT = "#FCE8ED";
 const INK = "#1A1A1A";
 const TEXT = "#444444";
 const MUTED = "#777777";
@@ -24,6 +22,15 @@ const sectionLabelStyle = {
 export const CaregiverHome = () => {
   const { go, playbook, activeChildId, checkedInChildId, caregiver } = useEase();
   const [levelInfoOpen, setLevelInfoOpen] = useState(false);
+  const [levelInfoClosing, setLevelInfoClosing] = useState(false);
+
+  const closeLevelInfo = () => {
+    setLevelInfoClosing(true);
+    setTimeout(() => {
+      setLevelInfoOpen(false);
+      setLevelInfoClosing(false);
+    }, 150);
+  };
 
   if (!checkedInChildId) {
     return (
@@ -138,11 +145,15 @@ export const CaregiverHome = () => {
             {levelInfoOpen && (
               <>
                 <div
-                  onClick={() => setLevelInfoOpen(false)}
+                  onClick={closeLevelInfo}
                   style={{ position: "fixed", inset: 0, zIndex: 40 }}
                 />
                 <div
-                  className="animate-in fade-in zoom-in-95 duration-[180ms]"
+                  className={
+                    levelInfoClosing
+                      ? "animate-out fade-out zoom-out-95 fill-mode-forwards duration-[150ms]"
+                      : "animate-in fade-in zoom-in-95 duration-[180ms]"
+                  }
                   style={{
                     position: "absolute",
                     top: "100%",
@@ -236,10 +247,10 @@ export const CaregiverHome = () => {
                     key={i}
                     style={{
                       background: "#FFFFFF",
-                      color: PINK,
+                      color: "#CC0000",
                       fontWeight: 600,
                       border: "1px solid #CCBFB8",
-                      borderLeft: "3px solid #F3768D",
+                      borderLeft: "3px solid #CC0000",
                       borderRadius: 8,
                       padding: "8px 12px",
                       fontSize: 15,

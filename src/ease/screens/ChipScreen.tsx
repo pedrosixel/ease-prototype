@@ -98,6 +98,16 @@ export const ChipScreen = ({ field }: { field: Field }) => {
   const remove = (i: number) =>
     setPlaybook({ ...playbook, [field]: items.filter((_, idx) => idx !== i) } as Playbook);
 
+  const [removingIdx, setRemovingIdx] = useState<number | null>(null);
+  const requestRemove = (i: number) => {
+    if (removingIdx !== null) return;
+    setRemovingIdx(i);
+    setTimeout(() => {
+      remove(i);
+      setRemovingIdx(null);
+    }, 100);
+  };
+
   const childName = playbook.childName?.trim() || "your child";
   const stepIdx = field === "triggers" ? 2 : field === "calming" ? 3 : 4;
   const { handlers, TapBack } = useBackGestures(meta.back);
@@ -130,6 +140,11 @@ export const ChipScreen = ({ field }: { field: Field }) => {
             return (
               <span
                 key={i}
+                className={
+                  removingIdx === i
+                    ? "animate-out fade-out zoom-out-75 fill-mode-forwards duration-[100ms] ease-in"
+                    : "animate-in fade-in zoom-in-75 duration-[150ms] ease-out"
+                }
                 style={{
                   background: chipBg,
                   border: `1px solid ${chipBorder}`,
@@ -146,7 +161,7 @@ export const ChipScreen = ({ field }: { field: Field }) => {
               >
                 {it}
                 <button
-                  onClick={() => remove(i)}
+                  onClick={() => requestRemove(i)}
                   aria-label={`Remove ${it}`}
                   style={{
                     color: chipColor,

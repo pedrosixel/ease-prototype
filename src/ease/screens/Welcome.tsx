@@ -110,6 +110,7 @@ export const Welcome = () => {
         >
           <button
             onClick={() => go("signup")}
+            className="transition-transform duration-[160ms] active:scale-[0.97]"
             style={{
               width: "100%",
               height: "52px",
@@ -129,6 +130,7 @@ export const Welcome = () => {
 
           <button
             onClick={() => go("login")}
+            className="transition-transform duration-[160ms] active:scale-[0.97]"
             style={{
               width: "100%",
               height: "52px",

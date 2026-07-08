@@ -12,6 +12,15 @@ export const ChildInfo = () => {
   const [showPrivacy, setShowPrivacy] = useState(false);
   const [privacyClosing, setPrivacyClosing] = useState(false);
   const [levelInfoOpen, setLevelInfoOpen] = useState(false);
+  const [levelInfoClosing, setLevelInfoClosing] = useState(false);
+
+  const closeLevelInfo = () => {
+    setLevelInfoClosing(true);
+    setTimeout(() => {
+      setLevelInfoOpen(false);
+      setLevelInfoClosing(false);
+    }, 150);
+  };
 
   const closePrivacy = () => {
     setPrivacyClosing(true);
@@ -107,11 +116,15 @@ export const ChildInfo = () => {
             {levelInfoOpen && (
               <>
                 <div
-                  onClick={() => setLevelInfoOpen(false)}
+                  onClick={closeLevelInfo}
                   style={{ position: "fixed", inset: 0, zIndex: 40 }}
                 />
                 <div
-                  className="animate-in fade-in zoom-in-95 duration-[180ms]"
+                  className={
+                    levelInfoClosing
+                      ? "animate-out fade-out zoom-out-95 fill-mode-forwards duration-[150ms]"
+                      : "animate-in fade-in zoom-in-95 duration-[180ms]"
+                  }
                   style={{
                     position: "absolute",
                     top: "100%",
