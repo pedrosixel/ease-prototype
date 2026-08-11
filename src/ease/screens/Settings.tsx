@@ -9,7 +9,7 @@ const PINK = "#F3768D";
 type FieldKey = "fullName" | "childName" | "relationship" | "phone" | "email";
 
 export const Settings = () => {
-  const { darkMode, toggleDarkMode, setIsNewUser, go, playbook, setIndexOpen } = useEase();
+  const { darkMode, toggleDarkMode, setIsNewUser, go, playbook } = useEase();
 
   const [values, setValues] = useState<Record<FieldKey, string>>({
     fullName: playbook.parentName || "",
@@ -302,25 +302,6 @@ export const Settings = () => {
           className="mt-8 mx-auto block text-ease-xs text-muted-foreground underline"
         >
           Reset demo
-        </button>
-
-        <button
-          onClick={() => setIndexOpen(true)}
-          style={{
-            color: "#777777",
-            fontSize: 13,
-            textDecoration: "underline",
-            textAlign: "center",
-            marginTop: 8,
-            marginBottom: 16,
-            cursor: "pointer",
-            display: "block",
-            width: "100%",
-            background: "transparent",
-            border: "none",
-          }}
-        >
-          Screen Index
         </button>
       </div>
     </div>

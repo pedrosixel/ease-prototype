@@ -1,5 +1,5 @@
 import { Clock, Users, RefreshCw, LucideIcon } from "lucide-react";
-import { PrimaryBtn } from "../primitives";
+import { TopBar, PrimaryBtn } from "../primitives";
 import { useEase } from "../state";
 import pipSurprised from "@/assets/Pip_Surprised.svg";
 
@@ -16,8 +16,10 @@ export const PlaybookIntro = () => {
   return (
     <div
       className="h-full flex flex-col"
-      style={{ backgroundColor: "#FFFFFF", padding: "40px 24px 32px" }}
+      style={{ backgroundColor: "#FFFFFF" }}
     >
+      <TopBar back="role" />
+      <div className="flex-1 flex flex-col" style={{ padding: "16px 24px 32px" }}>
       {/* Centered Pip */}
       <div style={{ display: "flex", justifyContent: "center", marginBottom: 24 }}>
         <img
@@ -88,6 +90,7 @@ export const PlaybookIntro = () => {
       <div style={{ flex: 1 }} />
 
       <PrimaryBtn onClick={() => go("childInfo")}>Let's build it</PrimaryBtn>
+      </div>
     </div>
   );
 };

@@ -154,7 +154,7 @@ export const CaregiverList = () => {
               <div className="mt-4 flex items-center justify-between">
                 <button
                   onClick={() => {
-                    setActiveChild(id);
+                    checkIn(id);
                     go("bridge");
                   }}
                   className="text-ease-sm font-semibold text-secondary"

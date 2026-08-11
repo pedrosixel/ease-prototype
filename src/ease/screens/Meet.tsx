@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TopBar, PrimaryBtn, StepLabel, Dots } from "../primitives";
 import { useEase } from "../state";
 import { useBackGestures } from "../useBackGestures";
@@ -8,6 +8,14 @@ export const Meet = () => {
   const { go, playbook, setPlaybook, caregiver } = useEase();
   const [showPrivacy, setShowPrivacy] = useState(false);
   const [privacyClosing, setPrivacyClosing] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    const el = textareaRef.current;
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = `${el.scrollHeight}px`;
+  }, [playbook.meet]);
 
   const closePrivacy = () => {
     setPrivacyClosing(true);
@@ -39,13 +47,14 @@ export const Meet = () => {
       </div>
       <div className="flex-1 overflow-y-auto phone-scroll px-7 pb-4" style={{ marginTop: 24 }}>
         <textarea
+          ref={textareaRef}
           value={playbook.meet}
           onChange={(e) => setPlaybook({ ...playbook, meet: e.target.value })}
           rows={6}
           style={{
-            height: "140px",
+            minHeight: "140px",
             resize: "none",
-            overflowY: "auto",
+            overflow: "hidden",
             fontSize: "14px",
             color: "#444444",
             lineHeight: 1.6,

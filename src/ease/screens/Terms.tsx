@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Check } from "lucide-react";
-import { PrimaryBtn } from "../primitives";
+import { TopBar, PrimaryBtn } from "../primitives";
 import { useEase } from "../state";
 
 const TERMS_TEXT = `Effective date: January 1, 2026
@@ -54,7 +54,8 @@ export const Terms = () => {
 
   return (
     <div className="h-full flex flex-col ">
-      <div className="px-7 pt-6 shrink-0">
+      <TopBar back="signup" />
+      <div className="px-7 pt-2 shrink-0">
         <h1 className="font-display text-ease-2xl text-ink leading-tight">Privacy & Terms</h1>
         <p className="mt-1 text-ease-sm text-muted-foreground">Please read and accept to continue.</p>
       </div>
